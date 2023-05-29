@@ -356,6 +356,8 @@ val falseExp = mkIdLNameExp falseId
 val mapId : id = "map"
 val mapIdExp : exp = mkIdLNameExp mapId
 
+val oId : id = "o"
+
 val flagsStrId = "Flags"
 
 val optionStrId : id = "Option"
@@ -496,6 +498,8 @@ val sizeUId : id = sizeId ^ "_"
 
 val getTypeId : id = "getType"
 val getTypeUId : id = getTypeId ^ "_"
+val getTypeNameId : id = "getTypeName"
+val getTypeNameUId : id = getTypeNameId ^ "_"
 val getValueId : id = "getValue"
 val getValueUId : id = getValueId ^ "_"
 val getOptValueId : id = "getOptValue"

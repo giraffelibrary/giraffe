@@ -15,53 +15,25 @@ structure GObjectObjectClass :>
     type 'a p = 'a Pointer.p
     type ('a, 'b) r = ('a, 'b) Pointer.r
 
-    local
-      val (_, setDebugClosure) =
-        _symbol "giraffe_debug_closure" external :
-          (unit -> bool) * (bool -> unit);
-      val (_, setDebugRefCount) =
-        _symbol "giraffe_debug_ref_count" external :
-          (unit -> bool) * (bool -> unit);
-
-      fun initDebugFlags () =
-        if GiraffeDebug.isEnabled
-        then
-          let
-            val () = setDebugClosure (GiraffeDebug.getClosure ());
-            val () = setDebugRefCount (GiraffeDebug.getRefCount ())
-          in
-            ()
-          end
-        else ()
-    in
-      val () = initDebugFlags ()
-    end
+    val getType_ =
+      _import "g_object_get_type" : unit -> GObjectType.FFI.val_;
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
 
     val take_ =
       let
         val isFloating_ = _import "g_object_is_floating" : non_opt p -> GBool.FFI.val_;
-        val diag_ =
-          if GiraffeDebug.isEnabled
-          then (_import "giraffe_debug_object_take" : non_opt p -> unit;)
-          else ignore
       in
-        fn ptr => (
+        fn ptr =>
           if GBool.FFI.fromVal (isFloating_ ptr)
           then GiraffeLog.critical "taking ownership of floating reference"
-          else ();
-          diag_ ptr
-        )
+          else ()
       end
 
     val dup_ =
-      if GiraffeDebug.isEnabled
-      then _import "giraffe_debug_g_object_ref_sink" : non_opt p -> non_opt p;
-      else _import "g_object_ref_sink" : non_opt p -> non_opt p;
+      _import "g_object_ref_sink" : non_opt p -> non_opt p;
 
     val free_ =
-      if GiraffeDebug.isEnabled
-      then _import "giraffe_debug_g_object_unref" : non_opt p -> unit;
-      else _import "g_object_unref" : non_opt p -> unit;
+      _import "g_object_unref" : non_opt p -> unit;
 
     val instanceType_ =
       _import "giraffe_g_object_type" : non_opt p -> GObjectType.FFI.val_;
@@ -93,11 +65,9 @@ structure GObjectObjectClass :>
         val dup_ = dup_
         val free_ = free_
         val checkInstance_ = checkInstance_
+        val instanceTypeName_ = GObjectType.name o GObjectType.FFI.fromVal o instanceType_
       )
     open Class
-
-    val getType_ =
-      _import "g_object_get_type" : unit -> GObjectType.FFI.val_;
 
     val getValue_ =
       _import "g_value_get_object" :
@@ -123,14 +93,14 @@ structure GObjectObjectClass :>
 
     val t =
       ValueAccessor.C.createAccessor {
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+        getType  = getType,
         getValue = (I ---> FFI.fromPtr false) getValue_,
         setValue = (I &&&> FFI.withPtr false ---> I) setValue_
       }
 
     val tOpt =
       ValueAccessor.C.createAccessor {
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+        getType  = getType,
         getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
         setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
       }

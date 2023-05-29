@@ -9,6 +9,7 @@ structure GObjectValueRecord : G_OBJECT_VALUE_RECORD =
   struct
     open GObject.ValueRecord
     val getType_ = _import "g_value_get_type" : unit -> GObject.Type.FFI.val_;
+    val getType = (I ---> GObject.Type.FFI.fromVal) getType_
     val getValue_ = _import "g_value_get_boxed" : GObject.ValueRecord.FFI.non_opt GObject.ValueRecord.FFI.p -> FFI.non_opt FFI.p;
     val getOptValue_ = _import "g_value_get_boxed" : GObject.ValueRecord.FFI.non_opt GObject.ValueRecord.FFI.p -> FFI.opt FFI.p;
     val setValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObject.ValueRecord.FFI.non_opt GObject.ValueRecord.FFI.p * FFI.non_opt FFI.p -> unit;) (x1, x2)
@@ -16,14 +17,14 @@ structure GObjectValueRecord : G_OBJECT_VALUE_RECORD =
     val t =
       ValueAccessor.C.createAccessor
         {
-          getType = (I ---> GObject.Type.FFI.fromVal) getType_,
+          getType = getType,
           getValue = (I ---> FFI.fromPtr false) getValue_,
           setValue = (I &&&> FFI.withPtr false ---> I) setValue_
         }
     val tOpt =
       ValueAccessor.C.createAccessor
         {
-          getType = (I ---> GObject.Type.FFI.fromVal) getType_,
+          getType = getType,
           getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
           setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
         }

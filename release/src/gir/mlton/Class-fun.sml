@@ -15,6 +15,7 @@ functor Class(
   val dup_ : non_opt p -> non_opt p
   val free_ : non_opt p -> unit
   val checkInstance_ : 'a value_accessor_t -> non_opt p -> unit
+  val instanceTypeName_ : non_opt p -> string
 ) :>
   CLASS
     where type C.Pointer.opt = Pointer.opt
@@ -26,6 +27,34 @@ functor Class(
     type 'a class = non_opt p Finalizable.t
     type t = base class
     type 'a value_accessor_t = 'a value_accessor_t
+
+    fun logEnabled () = GiraffeDebug.logMemEnabled ()
+    fun log (memOp, p) =
+      GiraffeDebug.logMem
+        {
+          memOp    = memOp,
+          instKind = "object",
+          instType = instanceTypeName_ p,
+          instAddr = Pointer.toString p
+        }
+
+    val take_ =
+      fn p => (
+        if logEnabled () then log (GiraffeDebug.MTake, p) else ();
+        take_ p
+      )
+
+    val dup_ =
+      fn p => (
+        if logEnabled () then log (GiraffeDebug.MDup, p) else ();
+        dup_ p
+      )
+
+    val free_ =
+      fn p => (
+        if logEnabled () then log (GiraffeDebug.MFree, p) else ();
+        free_ p
+      )
 
     structure C =
       struct

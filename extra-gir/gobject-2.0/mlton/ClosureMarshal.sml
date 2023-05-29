@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2016-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2016-2021, 2023 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -36,33 +36,31 @@ structure ClosureMarshal :>
       _import "giraffe_closure_get_data" :
         GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p -> Closure.t;
 
-    fun log action =
-      if GiraffeDebug.getClosure ()
+    fun log (closure2Op, closure) =
+      if GiraffeDebug.logClosureEnabled ()
       then
-        fn (closure, dir) =>
-          List.app print [
-            action,
-            " closure ",
-            GObjectClosureRecord.C.Pointer.toString closure,
-            " [", dir, "]\n"
-          ]
+        GiraffeDebug.logClosure2
+          {
+            closure2Op  = closure2Op,
+            closureAddr = GObjectClosureRecord.C.Pointer.toString closure
+          }
       else
-        fn _ => ()
+        ()
 
     (* The closure called in `dispatch` and `destroyNotify` should catch any
      * exceptions but we still handle exceptions for unforeseen reasons to
      * ensure that they are reported and control returns from the callback.
      *)
     fun dispatch (closure, v, size, vs, _, _) = (
-      log "dispatch" (closure, "enter");
+      log (GiraffeDebug.C2DispatchEnter, closure);
       Closure.call (getData_ closure) (v & vs & size)
-       before log "dispatch" (closure, "leave")
+       before log (GiraffeDebug.C2DispatchLeave, closure)
     ) handle e => app print [exnMessage e, "\n"]
 
     fun destroyNotify (data, closure) = (
-      log "destroy" (closure, "enter");
+      log (GiraffeDebug.C2DestroyEnter, closure);
       Closure.free data
-       before log "destroy" (closure, "leave")
+       before log (GiraffeDebug.C2DestroyLeave, closure)
     ) handle e => app print [exnMessage e, "\n"]
 
     val () =

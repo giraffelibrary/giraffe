@@ -15,15 +15,10 @@ structure GObjectParamSpecClass :>
     type 'a p = 'a Pointer.p
     type ('a, 'b) r = ('a, 'b) Pointer.r
 
+    val getType = GObjectType.param
+
     val take_ =
-      let
-        val diag_ =
-          ignore
-      in
-        fn ptr => (
-          diag_ ptr
-        )
-      end
+      ignore
 
     val dup_ =
       _import "g_param_spec_ref_sink" : non_opt p -> non_opt p;
@@ -61,6 +56,7 @@ structure GObjectParamSpecClass :>
         val dup_ = dup_
         val free_ = free_
         val checkInstance_ = checkInstance_
+        val instanceTypeName_ = GObjectType.name o GObjectType.FFI.fromVal o instanceType_
       )
     open Class
 
@@ -88,14 +84,14 @@ structure GObjectParamSpecClass :>
 
     val t =
       ValueAccessor.C.createAccessor {
-        getType  = GObjectType.param,
+        getType  = getType,
         getValue = (I ---> FFI.fromPtr false) getValue_,
         setValue = (I &&&> FFI.withPtr false ---> I) setValue_
       }
 
     val tOpt =
       ValueAccessor.C.createAccessor {
-        getType  = GObjectType.param,
+        getType  = getType,
         getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
         setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
       }

@@ -57,7 +57,9 @@ Placeholders
 
   StructCPrefix = GIRepository.getCPrefix repo <StructNamespace>
 
-  optGetTypeSymbol = GIRegisteredTypeInfo.getTypeInit structInfo
+  optGetTypeSymbol = GIRepository.RegisteredTypeInfo.getTypeInit structInfo
+
+  optStructCType = GIRepository.RegisteredTypeInfo.getCType structInfo
 
   structSize = StructInfo.getSie structInfo  (TYPELIB only)
 
@@ -115,7 +117,9 @@ structure <StructNamespace><StructName>Record :>
     type opt = Pointer.opt                                                                                       | structType is ValueRecord _ | Record _
     type non_opt = Pointer.non_opt                                                                               |
     type 'a p = 'a Pointer.p                                                                                     |
-                                                                                                                -'
+                                                                                           -.                    |
+    val cPtr = Pointer.PolyML.cVal : non_opt p PolyMLFFI.conversion                         | Poly/ML only       |
+                                                                                           -'                   -'
                                                                -.                                               -.
     type 'a <parent_union_name>_union =                         | StructNamespace = ParentUnionNamespace         | structType is
       'a <ParentUnionNamespace><ParentUnionName>.union          |                                                |  UnionRecord ("<ParentUnionNamespace>", "<ParentUnionName>", "<FieldName>")
@@ -123,9 +127,28 @@ structure <StructNamespace><StructName>Record :>
     type <field_name> = unit                                                                                     |
     type t = <field_name> <ParentUnionNamespace><ParentUnionName>.union                                          |
                                                                                                                 -'
+                                                 -.             -.                         -.
+    local                                         |              |                           |
+      open PolyMLFFI                              |              |                           |
+    in                                            |              |                           |
+      val getType_ =                              |              |                           |
+        call                                      | Poly/ML only |                           |
+          (<getFunctionSymbol> "<getTypeSymbol>") |              |                           |
+          (cVoid --> GObjectType.PolyML.cVal);    |              |                           |
+    end                                           |              | getTypeSymbol <> "intern" |
+                                                 -'              |                           | optGetTypeSymbol
+                                                 -.              |                           |  is SOME getTypeSymbol
+    val getType_ =                                |              |                           |
+      _import "<getTypeSymbol>" :                 | MLton only   |                           |
+        unit -> GObjectType.FFI.val_;             |              |                           |
+                                                 -'              |                           |
+                                                                 |                           |
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_      |                           |
+                                                                -'                           |
+                                                                -.                           |
+    val getType = GObjectType.<valueType>                        | getTypeSymbol = "intern"  |
+                                                                -'                          -'
                                                                                                                 -.
-    val cPtr = Pointer.PolyML.cVal : non_opt p PolyMLFFI.conversion                                              |
-                                                                                                                 |
     local                                                                                                        |
       open PolyMLFFI                                                                                             |
     in                                                                                                           |
@@ -148,7 +171,7 @@ structure <StructNamespace><StructName>Record :>
         fn src & dest =>                                             |                     |  ValueRecord funcs  |
           memcpy_ (dest & src & size_ ())                            |                     |                     | Poly/ML only
                                                                      |                     |                     |
-      val clear_ = Fn.ignore                                         |                     |                     | structType is ValueRecord _ | Record _
+      val clear_ = Fn.ignore                                         |                     |                     |
                                                                     -'                     |                     |
                                                                     -.                     |                     |
       val copy_ =                                                    |                     |                     |
@@ -162,11 +185,6 @@ structure <StructNamespace><StructName>Record :>
           (cPtr --> cVoid)                                           |                     |                     |
                                                                     -'                    -'                     |
                                                                     -.                    -.                     |
-      val getType_ =                                                 |                     |                     |
-        call                                                         |                     |                     |
-          (<getFunctionSymbol> "<getTypeSymbol>")                    |                     |                     |
-          (cVoid --> GObjectType.PolyML.cVal);                       |                     |                     |
-                                                                     |                     |                     |
       val dup_ =                                                     | funcs is Boxed      |                     |
         let                                                          |                     |                     |
           val boxedFun_ =                                            |                     |                     |
@@ -200,8 +218,7 @@ structure <StructNamespace><StructName>Record :>
                                                                     -'                    -'                     |
     end                                                                                                          |
                                                                                                                 -'
-                                                                                          -.                    -.
-                                                                    -.                     |                     |
+                                                                    -.                    -.                    -.
     val size_ =                                                      |                     |                     |
       _import "giraffe_<struct_namespace>_<struct_name>_size" pure   | using GIR           |                     |
         : unit -> GSize.FFI.val_;                                    |                     |                     |
@@ -219,7 +236,7 @@ structure <StructNamespace><StructName>Record :>
       fn src & dest =>                                               |                     |                     |
         memcpy_ (dest & src & size_ ())                              |                     |                     | MLton only
                                                                      |                     |                     |
-    val clear_ = Fn.ignore                                           |                     |                     | structType is ValueRecord _ | Record _
+    val clear_ = Fn.ignore                                           |                     |                     |
                                                                     -'                     |                     |
                                                                     -.                     |                     |
     val copy_ =                                                      |                     |                     |
@@ -231,10 +248,6 @@ structure <StructNamespace><StructName>Record :>
       _import "<clear>" : non_opt p -> unit;                         |                     |                     |
                                                                     -'                    -'                     |
                                                                     -.                    -.                     |
-    val getType_ =                                                   |                     |                     |
-      _import "<getTypeSymbol>" :                                    |                     |                     |
-        unit -> GObjectType.FFI.val_;                                |                     |                     |
-                                                                     |                     |                     |
     val dup_ =                                                       |                     |                     |
       let                                                            | funcs is Boxed      |                     |
         val boxedFun_ =                                              |                     |                     |
@@ -267,11 +280,12 @@ structure <StructNamespace><StructName>Record :>
       BoxedValueRecord(                                                                    |
         structure Pointer = Pointer                                                        |
         type opt = opt                                                                     |
-        type non_opt = non_opt                                                             | structType is ValueRecord _
-        type 'a p = 'a p                                                                   |
+        type non_opt = non_opt                                                             |
+        type 'a p = 'a p                                                                   | structType is ValueRecord _
         val copy_ = copy_                                                                  |
         val clear_ = clear_                                                                |
         val size_ = size_                                                                  |
+        val getTypeName = <getTypeName>                                                    |
       )                                                                                    |
                                                                                           -'
                                                                                           -.
@@ -279,11 +293,12 @@ structure <StructNamespace><StructName>Record :>
       BoxedRecord(                                                                         |
         structure Pointer = Pointer                                                        |
         type opt = opt                                                                     |
-        type non_opt = non_opt                                                             | structType is Record _
-        type 'a p = 'a p                                                                   |
+        type non_opt = non_opt                                                             |
+        type 'a p = 'a p                                                                   | structType is Record _
         val dup_ = dup_                                                                    |
         val take_ = ignore                                                                 |
         val free_ = free_                                                                  |
+        val getTypeName = <getTypeName>                                                    |
       )                                                                                    |
                                                                                           -'
                                                                                           -.
@@ -300,13 +315,6 @@ structure <StructNamespace><StructName>Record :>
     local                                                                    |               |
       open PolyMLFFI                                                         |               |
     in                                                                       |               |
-                                               -.                            |               |
-      val getType_ =                            | getTypeSymbol <> "intern"  |               |
-        call                                    | structType <> Record Boxed |               |
-          (<getFunctionSymbol> "<getTypeSymbol>")                            | Poly/ML only  |
-          (cVoid --> GObjectType.PolyML.cVal);  |                            |               |
-                                               -'                            |               |
-                                                                             |               |
       val getValue_ =                                                        |               |
         call                                                                 |               |
           (<getFunctionSymbol> "g_value_get_<valueType>")                    |               |
@@ -314,7 +322,7 @@ structure <StructNamespace><StructName>Record :>
                                                                              |               |
       val getOptValue_ =                                                     |               |
         call                                                                 |               |
-          (<getFunctionSymbol> "g_value_get_<valueType>")                    |               |
+          (<getFunctionSymbol> "g_value_get_<valueType>")                    | Poly/ML only  |
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);               |               |
                                                                              |               |
       val setValue_ =                                                        |               |
@@ -327,13 +335,8 @@ structure <StructNamespace><StructName>Record :>
           (<getFunctionSymbol> "g_value_set_<valueType>")                    |               |
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid);     |               |
     end                                                                      |               | optGetTypeSymbol
-                                                                            -'               |  is SOME getTypeSymbol
-                                               -.                           -.               |
-    val getType_ =                              | getTypeSymbol <> "intern"  |               |
-      _import "<getTypeSymbol>" :               | structType <> Record Boxed |               |
-        unit -> GObjectType.FFI.val_;           |                            |               |
-                                               -'                            |               |
-                                                                             |               |
+                                                                            -'               |  is SOME _
+                                                                            -.               |
     val getValue_ =                                                          |               |
       _import "g_value_get_<valueType>" :                                    |               |
         GObjectValueRecord.FFI.p -> FFI.non_opt FFI.p;                       |               |
@@ -352,23 +355,13 @@ structure <StructNamespace><StructName>Record :>
                                                                             -'               |
     val t =                                                                                  |
       ValueAccessor.C.createAccessor {                                                       |
-                                                              -.                             |
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,  | getTypeSymbol <> "intern"   |
-                                                              -'                             |
-                                                              -.                             |
-        getType  = GObjectType.<valueType>,                    | getTypeSymbol = "intern"    |
-                                                              -'                             |
+        getType  = getType,                                                                  |
         getValue = (I ---> FFI.fromPtr false) getValue_,                                     |
         setValue = (I &&&> FFI.withPtr false ---> I) setValue_                               |
       }                                                                                      |
     val tOpt =                                                                               |
       ValueAccessor.C.createAccessor {                                                       |
-                                                              -.                             |
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,  | getTypeSymbol <> "intern"   |
-                                                              -'                             |
-                                                              -.                             |
-        getType  = GObjectType.<valueType>,                    | getTypeSymbol = "intern"    |
-                                                              -'                             |
+        getType  = getType,                                                                  |
         getValue = (I ---> FFI.fromOptPtr false) getOptValue_,                               |
         setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_                         |
       }                                                                                      |
@@ -396,6 +389,19 @@ where
 
         boxed
           otherwise
+
+
+  getTypeName
+    is defined as follows:
+
+        GObjectType.name o getType
+          if optGetTypeSymbol is SOME _
+
+        fn () => "<StructCType>"
+          if optGetTypeSymbol is NONE and optStructCType is SOME StructCType
+
+        <raise Fail>
+          if optGetTypeSymbol is NONE and optStructCType is NONE
 
 
 ==Struct signature==

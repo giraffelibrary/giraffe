@@ -195,7 +195,7 @@ in
             else "object"
         | _                 => "object"
 
-      val (addAccessorStrDecs, addAccessorIRefs, revAccessorLocalTypes) =
+      val (addGetTypeStrDecs, addAccessorStrDecs, addAccessorIRefs, revAccessorLocalTypes) =
         addAccessorRootStrDecs (objectNamespace, objectName) getValueType objectInfo
 
       val iRefs'2 = addAccessorIRefs iRefs'1
@@ -207,7 +207,8 @@ in
 
       fun mkModule isPolyML =
         let
-          val strDecs'1 = addAccessorStrDecs true false isPolyML strDecs'0
+          val strDecs'1 =
+            addGetTypeStrDecs isPolyML (addAccessorStrDecs true isPolyML strDecs'0)
 
           (*
            *                                           -.

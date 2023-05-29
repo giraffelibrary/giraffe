@@ -19,26 +19,13 @@ structure GObjectObjectClass :>
 
     local
       open PolyMLFFI
-      val debugClosureSym = externalDataSymbol "giraffe_debug_closure"
-      val debugRefCountSym = externalDataSymbol "giraffe_debug_ref_count"
-      fun set sym conv x =
-        ignore (#store (breakConversion conv) x (symbolAsAddress sym))
-      fun setDebugClosure x = GBool.FFI.withVal (set debugClosureSym GBool.PolyML.cVal) x
-      fun setDebugRefCount x = GBool.FFI.withVal (set debugRefCountSym GBool.PolyML.cVal) x
-
-      fun initDebugFlags () =
-        if GiraffeDebug.isEnabled
-        then
-          let
-            val () = setDebugClosure (GiraffeDebug.getClosure ());
-            val () = setDebugRefCount (GiraffeDebug.getRefCount ())
-          in
-            ()
-          end
-        else ()
     in
-      val () = PolyML.onEntry initDebugFlags
+      val getType_ =
+        call
+          (externalFunctionSymbol "g_object_get_type")
+          (cVoid --> GObjectType.PolyML.cVal);
     end
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
 
     local
       open PolyMLFFI
@@ -49,44 +36,22 @@ structure GObjectObjectClass :>
             call
               (externalFunctionSymbol "g_object_is_floating")
               (cPtr --> GBool.PolyML.cVal)
-          val diag_ =
-            if GiraffeDebug.isEnabled
-            then
-              call
-                (externalFunctionSymbol "giraffe_debug_object_take")
-                (cPtr --> cVoid)
-            else
-              ignore
         in
-          fn ptr => (
+          fn ptr =>
             if GBool.FFI.fromVal (isFloating_ ptr)
             then GiraffeLog.critical "taking ownership of floating reference"
-            else ();
-            diag_ ptr
-          )
+            else ()
         end
 
       val dup_ =
-        if GiraffeDebug.isEnabled
-        then 
-          call
-            (externalFunctionSymbol "giraffe_debug_g_object_ref_sink")
-            (cPtr --> cPtr)
-        else
-          call
-            (externalFunctionSymbol "g_object_ref_sink")
-            (cPtr --> cPtr)
+        call
+          (externalFunctionSymbol "g_object_ref_sink")
+          (cPtr --> cPtr)
 
       val free_ =
-        if GiraffeDebug.isEnabled
-        then
-          call
-            (externalFunctionSymbol "giraffe_debug_g_object_unref")
-            (cPtr --> cVoid)
-        else
-          call
-            (externalFunctionSymbol "g_object_unref")
-            (cPtr --> cVoid)
+        call
+          (externalFunctionSymbol "g_object_unref")
+          (cPtr --> cVoid)
 
       val instanceType_ =
         call
@@ -121,17 +86,13 @@ structure GObjectObjectClass :>
         val dup_ = dup_
         val free_ = free_
         val checkInstance_ = checkInstance_
+        val instanceTypeName_ = GObjectType.name o GObjectType.FFI.fromVal o instanceType_
       )
     open Class
 
     local
       open PolyMLFFI
     in
-      val getType_ =
-        call
-          (externalFunctionSymbol "g_object_get_type")
-          (cVoid --> GObjectType.PolyML.cVal);
-
       val getValue_ =
         call
           (externalFunctionSymbol "g_value_get_object")
@@ -157,14 +118,14 @@ structure GObjectObjectClass :>
 
     val t =
       ValueAccessor.C.createAccessor {
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+        getType  = getType,
         getValue = (I ---> FFI.fromPtr false) getValue_,
         setValue = (I &&&> FFI.withPtr false ---> I) setValue_
       }
 
     val tOpt =
       ValueAccessor.C.createAccessor {
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+        getType  = getType,
         getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
         setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
       }

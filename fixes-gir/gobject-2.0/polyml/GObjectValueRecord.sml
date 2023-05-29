@@ -12,6 +12,11 @@ structure GObjectValueRecord : G_OBJECT_VALUE_RECORD =
       open PolyMLFFI
     in
       val getType_ = call (externalFunctionSymbol "g_value_get_type") (cVoid --> GObject.Type.PolyML.cVal)
+    end
+    val getType = (I ---> GObject.Type.FFI.fromVal) getType_
+    local
+      open PolyMLFFI
+    in
       val getValue_ = call (externalFunctionSymbol "g_value_get_boxed") (GObject.ValueRecord.PolyML.cPtr --> PolyML.cPtr)
       val getOptValue_ = call (externalFunctionSymbol "g_value_get_boxed") (GObject.ValueRecord.PolyML.cPtr --> PolyML.cOptPtr)
       val setValue_ = call (externalFunctionSymbol "g_value_set_boxed") (GObject.ValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)
@@ -20,14 +25,14 @@ structure GObjectValueRecord : G_OBJECT_VALUE_RECORD =
     val t =
       ValueAccessor.C.createAccessor
         {
-          getType = (I ---> GObject.Type.FFI.fromVal) getType_,
+          getType = getType,
           getValue = (I ---> FFI.fromPtr false) getValue_,
           setValue = (I &&&> FFI.withPtr false ---> I) setValue_
         }
     val tOpt =
       ValueAccessor.C.createAccessor
         {
-          getType = (I ---> GObject.Type.FFI.fromVal) getType_,
+          getType = getType,
           getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
           setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
         }

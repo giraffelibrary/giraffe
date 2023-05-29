@@ -16,44 +16,25 @@ structure GObjectClosureRecord :> G_OBJECT_CLOSURE_RECORD =
       open PolyMLFFI
     in
       val getType_ = call (externalFunctionSymbol "g_closure_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val take_ =
-        if GiraffeDebug.isEnabled
-        then
-          call
-            (externalFunctionSymbol "giraffe_debug_closure_take")
-            (cPtr --> cVoid)
-        else
-          ignore
-
+    end
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    local
+      open PolyMLFFI
+    in
       val ref_ =
         call
           (externalFunctionSymbol "g_closure_ref")
           (cPtr --> cPtr)
-
       val sink_ =
         call
           (externalFunctionSymbol "g_closure_sink")
           (cPtr --> cVoid)
-
       val dup_ =
-        if GiraffeDebug.isEnabled
-        then 
-          call
-            (externalFunctionSymbol "giraffe_debug_closure_ref_sink")
-            (cPtr --> cPtr)
-        else
-          fn ptr => ref_ ptr before sink_ ptr  (* must do ref before sink *)
-
+        fn ptr => ref_ ptr before sink_ ptr  (* must do ref before sink *)
       val free_ =
-        if GiraffeDebug.isEnabled
-        then
-          call
-            (externalFunctionSymbol "giraffe_debug_g_closure_unref")
-            (cPtr --> cVoid)
-        else
-          call
-            (externalFunctionSymbol "g_closure_unref")
-            (cPtr --> cVoid)
+        call
+          (externalFunctionSymbol "g_closure_unref")
+          (cPtr --> cVoid)
     end
     structure Record =
       BoxedRecord(
@@ -62,8 +43,9 @@ structure GObjectClosureRecord :> G_OBJECT_CLOSURE_RECORD =
         type non_opt = non_opt
         type 'a p = 'a p
         val dup_ = dup_
-        val take_ = take_
+        val take_ = ignore
         val free_ = free_
+        val getTypeName = GObjectType.name o getType
       )
     open Record
     local
@@ -77,14 +59,14 @@ structure GObjectClosureRecord :> G_OBJECT_CLOSURE_RECORD =
     val t =
       ValueAccessor.C.createAccessor
         {
-          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getType = getType,
           getValue = (I ---> FFI.fromPtr false) getValue_,
           setValue = (I &&&> FFI.withPtr false ---> I) setValue_
         }
     val tOpt =
       ValueAccessor.C.createAccessor
         {
-          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getType = getType,
           getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
           setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
         }

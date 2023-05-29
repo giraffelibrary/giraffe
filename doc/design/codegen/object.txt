@@ -76,17 +76,31 @@ structure <ObjectNamespace><ObjectName>Class :>
     open <ParentObjectNamespace><ParentObjectName>Class
     type 'a <objectname> = unit
     type 'a class = 'a <object_name> class
+                                                 -.             -.                         -.
+    local                                         |              |                           |
+      open PolyMLFFI                              |              |                           |
+    in                                            |              |                           |
+      val getType_ =                              |              |                           |
+        call                                      | Poly/ML only |                           |
+          (<getFunctionSymbol> "<getTypeSymbol>") |              |                           |
+          (cVoid --> GObjectType.PolyML.cVal);    |              |                           |
+    end                                           |              | getTypeSymbol <> "intern" |
+                                                 -'              |                           | optGetTypeSymbol
+                                                 -.              |                           |  is SOME getTypeSymbol
+    val getType_ =                                |              |                           |
+      _import "<getTypeSymbol>" :                 | MLton only   |                           |
+        unit -> GObjectType.FFI.val_;             |              |                           |
+                                                 -'              |                           |
+                                                                 |                           |
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_      |                           |
+                                                                -'                           |
+                                                                -.                           |
+    val getType = GObjectType.<valueType>                        | getTypeSymbol = "intern"  |
+                                                                -'                          -'
                                                                             -.              -.
     local                                                                    |               |
       open PolyMLFFI                                                         |               |
     in                                                                       |               |
-                                               -.                            |               |
-      val getType_ =                            |                            |               |
-        call                                    | getTypeSymbol <> "intern"  |               |
-          (<getFunctionSymbol> "<getTypeSymbol>")                            | Poly/ML only  |
-          (cVoid --> GObjectType.PolyML.cVal);  |                            |               |
-                                               -'                            |               |
-                                                                             |               |
       val getValue_ =                                                        |               |
         call                                                                 |               |
           (<getFunctionSymbol> "g_value_get_<valueType>")                    |               |
@@ -95,7 +109,7 @@ structure <ObjectNamespace><ObjectName>Class :>
       val getOptValue_ =                                                     |               |
         call                                                                 |               |
           (<getFunctionSymbol> "g_value_get_<valueType>")                    |               |
-          (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);               |               |
+          (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);               | Poly/ML only  |
                                                                              |               |
       val setValue_ =                                                        |               |
         call                                                                 |               |
@@ -107,13 +121,8 @@ structure <ObjectNamespace><ObjectName>Class :>
           (<getFunctionSymbol> "g_value_set_<valueType>")                    |               |
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid);     |               |
     end                                                                      |               | optGetTypeSymbol
-                                                                            -'               |  is SOME getTypeSymbol
-                                               -.                           -.               |
-    val getType_ =                              |                            |               |
-      _import "<getTypeSymbol>" :               | getTypeSymbol <> "intern"  |               |
-        unit -> GObjectType.FFI.val_;           |                            |               |
-                                               -'                            |               |
-                                                                             |               |
+                                                                            -'               |  is SOME _
+                                                                            -.               |
     val getValue_ =                                                          |               |
       _import "g_value_get_<valueType>" :                                    |               |
         GObjectValueRecord.FFI.p -> FFI.non_opt FFI.p;                       |               |
@@ -132,23 +141,13 @@ structure <ObjectNamespace><ObjectName>Class :>
                                                                             -'               |
     val t =                                                                                  |
       ValueAccessor.C.createAccessor {                                                       |
-                                                              -.                             |
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,  | getTypeSymbol <> "intern"   |
-                                                              -'                             |
-                                                              -.                             |
-        getType  = GObjectType.<valueType>,                    | getTypeSymbol = "intern"    |
-                                                              -'                             |
+        getType  = getType,                                                                  |
         getValue = (I ---> FFI.fromPtr false) getValue_,                                     |
         setValue = (I &&&> FFI.withPtr false ---> I) setValue_                               |
       }                                                                                      |
     val tOpt =                                                                               |
       ValueAccessor.C.createAccessor {                                                       |
-                                                              -.                             |
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,  | getTypeSymbol <> "intern"   |
-                                                              -'                             |
-                                                              -.                             |
-        getType  = GObjectType.<valueType>,                    | getTypeSymbol = "intern"    |
-                                                              -'                             |
+        getType  = getType,                                                                  |
         getValue = (I ---> FFI.fromOptPtr false) getOptValue_,                               |
         setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_                         |
       }                                                                                      |

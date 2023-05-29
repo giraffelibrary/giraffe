@@ -187,7 +187,7 @@ in
       val revLocalTypes = revMap makeIRefLocalType iRefs'2
       val strDecs'3 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'2)
 
-      val (addAccessorStrDecs, addAccessorIRefs, revAccessorLocalTypes) =
+      val (addGetTypeStrDecs, addAccessorStrDecs, addAccessorIRefs, revAccessorLocalTypes) =
         addAccessorRootStrDecs (enumNamespace, enumName) (K "flags") enumInfo
 
       val iRefs'3 = addAccessorIRefs iRefs'2
@@ -203,7 +203,7 @@ in
               enumIRef
               (enumInfo, (strDecs'3, excls'2))
 
-          val strDecs'5 = addAccessorStrDecs false false isPolyML strDecs'4
+          val strDecs'5 = addAccessorStrDecs false isPolyML strDecs'4
           val strDecs'6 = strDecs'5
           val strDecs'7 = strDecs'6
           val strDecs'8 = [structFlagsStrDec, openFlagsStrDec] @ strDecs'7
@@ -211,8 +211,9 @@ in
           val strDecs'10 =
             revMapAppend mkStructStrDec
               (ListDict.toList structDeps'2, strDecs'9)
+          val strDecs'11 = addGetTypeStrDecs isPolyML strDecs'10
 
-          val struct1 = mkBodyStruct strDecs'10
+          val struct1 = mkBodyStruct strDecs'11
 
           (* sig *)
           val sig1 = SigName enumSigId

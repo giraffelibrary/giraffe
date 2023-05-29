@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2016-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2016-2021, 2023 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -16,6 +16,11 @@ structure GLibErrorRecord :> G_LIB_ERROR_RECORD =
       open PolyMLFFI
     in
       val getType_ = call (externalFunctionSymbol "g_error_get_type") (cVoid --> GObjectType.PolyML.cVal)
+    end
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    local
+      open PolyMLFFI
+    in
       val dup_ =
         let
           val boxedFun_ = call (externalFunctionSymbol "g_boxed_copy") (GObjectType.PolyML.cVal &&> cPtr --> cPtr)
@@ -38,6 +43,7 @@ structure GLibErrorRecord :> G_LIB_ERROR_RECORD =
         val dup_ = dup_
         val take_ = ignore
         val free_ = free_
+        val getTypeName = GObjectType.name o getType
       )
     open Record
     local
@@ -51,14 +57,14 @@ structure GLibErrorRecord :> G_LIB_ERROR_RECORD =
     val t =
       ValueAccessor.C.createAccessor
         {
-          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getType = getType,
           getValue = (I ---> FFI.fromPtr false) getValue_,
           setValue = (I &&&> FFI.withPtr false ---> I) setValue_
         }
     val tOpt =
       ValueAccessor.C.createAccessor
         {
-          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getType = getType,
           getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
           setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
         }

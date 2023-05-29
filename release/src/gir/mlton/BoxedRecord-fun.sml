@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2020, 2023 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -13,6 +13,7 @@ functor BoxedRecord(
   val dup_ : non_opt p -> non_opt p
   val take_ : non_opt p -> unit
   val free_ : non_opt p -> unit
+  val getTypeName : unit -> string
 ) :>
   RECORD
     where type C.Pointer.opt = Pointer.opt
@@ -21,6 +22,34 @@ functor BoxedRecord(
     where type ('a, 'b) C.Pointer.r = ('a, 'b) Pointer.r =
   struct
     type t = non_opt p Finalizable.t
+
+    fun logEnabled () = GiraffeDebug.logMemEnabled ()
+    fun log (memOp, p) =
+      GiraffeDebug.logMem
+        {
+          memOp    = memOp,
+          instKind = "record",
+          instType = getTypeName (),
+          instAddr = Pointer.toString p
+        }
+
+    val take_ =
+      fn p => (
+        if logEnabled () then log (GiraffeDebug.MTake, p) else ();
+        take_ p
+      )
+
+    val dup_ =
+      fn p => (
+        if logEnabled () then log (GiraffeDebug.MDup, p) else ();
+        dup_ p
+      )
+
+    val free_ =
+      fn p => (
+        if logEnabled () then log (GiraffeDebug.MFree, p) else ();
+        free_ p
+      )
 
     structure C =
       struct

@@ -118,6 +118,28 @@ structure <EnumNamespace><EnumName> :>
     where type <varlist[N]> <local_name[N]> = <varlist[N]> <EnumNamespace><TypeName[N]>.<t[N]>
 =
   struct
+                                                 -.             -.                         -.
+    local                                         |              |                           |
+      open PolyMLFFI                              |              |                           |
+    in                                            |              |                           |
+      val getType_ =                              |              |                           |
+        call                                      | Poly/ML only |                           |
+          (<getFunctionSymbol> "<getTypeSymbol>") |              |                           |
+          (cVoid --> GObjectType.PolyML.cVal);    |              |                           |
+    end                                           |              | getTypeSymbol <> "intern" |
+                                                 -'              |                           | optGetTypeSymbol
+                                                 -.              |                           |  is SOME getTypeSymbol
+    val getType_ =                                |              |                           |
+      _import "<getTypeSymbol>" :                 | MLton only   |                           |
+        unit -> GObjectType.FFI.val_;             |              |                           |
+                                                 -'              |                           |
+                                                                 |                           |
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_      |                           |
+                                                                -'                           |
+                                                                -.                           |
+    val getType = GObjectType.<valueType>                        | getTypeSymbol = "intern"  |
+                                                                -'                          -'
+
     val <VALUENAME[1]> = <valueValue[1]>
 
     ...
@@ -143,37 +165,31 @@ structure <EnumNamespace><EnumName> :>
     local                                                                    |               |
       open PolyMLFFI                                                         |               |
     in                                                                       |               |
-      val getType_ =                                                         |               |
-        call                                                                 |               |
-          (<getFunctionSymbol> "<getTypeSymbol>")                            | Poly/ML only  |
-          (cVoid --> GObjectType.PolyML.cVal);                               |               |
-                                                                             |               |
       val getValue_ =                                                        |               |
         call                                                                 |               |
           (<getFunctionSymbol> "g_value_get_flags")                          |               |
-          (GObjectValueRecord.PolyML.PTR --> PolyML.cVal);                   |               |
+          (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal);                  | Poly/ML only  |
                                                                              |               |
       val setValue_ =                                                        |               |
         call                                                                 |               |
           (<getFunctionSymbol> "g_value_set_flags")                          |               |
-          (GObjectValueRecord.PolyML.PTR &&> PolyML.cVal --> cVoid);         |               |
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> cVoid);        |               |
     end                                                                      |               | optGetTypeSymbol
                                                                             -'               |  is SOME getTypeSymbol
                                                                             -.               |
-    val getType_ = _import "<getTypeSymbol>" : unit -> GObjectType.FFI.val_; |               |
-                                                                             |               |
     val getValue_ =                                                          |               |
-      _import "g_value_get_flags" : GObjectValueRecord.FFI.p -> FFI.val_;    | MLton only    |
-                                                                             |               |
+      _import "g_value_get_flags" : GObjectValueRecord.FFI.p -> FFI.val_;    |               |
+                                                                             | MLton only    |
     val setValue_ =                                                          |               |
       _import "g_value_set_flags" : GObjectValueRecord.FFI.p * FFI.val_ -> unit;             |
                                                                             -'               |
     val t =                                                                                  |
       ValueAccessor.C.createAccessor {                                                       |
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,                                |
+        getType  = getType,                                                                  |
         getValue = (I ---> FFI.fromVal) getValue_,                                           |
         setValue = (I &&&> FFI.withVal ---> I) setValue_                                     |
-      }                                                                                     -'
+      }                                                                                    |                                                                                   
+                                                                                          -'
 
 
     (* Low-Level Functions *)

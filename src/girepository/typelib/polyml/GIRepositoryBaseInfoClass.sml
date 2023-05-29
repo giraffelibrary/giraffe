@@ -8,6 +8,12 @@ structure GIRepositoryBaseInfoClass :> G_I_REPOSITORY_BASE_INFO_CLASS =
     local
       open PolyMLFFI
     in
+      val getType_ = call (externalFunctionSymbol "g_base_info_gtype_get_type") (cVoid --> GObjectType.PolyML.cVal)
+    end
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    local
+      open PolyMLFFI
+    in
       val dup_ =
         call
           (getSymbol "g_base_info_ref")
@@ -27,6 +33,7 @@ structure GIRepositoryBaseInfoClass :> G_I_REPOSITORY_BASE_INFO_CLASS =
         val dup_ = dup_
         val take_ = ignore
         val free_ = free_
+        val getTypeName = GObjectType.name o getType
       )
     open Record
     type 'a class = t

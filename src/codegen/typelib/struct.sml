@@ -263,13 +263,14 @@ local
     structNamespace
     structName
     structType
+    optGetTypeSymbol
     strDecs
   =
     let
       fun nonRegisteredType () = boxedTypeForNonRegisteredType (structNamespace, structName)
       fun internalType () = boxedTypeForInternalType (structNamespace, structName)
 
-      val strDecs' =
+      val strDecs'1 =
         case structType of
           ValueRecord funcs =>
             let
@@ -316,15 +317,11 @@ local
               )
             end
         | Record funcs      => (
-            case (funcs, RegisteredTypeInfo.getTypeInit structInfo) of
+            case (funcs, optGetTypeSymbol) of
               (Boxed, NONE)               => raise Fail (nonRegisteredType ())
             | (Boxed, SOME "intern")      => raise Fail (internalType ())
-            | (Boxed, SOME getTypeSymbol) =>
+            | (Boxed, SOME _)             =>
                 (*
-                 *     val getType_ =
-                 *       _import "<getTypeSymbol>" :
-                 *         unit -> GObjectType.FFI.val_;
-                 *
                  *     val dup_ =
                  *       let
                  *         val boxedFun_ =
@@ -365,7 +362,6 @@ local
                         ([typeTy, cPtrTy], unitTy)
                     )
                 in
-                  getTypeStrDecLowLevelMLton getTypeSymbol ::
                   StrDecDec (mkIdValDec (dupUId, callBoxedCopyExp)) ::
                   StrDecDec (mkIdValDec (freeUId, callBoxedFreeExp)) ::
                   strDecs
@@ -380,12 +376,10 @@ local
                 callStrDecLowLevelMLton (freeUId, free, [], [cPtrTy], unitTy) ::
                 strDecs
           )
-        | DisguisedRecord   =>
-            raise Fail "disguised record has no low-level FFI"
-        | UnionRecord _     =>
-            raise Fail "union record has no low-level FFI"
+        | DisguisedRecord   => strDecs
+        | UnionRecord _     => strDecs
     in
-      strDecs'
+      strDecs'1
     end
 
   (* `callStrDecLowLevelPolyML (name, symbol, parConvs, retConv)`
@@ -451,13 +445,14 @@ local
     structNamespace
     structName
     structType
+    optGetTypeSymbol
     strDecs
   =
     let
       fun nonRegisteredType () = boxedTypeForNonRegisteredType (structNamespace, structName)
       fun internalType () = boxedTypeForInternalType (structNamespace, structName)
 
-      val localStrDecs =
+      val localStrDecs'1 =
         case structType of
           ValueRecord funcs =>
             let
@@ -505,16 +500,11 @@ local
               )
             end
         | Record funcs      => (
-            case (funcs, RegisteredTypeInfo.getTypeInit structInfo) of
+            case (funcs, optGetTypeSymbol) of
               (Boxed, NONE)               => raise Fail (nonRegisteredType ())
             | (Boxed, SOME "intern")      => raise Fail (internalType ())
-            | (Boxed, SOME getTypeSymbol) =>
+            | (Boxed, SOME _)             =>
                 (*
-                 *     val getType_ =
-                 *       call
-                 *         (getSymbol "<getTypeSymbol>")
-                 *         (cVoid --> GObjectType.PolyML.cVal);
-                 *
                  *     val dup_ =
                  *       let
                  *         val boxedFun_ =
@@ -554,7 +544,6 @@ local
                     )
                 in
                   [
-                    getTypeStrDecLowLevelPolyML getTypeSymbol,
                     StrDecDec (mkIdValDec (dupUId, callBoxedCopyExp)),
                     StrDecDec (mkIdValDec (freeUId, callBoxedFreeExp))
                   ]
@@ -576,12 +565,15 @@ local
                   callStrDecLowLevelPolyML (freeUId, free, [cPtrConv], cVoidConv)
                 ]
           )
-        | DisguisedRecord   =>
-            raise Fail "disguised record has no low-level FFI"
-        | UnionRecord _     =>
-            raise Fail "union record has no low-level FFI"
+        | DisguisedRecord   => []
+        | UnionRecord _     => []
+
+      val strDecs'1 =
+        case localStrDecs'1 of
+          [] => strDecs
+        | _  => mkPolyMLFFILocalStrDec localStrDecs'1 :: strDecs
     in
-      cPtrStrDec :: mkPolyMLFFILocalStrDec localStrDecs :: strDecs
+      strDecs'1
     end
 
   fun addStrDecsLowLevel isPolyML =
@@ -599,9 +591,10 @@ local
    *         val copy_ = copy_
    *         val clear_ = clear_
    *         val size_ = size_
+   *         val getTypeName = <getTypeNameExp>
    *       )
    *)
-  val structValueRecordStrDec =
+  fun structValueRecordStrDec getTypeNameExp =
     mkStructStrDec (
       recordStrId,
       StructInst (
@@ -613,7 +606,8 @@ local
           StrDecDec (mkTypeDec (ptrTyName aTyVar, ptrTy aVarTy)),
           StrDecDec (mkIdValDec (copyUId, mkIdLNameExp copyUId)),
           StrDecDec (mkIdValDec (clearUId, mkIdLNameExp clearUId)),
-          StrDecDec (mkIdValDec (sizeUId, mkIdLNameExp sizeUId))
+          StrDecDec (mkIdValDec (sizeUId, mkIdLNameExp sizeUId)),
+          StrDecDec (mkIdValDec (getTypeNameId, getTypeNameExp))
         ]
       )
     )
@@ -628,9 +622,10 @@ local
    *         val dup_ = dup_
    *         val take_ = ignore
    *         val free_ = free_
+   *         val getTypeName = <getTypeNameExp>
    *       )
    *)
-  val structRecordStrDec =
+  fun structRecordStrDec getTypeNameExp =
     mkStructStrDec (
       recordStrId,
       StructInst (
@@ -642,7 +637,8 @@ local
           StrDecDec (mkTypeDec (ptrTyName aTyVar, ptrTy aVarTy)),
           StrDecDec (mkIdValDec (dupUId, mkIdLNameExp dupUId)),
           StrDecDec (mkIdValDec (takeUId, mkIdLNameExp ignoreId)),
-          StrDecDec (mkIdValDec (freeUId, mkIdLNameExp freeUId))
+          StrDecDec (mkIdValDec (freeUId, mkIdLNameExp freeUId)),
+          StrDecDec (mkIdValDec (getTypeNameId, getTypeNameExp))
         ]
       )
     )
@@ -808,7 +804,7 @@ in
           ("GLib", "Variant") => "variant"
         | _                   => "boxed"
 
-      val (addAccessorStrDecs, addAccessorIRefs, revAccessorLocalTypes) =
+      val (addGetTypeStrDecs, addAccessorStrDecs, addAccessorIRefs, revAccessorLocalTypes) =
         addAccessorRootStrDecs (structNamespace, structName) getValueType structInfo
 
       val iRefs'2 = addAccessorIRefs iRefs'1
@@ -817,37 +813,74 @@ in
       val strDecs'1 = structTypeStrDec :: openTypeStrDec :: strDecs'0
 *)
 
+      val optGetTypeSymbol = RegisteredTypeInfo.getTypeInit structInfo
+
+      (* `getTypeName ()` is
+       *                                       -.
+       *       GObjectType.name o getType       | optGetTypeSymbol is SOME _
+       *                                       -'
+       *                                       -.
+       *       fn () => "<StructCType>"         | optGetTypeSymbol is NONE
+       *                                       -' optStructCType is SOME StructCType
+       *                                       -.
+       *       <raise Fail>                     | optGetTypeSymbol is NONE
+       *                                       -' optStructCType is NONE
+       *)
+      fun getTypeName () =
+        case optGetTypeSymbol of
+          SOME _ =>
+            ExpInfixApp (
+              mkLIdLNameExp ["GObjectType", "name"],
+              oId,
+              mkIdLNameExp getTypeId
+            )
+        | NONE   =>
+            let
+              val typeName = concat [structNamespace, ".", structName]
+            in
+              ExpFn (
+                toList1 [(mkConstPat ConstUnit, ExpConst (ConstString typeName))]
+              )
+            end
+
       fun mkModule isPolyML =
         let
-          val isBoxed = structType = Record Boxed
-          val strDecs'1 = addAccessorStrDecs true isBoxed isPolyML strDecs'0
+          val strDecs'1 = addAccessorStrDecs true isPolyML strDecs'0
           val strDecs'2 = (
             case structType of
-              ValueRecord _   => structValueRecordStrDec
-            | Record _        => structRecordStrDec
+              ValueRecord _   => structValueRecordStrDec (getTypeName ())
+            | Record _        => structRecordStrDec (getTypeName ())
             | DisguisedRecord =>
                 structDisguisedRecordStrDec (structNamespace, structName)
             | UnionRecord x   => structUnionRecordStrDec x
           ) :: openRecordStrDec :: strDecs'1
 
           val strDecs'3 =
+            addStrDecsLowLevel isPolyML
+              structInfo
+              structNamespace
+              structName
+              structType
+              optGetTypeSymbol
+              strDecs'2
+
+          val strDecs'4 = addGetTypeStrDecs isPolyML strDecs'3
+          val strDecs'5 =
             case structType of
-              DisguisedRecord => strDecs'2
-            | UnionRecord _   => parentUnionStrDecs @ strDecs'2
+              DisguisedRecord => strDecs'4
+            | UnionRecord _   => parentUnionStrDecs @ strDecs'4
             | _               =>
-                addPointerStrDecs (
-                  addStrDecsLowLevel isPolyML
-                    structInfo
-                    structNamespace
-                    structName
-                    structType
-                    strDecs'2
-                )
-          val strDecs'4 =
-            revMapAppend makeLocalTypeStrDec (revParentUnionLocalTypes, strDecs'3)
+                addPointerStrDecs
+                  (
+                    if isPolyML
+                    then cPtrStrDec :: strDecs'4
+                    else strDecs'4
+                  )
 
-          val struct1 = mkBodyStruct strDecs'4
+          val strDecs'6 =
+            revMapAppend makeLocalTypeStrDec (revParentUnionLocalTypes, strDecs'5)
 
+          val struct1 = mkBodyStruct strDecs'6
           (* sig *)
           val sig1 = SigName structRecordSigId
           val sigQual'1 : qual list = parentUnionQuals

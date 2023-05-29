@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2016-2018, 2020 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016-2018, 2020, 2023 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,12 +11,6 @@
 
 #include <string.h>
 #include <glib-object.h>
-
-#ifdef GIRAFFE_DEBUG
-#include <stdio.h>
-gboolean giraffe_debug_closure;
-gboolean giraffe_debug_ref_count;
-#endif /* GIRAFFE_DEBUG */
 
 #include "giraffe.c"
 #include "gobject-2.0/giraffe.c"
@@ -394,45 +388,6 @@ giraffe_g_object_new_with_properties (GType          object_type,
   return object;
 }
 
-#ifdef GIRAFFE_DEBUG
-void
-giraffe_debug_object_take (gpointer object)
-{
-  if (giraffe_debug_ref_count)
-  {
-    printf ("take     %p (type %s)\n", object, G_OBJECT_TYPE_NAME(object));
-    fflush (stdout);
-  }
-}
-
-GObject *
-giraffe_debug_g_object_ref_sink (gpointer object)
-{
-  GObject *ret;
-  ret = g_object_ref_sink (object);
-
-  if (giraffe_debug_ref_count)
-  {
-    printf ("ref+sink %p (type %s)\n", object, G_OBJECT_TYPE_NAME(object));
-    fflush (stdout);
-  }
-
-  return ret;
-}
-
-void
-giraffe_debug_g_object_unref (gpointer object)
-{
-  if (giraffe_debug_ref_count)
-  {
-    printf ("unref    %p (type %s)\n", object, G_OBJECT_TYPE_NAME(object));
-    fflush (stdout);
-  }
-
-  g_object_unref (object);
-}
-#endif /* GIRAFFE_DEBUG */
-
 GObject *
 mlton_g_object_new_with_properties (GType object_type,
                                     guint n_properties,
@@ -456,46 +411,6 @@ giraffe_closure_get_data (GClosure *closure)
 
 
 /* GClosure */
-
-#ifdef GIRAFFE_DEBUG
-void
-giraffe_debug_closure_take (GClosure *closure)
-{
-  if (giraffe_debug_ref_count)
-  {
-    printf ("take     %p (type %s)\n", closure, g_type_name (G_TYPE_CLOSURE));
-    fflush (stdout);
-  }
-}
-
-GClosure *
-giraffe_debug_closure_ref_sink (GClosure *closure)
-{
-  GClosure *ret;
-  ret = g_closure_ref (closure);
-  g_closure_sink (closure);
-
-  if (giraffe_debug_ref_count)
-  {
-    printf ("ref+sink %p (type %s)\n", closure, g_type_name (G_TYPE_CLOSURE));
-    fflush (stdout);
-  }
-
-  return ret;
-}
-
-void
-giraffe_debug_g_closure_unref (GClosure *closure)
-{
-  if (giraffe_debug_ref_count)
-  {
-    printf ("unref    %p (type %s)\n", closure, g_type_name (G_TYPE_CLOSURE));
-    fflush (stdout);
-  }
-
-  g_closure_unref (closure);
-}
-#endif /* GIRAFFE_DEBUG */
 
 GClosure *
 giraffe_g_closure_new (GClosureMarshal dispatch,

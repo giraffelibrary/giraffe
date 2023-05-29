@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2021, 2023 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -13,6 +13,7 @@ functor BoxedValueRecord(
   val copy_ : (non_opt p, non_opt p) pair -> unit
   val clear_ : non_opt p -> unit
   val size_ : unit -> GSize.FFI.val_
+  val getTypeName : unit -> string
 ) :>
   VALUE_RECORD
     where type C.Pointer.opt = Pointer.opt
@@ -20,9 +21,53 @@ functor BoxedValueRecord(
     where type 'a C.Pointer.p = 'a Pointer.p
     where type ('a, 'b) C.Pointer.r = ('a, 'b) Pointer.r =
   struct
-    val malloc0_ = Pointer.Memory.malloc0
+    val take_ = Fn.ignore
+    val new0_ = Pointer.Memory.malloc0 o size_
     val free_ = Pointer.Memory.free
-    val new0_ = malloc0_ o size_
+
+    fun logEnabled () = GiraffeDebug.logMemEnabled ()
+    fun log (memOp, p) =
+      GiraffeDebug.logMem
+        {
+          memOp    = memOp,
+          instKind = "value-record",
+          instType = getTypeName (),
+          instAddr = Pointer.toString p
+        }
+
+    val take_ =
+      fn p => (
+        if logEnabled () then log (GiraffeDebug.MTake, p) else ();
+        take_ p
+      )
+
+    val new0_ =
+      fn () =>
+        let
+          val p = new0_ ()
+          val () = if logEnabled () then log (GiraffeDebug.MNew, p) else ()
+        in
+          p
+        end
+
+    val free_ =
+      fn p => (
+        if logEnabled () then log (GiraffeDebug.MFree, p) else ();
+        free_ p
+      )
+
+    val copy_ =
+      fn pSrc & pDest => (
+        if logEnabled () then log (GiraffeDebug.MCopy, pDest) else ();
+        copy_ (pSrc & pDest)
+      )
+
+    val clear_ =
+      fn p => (
+        if logEnabled () then log (GiraffeDebug.MClear, p) else ();
+        clear_ p
+      )
+
     fun dup_ ptr =
       let
         (* Ensure allocated memory is set to 0 in case `copy_` is a function
@@ -33,7 +78,6 @@ functor BoxedValueRecord(
       in
         ptrNew
       end
-    val take_ = Fn.ignore
 
     type t = non_opt p Finalizable.t
 
