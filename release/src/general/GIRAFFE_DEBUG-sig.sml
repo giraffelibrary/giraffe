@@ -12,6 +12,8 @@ signature GIRAFFE_DEBUG =
 
     val logMemEnabled : unit -> bool
     val logClosureEnabled : unit -> bool
+    val logFinalizersPendingOnExitEnabled : unit -> bool
+    val forceFinalizationOnExitEnabled : unit -> bool
 
     datatype mem_op =
         MFree
@@ -56,6 +58,13 @@ signature GIRAFFE_DEBUG =
       {
         closure2Op  : closure2_op,
         closureAddr : string
+      }
+       -> unit
+
+    val logFinalizersPendingOnExit :
+      {
+        globalCount      : int,
+        revContextCounts : int list
       }
        -> unit
   end

@@ -176,6 +176,55 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
         cleanedSome'
       end
 
+
+    fun countPendingList pendingList = List.length (SharedVar.get pendingList)
+
+    fun countContextEntry {pendingList, ...} = countPendingList pendingList
+
+    fun getPendingCounts () =
+      let
+        fun countNext (contextEntry, counts) =
+          countContextEntry contextEntry :: counts
+
+        val globalCount = countPendingList globalPendingList
+        val revContextCounts =
+          ContextTable.fold countNext (contextEntryTable, [])
+      in
+        {
+          globalCount      = globalCount,
+          revContextCounts = revContextCounts
+        }
+      end
+
+
+    fun forceCleanPendingElems ((), ps) =
+      foldl
+        (
+          fn ({runFinalizers, ...}, (runNowFns, ps)) =>
+            (runFinalizers :: runNowFns, ps)
+        )
+        ([], [])
+        ps
+
+    fun forceCleanPendingList pendingList =
+      let
+        val runNowFns = SharedVar.foldmap pendingList forceCleanPendingElems ()
+        val () = app run runNowFns
+      in
+        ()
+      end
+
+    fun forceCleanContextEntry {pendingList, ...} = forceCleanPendingList pendingList
+
+    fun forceFinalize () =
+      let
+        val () = forceCleanPendingList globalPendingList
+        val () = ContextTable.app forceCleanContextEntry contextEntryTable
+      in
+        ()
+      end
+
+
     local
       val onGC =
         fn () =>
@@ -192,8 +241,34 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
             end
           else ()
 
+      fun onExit () =
+        let
+          val () = while finalize GC.full do ()
+        in
+          if GiraffeDebug.isEnabled
+          then
+            let
+              val pendingCounts as {globalCount, revContextCounts} = getPendingCounts ()
+
+              val () =
+                if GiraffeDebug.logFinalizersPendingOnExitEnabled ()
+                then GiraffeDebug.logFinalizersPendingOnExit pendingCounts
+                else ()
+
+              val () =
+                if GiraffeDebug.forceFinalizationOnExitEnabled ()
+                    andalso List.foldl (op +) globalCount revContextCounts > 0
+                then forceFinalize ()
+                else ()
+            in
+              ()
+            end
+          else
+            ()
+        end
+
       val () = MLtonSignal.handleGC onGC
-      val () = OS.Process.atExit (fn () => while finalize GC.full do ())
+      val () = OS.Process.atExit onExit
     in
     end
 

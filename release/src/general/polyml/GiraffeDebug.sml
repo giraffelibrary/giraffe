@@ -17,6 +17,10 @@ structure GiraffeDebug :> GIRAFFE_DEBUG =
 
     fun logMemEnabled () = isEnabled andalso isDefinedSome "GIRAFFE_DEBUG_MEM"
     fun logClosureEnabled () = isEnabled andalso isDefinedSome "GIRAFFE_DEBUG_CLOSURE"
+    fun logFinalizersPendingOnExitEnabled () =
+      isEnabled andalso isDefinedSome "GIRAFFE_DEBUG_FINALIZERS_PENDING_ON_EXIT"
+    fun forceFinalizationOnExitEnabled () =
+      isEnabled andalso isDefinedSome "GIRAFFE_DEBUG_FORCE_FINALIZATION_ON_EXIT"
 
     fun log msgType fields =
       let
@@ -97,4 +101,14 @@ structure GiraffeDebug :> GIRAFFE_DEBUG =
           closure2OpToString closure2Op, " ",
           closureAddr, "\n"
         ]
+
+    fun logFinalizersPendingOnExit {globalCount, revContextCounts} =
+      log "finalizers-pending-on-exit"
+        (
+          Int.toString globalCount ::
+            List.foldl
+              (fn (count, strs) => " " :: Int.toString count :: strs)
+              ["\n"]
+              revContextCounts
+        )
   end
