@@ -335,6 +335,7 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         newSig "CLOSURE_MARSHAL" [],
         newSig "SIGNAL" [],
         newSig "PROPERTY" [],
+        newSig "WEAK" [],
         newSig "G_OBJECT_VALUE_RECORD" [],
         newSig "G_OBJECT_VALUE" []
       ],
@@ -369,6 +370,11 @@ val errorLog'1 = List.foldl insert errorLog'0 [
             "GObjectType",
             "GObjectClosure"
           ],
+        extendStrDeps "Weak"
+          [
+            "GObjectObjectClass",
+            "GObjectWeakRef"
+          ],
 
         (* Signal and Property must be loaded before structures that depend
            on them. *)
@@ -394,7 +400,12 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         extendStrDeps "GObjectObjectClass"
           ["GObjectType", "GObjectValueRecord", "GObjectValue"],
         extendStrDeps "GObjectParamSpecClass"
-          ["GObjectType", "GObjectValueRecord", "GObjectValue"]
+          ["GObjectType", "GObjectValueRecord", "GObjectValue"],
+
+        (* GObjectWeakRef is partially automatically generated.
+         * An additional dependency is required for the manual fixes to the
+         * automatic translation. *)
+        extendStrDeps "GObjectWeakRef" ["GObjectObjectClass"]
       ]
     ),
   gen outDir repo ("GModule", "2.0", "GLIB") [] ([], [], []),

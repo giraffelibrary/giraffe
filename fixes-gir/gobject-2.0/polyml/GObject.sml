@@ -319,6 +319,7 @@ structure GObject :
     structure TypeFundamentalFlags = GObjectTypeFundamentalFlags
     structure ValueRecord = GObjectValueRecord
     structure ValueArrayRecord = GObjectValueArrayRecord
+    structure WeakRefRecord = GObjectWeakRefRecord
     structure BindingFlags = GObjectBindingFlags
     structure ValueRecordCArrayN = GObjectValueRecordCArrayN
     structure SignalInvocationHint = GObjectSignalInvocationHint
@@ -356,6 +357,7 @@ structure GObject :
     structure ParamSpecVariantClass = GObjectParamSpecVariantClass
     structure TypeModuleClass = GObjectTypeModuleClass
     structure TypePluginClass = GObjectTypePluginClass
+    structure WeakRef = GObjectWeakRef
     structure Closure = GObjectClosure
     structure InitiallyUnowned = GObjectInitiallyUnowned
     structure ParamSpecBoolean = GObjectParamSpecBoolean

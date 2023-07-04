@@ -2399,7 +2399,6 @@
         </item>
         <item>field n_prealloced: private</item>
       </item>
-      <item>struct WeakRef: interface type excluded by configuration (excludedInterfaceTypes)</item>
       <item>union _Value__data__union: union interface type not included by configuration (includedUnionNames)</item>
       <item>
         function boxed_copy

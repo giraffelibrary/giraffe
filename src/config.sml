@@ -47,8 +47,7 @@ excludedInterfaceTypes := [
       "TypeInstance",
       "TypeInterface",
       "TypePluginClass",
-      "TypeValueTable",
-      "WeakRef"
+      "TypeValueTable"
     ]
   ),
   (
@@ -195,7 +194,8 @@ structTypes := [
   (
     [("GObject", "2.0")],
     [
-      ("Value",                  ValueRecord (Deep {copy = "giraffe_g_value_copy", clear = "giraffe_g_value_clear"}))
+      ("Value",                  ValueRecord (Deep {copy = "giraffe_g_value_copy", clear = "giraffe_g_value_clear"})),
+      ("WeakRef",                ValueRecord (Deep {copy = "giraffe_g_weak_ref_copy", clear = "g_weak_ref_clear"}))
     ]
   ),
   (

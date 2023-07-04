@@ -225,4 +225,5 @@ functor Class(
       FFI.withPtr false (checkInstance_ subclass) obj;
       obj
     )
+    fun toDerivedUnchecked obj = obj
   end

@@ -14,6 +14,7 @@ signature G_OBJECT =
     structure TypeFundamentalFlags : G_OBJECT_TYPE_FUNDAMENTAL_FLAGS
     structure ValueRecord : G_OBJECT_VALUE_RECORD
     structure ValueArrayRecord : G_OBJECT_VALUE_ARRAY_RECORD
+    structure WeakRefRecord : G_OBJECT_WEAK_REF_RECORD
     structure BindingFlags :
       G_OBJECT_BINDING_FLAGS
         where type type_t = Type.t
@@ -123,6 +124,10 @@ signature G_OBJECT =
         where type 'a object_class = 'a ObjectClass.class
     structure TypePluginClass :
       G_OBJECT_TYPE_PLUGIN_CLASS
+        where type 'a object_class = 'a ObjectClass.class
+    structure WeakRef :
+      G_OBJECT_WEAK_REF
+        where type t = WeakRefRecord.t
         where type 'a object_class = 'a ObjectClass.class
     structure Closure :
       G_OBJECT_CLOSURE

@@ -453,6 +453,37 @@ signature PROPERTY =
 ]]></code>
 </section>
 
+<section id="weak">
+<title>Weak</title>
+<p>
+The top-level structure <code type="sml">Weak</code> is included with the structure <code type="sml">GObject</code>
+and provides a high-level type safe representation of a GObject weak reference,
+<code type="sml">'object_class Weak.t</code>,
+and associated operations.
+</p>
+<code type="sml"><![CDATA[
+structure Weak :>
+]]>  WEAK
+    where type 'a object_class = 'a GObjectObjectClass.class
+</code>
+<code type="sml"><![CDATA[
+signature WEAK =
+  sig
+    type 'a t = unit -> 'a option
+
+    type 'a object_class
+
+    val new : 'a object_class -> 'a object_class t
+
+    val app : ('a -> unit) -> 'a t -> unit
+    val app1 : ('a -> 'b -> unit) -> 'a t -> 'b -> unit
+
+    val map : ('a -> 'b) -> 'a t * 'b -> 'b
+    val map1 : ('a -> 'b -> 'c) -> 'a t * 'c -> 'b -> 'c
+  end
+]]></code>
+</section>
+
 <section id="classify-event">
 <title>ClassifyEvent</title>
 <p>

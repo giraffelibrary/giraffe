@@ -341,6 +341,23 @@ giraffe_g_value_size ()
 }
 
 
+/* GWeakRef */
+
+void
+giraffe_g_weak_ref_copy (const GWeakRef *src, GWeakRef *dest)
+{
+  GObject *object;
+
+  /* Discard const qualifier of src because g_weak_ref_get does not declare
+   * its argument as const. */
+  object = g_weak_ref_get ((GWeakRef *)src);
+
+  g_weak_ref_init (dest, object); /* object may be NULL */
+  if (object)
+    g_object_unref (object);
+}
+
+
 /* GParamSpec */
 
 GType

@@ -12,6 +12,7 @@ signature CLASS =
     type 'a value_accessor_t
     val toBase : 'a class -> base class
     val toDerived : 'a class value_accessor_t -> base class -> 'a class
+    val toDerivedUnchecked : base class -> 'a class
 
     structure C :
       sig
