@@ -406,6 +406,8 @@ val vectorFFIArrayStrId : id = "VectorFFIArray"
 val withValId : id = "withVal"
 val withRefValId : id = "withRefVal"
 val fromValId : id = "fromVal"
+val callId : id = "call"
+val convId : id = "conv"
 
 val valTyName : tyname = ([], valId)
 val refTyName : tyname = ([], refId)
@@ -574,7 +576,6 @@ fun mkCStructStrDec strDecs : strdec =
 (* PolyML-specific reusable components *)
 
 val polyMLFFIStrId : id = "PolyMLFFI"
-val callId : id = "call"
 val getSymbolId : id = "getSymbol"
 val externalFunctionSymbolId : id = "externalFunctionSymbol"
 

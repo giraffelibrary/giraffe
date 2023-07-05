@@ -55,12 +55,12 @@ InterfaceConvDec has the form:
 
 
   local
-    val call =
+    val conv =
       <RootObjectNamespace><RootObjectName>Class.FFI.withPtr false
-       ---> <InterfaceNamespace><InterfaceName>Class.FFI.fromPtr false
+        (<InterfaceNamespace><InterfaceName>Class.FFI.fromPtr false)
   in
     fun as<InterfaceName> self =
-      call I (<RootObjectNamespace><RootObjectName>Class.toBase self)
+      conv (<RootObjectNamespace><RootObjectName>Class.toBase self)
   end
 
     rootObjectInfo = getRoot objectInfo

@@ -107,14 +107,11 @@ fun makeInterfaceConvStrDec
       )
 
     (*
-     *   call I (<RootObjectNamespace><RootObjectName>Class.toBase self)
+     *   conv (<RootObjectNamespace><RootObjectName>Class.toBase self)
      *)
-    val functionCallExp =
+    val convAppExp =
       ExpApp (
-        ExpApp (
-          mkIdLNameExp callId,
-          mkIdLNameExp iId
-        ),
+        mkIdLNameExp convId,
         mkParenExp (
           ExpApp (toBaseExp rootObjectIRef, mkIdLNameExp selfId)
         )
@@ -122,19 +119,19 @@ fun makeInterfaceConvStrDec
 
     (* 
      *   local
-     *     val call =
+     *     val conv =
      *       <RootObjectNamespace><RootObjectName>Class.FFI.withPtr false
-     *        ---> <InterfaceNamespace><InterfaceName>Class.FFI.fromPtr false
+     *         (<InterfaceNamespace><InterfaceName>Class.FFI.fromPtr false)
      *   in
      *     fun as<InterfaceName> self =
-     *       <functionCallExp>
+     *       <convAppExp>
      *   end
      *)
-    val callExp = mkDDDRExp (withFunExp, fromFunExp)
+    val convExp = ExpApp (withFunExp, mkParenExp fromFunExp)
     val functionDec =
       DecLocal (
-        mkDecs [mkIdValDec (callId, callExp)],
-        mkDecs [mkIdFunDec (interfaceConvId, toList1 [mkIdVarAPat selfId], functionCallExp)]
+        mkDecs [mkIdValDec (convId, convExp)],
+        mkDecs [mkIdFunDec (interfaceConvId, toList1 [mkIdVarAPat selfId], convAppExp)]
       )
   in
     (

@@ -314,19 +314,19 @@ structure VteTerminal :>
     type text_blink_mode_t = VteTextBlinkMode.t
     type t = base class
     local
-      val call = GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false
+      val conv = GObjectObjectClass.FFI.withPtr false (AtkImplementorIfaceClass.FFI.fromPtr false)
     in
-      fun asImplementorIface self = call I (GObjectObjectClass.toBase self)
+      fun asImplementorIface self = conv (GObjectObjectClass.toBase self)
     end
     local
-      val call = GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false
+      val conv = GObjectObjectClass.FFI.withPtr false (GtkBuildableClass.FFI.fromPtr false)
     in
-      fun asBuildable self = call I (GObjectObjectClass.toBase self)
+      fun asBuildable self = conv (GObjectObjectClass.toBase self)
     end
     local
-      val call = GObjectObjectClass.FFI.withPtr false ---> GtkScrollableClass.FFI.fromPtr false
+      val conv = GObjectObjectClass.FFI.withPtr false (GtkScrollableClass.FFI.fromPtr false)
     in
-      fun asScrollable self = call I (GObjectObjectClass.toBase self)
+      fun asScrollable self = conv (GObjectObjectClass.toBase self)
     end
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     local
