@@ -80,21 +80,28 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
         isAlive : unit -> bool,
         runFinalizers : unit -> unit
       }
-    type pending_list_sv = pending list SharedVar.t
+    type pending_list =
+      {
+        pendings  : pending list,
+        notifiers : bool ref list
+      }
+    type shared_pending_list = pending_list SharedVar.t
 
     structure ContextTable = WordTable(Word)
     type context_key = ContextTable.key  (* = `word` *)
     type context_marshaler = (unit -> unit) -> unit
     type context_entry =
       {
-        pendingList : pending_list_sv,
+        pendingList : shared_pending_list,
         isAlive     : (unit -> bool) ref,
         marshaler   : context_marshaler option ref
       }
     type context_entry_table = context_entry ContextTable.t
 
+    val initPendingList = {pendings = [], notifiers = []}
+
     (* State for finalizable values whose finalization is pending. *)
-    val globalPendingList : pending_list_sv = SharedVar.new []
+    val globalPendingList : shared_pending_list = SharedVar.new initPendingList
     val contextEntryTable : context_entry_table = ContextTable.new ()
 
     fun getContextEntry key =
@@ -102,31 +109,29 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
         SOME contextEntry => contextEntry
       | NONE => raise Fail "error: context not in table"
 
-    local
-      val flagVar : bool SharedVar.t = SharedVar.new false
-      fun set _ = true
-      fun clear ((), flag) = (flag, false)
-    in
-      fun skipNextPostGCFinalizer () : unit = SharedVar.map flagVar set
-      fun skipThisPostGCFinalizer () : bool = SharedVar.foldmap flagVar clear ()
-    end
-
-    fun add (ps', ps) = ((), ps' @ ps)
-
-    fun cleanPendingElems ((), ps) =
-      if List.exists (fn {isAlive, ...} => not (isAlive ())) ps
+    fun cleanPendings allowNotifiers ((), pendingList as {pendings, notifiers}) =
+      if
+        (List.null notifiers orelse allowNotifiers)
+         andalso List.exists (fn {isAlive, ...} => not (isAlive ())) pendings
       then
-        foldl
-          (
-            fn (p as {isAlive, runFinalizers}, (runNowFns, ps)) =>
-              if isAlive ()
-              then (runNowFns, p :: ps)
-              else (runFinalizers :: runNowFns, ps)
-          )
-          ([], [])
-          ps
+        let
+          val (runNowFns, pendings') =
+            foldl
+              (
+                fn (pending as {isAlive, runFinalizers}, (runNowFns, pendings)) =>
+                  if isAlive ()
+                  then (runNowFns, pending :: pendings)
+                  else (runFinalizers :: runNowFns, pendings)
+              )
+              ([], [])
+              pendings
+
+          val () = List.app (fn notifier => notifier := true) notifiers
+        in
+          (runNowFns, {pendings = pendings', notifiers = notifiers})
+        end
       else
-        ([], ps)
+        ([], pendingList)
 
     fun printErr s = (
       TextIO.output (TextIO.stdErr, s);
@@ -138,46 +143,91 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
 
     fun run f = f () handle e => reportExn e
 
-    fun cleanPendingList marshaler pendingList =
+    fun cleanPendingList allowNotifiers marshaler pendingList =
       let
-        val runNowFns = SharedVar.foldmap pendingList cleanPendingElems ()
-        val cleanedSome =
+        val runNowFns = SharedVar.foldmap pendingList (cleanPendings allowNotifiers) ()
+        val () =
           if not (List.null runNowFns)
-          then (marshaler (fn () => app run runNowFns); true)
-          else false
+          then marshaler (fn () => List.app run runNowFns)
+          else ()
       in
-        cleanedSome
+        ()
       end
 
-    fun cleanContextEntry {pendingList, marshaler, ...} =
+    fun cleanContextEntry allowNotifiers {pendingList, marshaler, ...} =
       case ! marshaler of
-        SOME marshaler => cleanPendingList marshaler pendingList
-      | NONE           => false
+        SOME marshaler => cleanPendingList allowNotifiers marshaler pendingList
+      | NONE           => ()
 
     (* A context entry is needed if the context is alive or there are still
      * pending items.  Note that `!` is not `not`! *)
     fun needContextEntry {isAlive, pendingList, ...} =
-      ! isAlive () orelse not (List.null (SharedVar.get pendingList))
+      ! isAlive () orelse not (List.null (#pendings (SharedVar.get pendingList)))
 
     fun marshalNow f = f ()
 
-    fun finalize doGC =
+    fun splitAt (x, xs) =
       let
-        fun cleanNext (contextEntry, cleanedSome) =
-          cleanContextEntry contextEntry orelse cleanedSome
-
-        val () = skipNextPostGCFinalizer ()
-        val () = doGC ()
-        val cleanedSome'1 = cleanPendingList marshalNow globalPendingList
-        val cleanedSome' =
-          ContextTable.fold cleanNext (contextEntryTable, cleanedSome'1)
-        val () = ignore (ContextTable.filter contextEntryTable needContextEntry)
+        fun step (zs, ys) =
+          case ys of
+            []       => ([], xs)
+          | y :: ys' =>
+              if x = y
+              then (zs, ys')
+              else step (y :: zs, ys')
       in
-        cleanedSome'
+        step ([], xs)
       end
 
+    fun removeFirst (x, xs) = List.revAppend (splitAt (x, xs))
 
-    fun countPendingList pendingList = List.length (SharedVar.get pendingList)
+    fun addNotifier notifier {pendings, notifiers} =
+      {pendings = pendings, notifiers = notifier :: notifiers}
+
+    fun removeNotifier notifier {pendings, notifiers} =
+      {pendings = pendings, notifiers = removeFirst (notifier, notifiers)}
+
+    fun addPendingListNotifier notifier pendingList =
+      SharedVar.map pendingList (addNotifier notifier)
+
+    fun removePendingListNotifier notifier pendingList =
+      SharedVar.map pendingList (removeNotifier notifier)
+
+    fun addContextEntryNotifier notifier {pendingList, ...} =
+      addPendingListNotifier notifier pendingList
+
+    fun removeContextEntryNotifier notifier {pendingList, ...} =
+      removePendingListNotifier notifier pendingList
+
+    fun finalize doGC =
+      let
+        val n = ref false
+      in
+        let
+          val () = addPendingListNotifier n globalPendingList
+          val () = ContextTable.app (addContextEntryNotifier n) contextEntryTable
+
+          val () = doGC ()
+          val () = cleanPendingList true marshalNow globalPendingList
+          val () = ContextTable.app (cleanContextEntry true) contextEntryTable
+
+          val () = removePendingListNotifier n globalPendingList
+          val () = ContextTable.app (removeContextEntryNotifier n) contextEntryTable
+
+          val () = ignore (ContextTable.filter contextEntryTable needContextEntry)
+        in
+          ! n
+        end
+          handle e =>
+            (* ensure notifier `n` is removed *)
+            (
+              removePendingListNotifier n globalPendingList;
+              ContextTable.app (removeContextEntryNotifier n) contextEntryTable;
+              raise e
+            )
+      end
+
+    fun countPendingList pendingList = List.length (#pendings (SharedVar.get pendingList))
 
     fun countContextEntry {pendingList, ...} = countPendingList pendingList
 
@@ -197,49 +247,49 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
       end
 
 
-    fun forceCleanPendingElems ((), ps) =
-      foldl
-        (
-          fn ({runFinalizers, ...}, (runNowFns, ps)) =>
-            (runFinalizers :: runNowFns, ps)
-        )
-        ([], [])
-        ps
-
-    fun forceCleanPendingList pendingList =
+    fun revMap f =
       let
-        val runNowFns = SharedVar.foldmap pendingList forceCleanPendingElems ()
-        val () = app run runNowFns
+        fun step res =
+          fn
+            []      => res
+          | x :: xs => step (f x :: res) xs
+      in
+        step []
+      end
+
+    fun forceCleanPendings ((), {pendings, notifiers}) =
+      let
+        val (runNowFns, pendings') = (revMap #runFinalizers pendings, [])
+        val () = List.app (fn notifier => notifier := true) notifiers
+      in
+        (runNowFns, {pendings = pendings', notifiers = notifiers})
+      end
+
+    fun forceCleanPendingList marshaler pendingList =
+      let
+        val runNowFns = SharedVar.foldmap pendingList forceCleanPendings ()
+        val () = marshaler (fn () => List.app run runNowFns)
       in
         ()
       end
 
-    fun forceCleanContextEntry {pendingList, ...} = forceCleanPendingList pendingList
-
-    fun forceFinalize () =
-      let
-        val () = forceCleanPendingList globalPendingList
-        val () = ContextTable.app forceCleanContextEntry contextEntryTable
-      in
-        ()
-      end
+    fun forceCleanContextEntry {pendingList, marshaler, ...} =
+      case ! marshaler of
+        SOME marshaler => forceCleanPendingList marshaler pendingList
+      | NONE           => ()
 
 
     local
       val onGC =
         fn () =>
-          if not (skipThisPostGCFinalizer ())
-          then
-            let
-              val () = ignore (cleanPendingList marshalNow globalPendingList)
-              val () =
-                ContextTable.app (ignore o cleanContextEntry) contextEntryTable
-              val () =
-                ignore (ContextTable.filter contextEntryTable needContextEntry)
-            in
-              ()
-            end
-          else ()
+          let
+            val () = cleanPendingList false marshalNow globalPendingList
+            val () = ContextTable.app (cleanContextEntry false) contextEntryTable
+            val () =
+              ignore (ContextTable.filter contextEntryTable needContextEntry)
+          in
+            ()
+          end
 
       fun onExit () =
         let
@@ -258,7 +308,11 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
               val () =
                 if GiraffeDebug.forceFinalizationOnExitEnabled ()
                     andalso List.foldl (op +) globalCount revContextCounts > 0
-                then forceFinalize ()
+                then
+                  (
+                    forceCleanPendingList marshalNow globalPendingList;
+                    ContextTable.app forceCleanContextEntry contextEntryTable
+                  )
                 else ()
             in
               ()
@@ -283,7 +337,7 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
             val isAlive = ref (Fn.const false)
             val contextEntry =
               {
-                pendingList = SharedVar.new [],
+                pendingList = SharedVar.new initPendingList,
                 isAlive     = isAlive,
                 marshaler   = ref NONE
               }
@@ -309,11 +363,29 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
             val ref key = context
             val {pendingList, ...} = getContextEntry key
 
-            val () = skipNextPostGCFinalizer ()
-            val () = doGC ()
-            val cleanedSome'1 = cleanPendingList marshalNow globalPendingList
+            val n = ref false
           in
-            cleanPendingList marshaler pendingList orelse cleanedSome'1
+            let
+
+              val () = addPendingListNotifier n globalPendingList
+              val () = addPendingListNotifier n pendingList
+
+              val () = doGC ()
+              val () = cleanPendingList true marshalNow globalPendingList
+              val () = cleanPendingList true marshaler pendingList
+
+              val () = removePendingListNotifier n globalPendingList
+              val () = removePendingListNotifier n pendingList
+            in
+              ! n
+            end
+              handle e =>
+                (* ensure notifier `n` is removed *)
+                (
+                  removePendingListNotifier n globalPendingList;
+                  removePendingListNotifier n pendingList;
+                  raise e
+                )
           end
       end
 
@@ -343,10 +415,13 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
         (t, pending)
       end
 
+    fun add pendings' {pendings, notifiers} =
+      {pendings = pendings' @ pendings, notifiers = notifiers}
+
     fun new (v : 'a) : 'a t =
       let
         val (t, pending) = newInternal v
-        val () = SharedVar.foldmap globalPendingList add [pending]
+        val () = SharedVar.map globalPendingList (add [pending])
       in
         t
       end
@@ -357,7 +432,7 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
 
         val ref key = context
         val {pendingList, ...} = getContextEntry key
-        val () = SharedVar.foldmap pendingList add [pending]
+        val () = SharedVar.map pendingList (add [pending])
 
         (* Ensure that `context` is referenced until after its associated
          * pending list has been updated.  This ensures that an empty
