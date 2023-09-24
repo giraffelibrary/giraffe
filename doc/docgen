@@ -353,7 +353,7 @@ then
   echo "Generating documentation in '${OUT_SITE_DIR}'"
   if ! "${YELP_BUILD}" html -o "${OUT_SITE_DIR}" \
                                   "${DOCGEN_REL_DIR}/src"/*.page \
-                                  "${DOCGEN_REL_DIR}/src"/*-guide \
+                                  "${DOCGEN_REL_DIR}/src"/*-guide/*.page \
                                   "${DOCGEN_REL_DIR}/${EXAMPLES_DIR}"/*/*.page
   then
     echo "error: ${YELP_BUILD} failed"
