@@ -29,7 +29,7 @@
   <p>
     Various introductions are available for GObject-based libraries, especially GTK.
     For GTK 3, the reference manual provides an introduction in the section
-    <link href="https://developer.gnome.org/gtk3/stable/gtk-getting-started.html">Getting Started with GTK+</link>
+    <link href="https://developer-old.gnome.org/gtk3/stable/gtk-getting-started.html">Getting Started with GTK+</link>
     and the <link xref="eg-index"/> provides SML versions of the C source code examples
     in the section <link xref="eg-gtk3-reference-manual"/>.
     Tutorials and examples written for other languages are a valuable source of information.

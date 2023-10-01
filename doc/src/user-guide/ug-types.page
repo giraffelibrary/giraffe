@@ -10,7 +10,7 @@
 <section id="basic-types">
 <title>Basic types</title>
 <p>
-For each <link href="https://developer.gnome.org/glib/stable/glib-Basic-Types.html">basic type</link> g<var>basictype</var>,
+For each <link href="https://developer-old.gnome.org/glib/stable/glib-Basic-Types.html">basic type</link> g<var>basictype</var>,
 there is an SML structure <code>G<var>BasicType</var></code>
 and the corresponding SML type is <code>G<var>BasicType</var>.t</code>.
 The exception to this is guchar, which is treated as guint8 and does not have its own SML structure.
@@ -140,7 +140,7 @@ Note that if <code><var>Elem</var></code> is the structure for a named type <cod
 <section id="enum-types">
 <title>Enumeration types</title>
 <p>
-For each <link href="https://developer.gnome.org/gobject/stable/gobject-Enumeration-and-Flag-Types.html">enumeration type</link> <var>Enum</var>
+For each <link href="https://developer-old.gnome.org/gobject/stable/gobject-Enumeration-and-Flag-Types.html">enumeration type</link> <var>Enum</var>
 in a namespace <var>Namespace</var>,
 there is an SML structure <code><var>Namespace</var>.<var>Enum</var></code>
 and the SML type for the enumeration is <code><var>Namespace</var>.<var>Enum</var>.t</code>
@@ -182,7 +182,7 @@ signature GTK_BUTTONS_TYPE =
 <section id="flags-types">
 <title>Flags (bitfield) types</title>
 <p>
-For each <link href="https://developer.gnome.org/gobject/stable/gobject-Enumeration-and-Flag-Types.html">flags (bitfield) type</link> <var>Flags</var>
+For each <link href="https://developer-old.gnome.org/gobject/stable/gobject-Enumeration-and-Flag-Types.html">flags (bitfield) type</link> <var>Flags</var>
 in a namespace <var>Namespace</var>,
 there is an SML structure <code><var>Namespace</var>.<var>Flags</var></code>
 and the SML type for the flags is <code><var>Namespace</var>.<var>Flags</var>.t</code>.
