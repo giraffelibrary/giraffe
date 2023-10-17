@@ -37,7 +37,7 @@ Therefore, this section describes building without use of <cmd>polyc</cmd>.
 <title>Source files</title>
 <p>
 We assume that the main program for the application is
-a function <code><var>main</var> : unit -> unit</code>,
+a function <code type="sml"><var>main</var> : unit -> unit</code>,
 as described in the section <link xref="ug-main-program"/>,
 and that this is defined in a source file <file><var>app</var>.sml</file>.
 </p>
@@ -48,7 +48,7 @@ to keep <file><var>app</var>.sml</file> portable:
 </p>
 <listing>
 <title><file>polyml-export.sml</file></title>
-<code>
+<code type="sml">
 val () = PolyML.export (<var>name</var>, <var>main</var>)
 </code>
 </listing>
@@ -67,39 +67,39 @@ where <file><var>installdir</var></file> is the Giraffe Library installation dir
 The dependencies provided by Giraffe Library require
 the file <file>${GIRAFFE_SML_LIB}/polyml.sml</file> to be loaded first:
 </p>
-<code>
+<code type="sml">
 val () =
   case OS.Process.getEnv "GIRAFFE_SML_LIB" of
     SOME dir => PolyML.use (OS.Path.joinDirFile {dir = dir, file = "polyml.sml"})
   | NONE     => raise Fail "GIRAFFE_SML_LIB not set"
 </code>
 <p>
-This defines a top-level function <code>use</code> that supports relative paths in recursive use and environment variable expansion:
+This defines a top-level function <code type="sml">use</code> that supports relative paths in recursive use and environment variable expansion:
 </p>
 <list style="compact">
 <item>
   <p>
-    if <code>use <var>file</var></code> occurs in a file in a directory <file><var>dir</var></file>
-    and <code><var>file</var></code> is a relative path,
+    if <code type="sml">use <var>file</var></code> occurs in a file in a directory <file><var>dir</var></file>
+    and <code type="sml"><var>file</var></code> is a relative path,
     <file><var>file</var></file> is treated relative to <file><var>dir</var></file>;
   </p>
 </item>
 <item>
   <p>
-    in <code>use <var>file</var></code>, occurrences of <code>$(<var>VAR</var>)</code> in <code><var>file</var></code>
+    in <code type="sml">use <var>file</var></code>, occurrences of <code>$(<var>VAR</var>)</code> in <code><var>file</var></code>
     are expanded to the value of the environment variable <code><var>VAR</var></code> if defined and
     to the empty string if not defined.
   </p>
 </item>
 </list>
 <p>
-This <code>use</code> function is more convenient that <code>PolyML.use</code>
+This <code type="sml">use</code> function is more convenient that <code type="sml">PolyML.use</code>
 so is used in the subsequent SML declarations to load dependencies.
 </p>
 <p>
 The library dependencies always include
 </p>
-<code>
+<code type="sml">
 val () = use "$(GIRAFFE_SML_LIB)/general/polyml.sml"
 val () = use "$(GIRAFFE_SML_LIB)/ffi/polyml.sml"
 val () = use "$(GIRAFFE_SML_LIB)/gir/polyml.sml"
@@ -107,21 +107,21 @@ val () = use "$(GIRAFFE_SML_LIB)/gir/polyml.sml"
 <p>
 and include
 </p>
-<code>
+<code type="sml">
 val () = use "$(GIRAFFE_SML_LIB)/<var>namespace</var>-<var>version</var>/polyml.sml"
 </code>
 <p>
 for each namespace <var>Namespace</var>-<var>Version</var>
-whose structure <code><var>Namespace</var></code> is referenced in the SML source
+whose structure <code type="sml"><var>Namespace</var></code> is referenced in the SML source
 <em>or in another library dependency</em>.
 </p>
 <example>
 <p>
-For example, if the SML source references the structure <code>Gio</code>
+For example, if the SML source references the structure <code type="sml">Gio</code>
 to use the Gio-2.0 namespace,
 then the dependencies also include GLib and GObject which are referenced from Gio:
 </p>
-<code>
+<code type="sml">
 val () = use "$(GIRAFFE_SML_LIB)/glib-2.0/polyml.sml"
 val () = use "$(GIRAFFE_SML_LIB)/gobject-2.0/polyml.sml"
 val () = use "$(GIRAFFE_SML_LIB)/gio-2.0/polyml.sml"
@@ -146,7 +146,7 @@ Therefore, an SML file that loads the library dependencies and application sourc
 </p>
 <listing>
 <title><file>polyml.sml</file></title>
-<code>
+<code type="sml">
 val () = use "$(GIRAFFE_SML_LIB)/general/polyml.sml"
 val () = use "$(GIRAFFE_SML_LIB)/ffi/polyml.sml"
 val () = use "$(GIRAFFE_SML_LIB)/gir/polyml.sml"
@@ -161,7 +161,7 @@ An overall script to load all files and export an object file could have the fol
 </p>
 <listing>
 <title><file>load-polyml.sml</file></title>
-<code>
+<code type="sml">
 val () =
   case OS.Process.getEnv "GIRAFFE_SML_LIB" of
     SOME dir => use (OS.Path.joinDirFile {dir = dir, file = "polyml.sml"})
@@ -200,7 +200,7 @@ This is achieved by the following command:
 </p>
 <quote>
 <screen>
-<cmd>GIRAFFE_SML_LIB=<var>installdir</var>/lib/sml \
+<cmd type="bash">GIRAFFE_SML_LIB=<var>installdir</var>/lib/sml \
  poly --script load-polyml.sml</cmd>
 </screen>
 </quote>
@@ -214,7 +214,7 @@ This is achieved by the following command:
 </p>
 <quote>
 <screen>
-<cmd>GIRAFFE_SML_LIB=<var>installdir</var>/lib/sml \
+<cmd type="bash">GIRAFFE_SML_LIB=<var>installdir</var>/lib/sml \
  GIRAFFE_DEBUG=1 \
  poly --script load-polyml.sml</cmd>
 </screen>
@@ -239,7 +239,7 @@ This is achieved by the following command:
     Under Linux:
   </p>
   <quote>
-  <screen><cmd>gcc \
+  <screen><cmd type="bash">gcc \
  -Wl,-rpath,<var>polymldir</var>/lib \
  -Wl,-rpath,<var>installdir</var>/lib/polyml \
  -o <var>name</var> \
@@ -260,7 +260,7 @@ This is achieved by the following command:
     Under Darwin, the same as for Linux except that the <cmd>ld</cmd> flag <cmd>-no_pie</cmd> is also specified in case Poly/ML &lt; 5.9 or Poly/ML generates X86/32 code:
   </p>
   <quote>
-  <screen><cmd>gcc \
+  <screen><cmd type="bash">gcc \
  -Wl,-no_pie \
  -Wl,-rpath,<var>polymldir</var>/lib \
  -Wl,-rpath,<var>installdir</var>/lib/polyml \
@@ -284,7 +284,7 @@ This is achieved by the following command:
   that the SML code loads into a Poly/ML session,
   as shown in <file>polyml.sml</file> above.
   In particular, there is no need to mention <file><var>namespace</var>-<var>version</var></file>
-  if the structure <code><var>Namespace</var></code> is referenced in a library dependency
+  if the structure <code type="sml"><var>Namespace</var></code> is referenced in a library dependency
   but <em>not</em> in the application's SML source
   because the <cmd>pkg-config</cmd> utility determines dependencies.
 </p>
@@ -299,13 +299,13 @@ the following files could be used:
 </p>
 <listing>
 <title><file>polyml-export.sml</file></title>
-<code>
+<code type="sml">
 val () = PolyML.export ("example-1-polyml.o", main)
 </code>
 </listing>
 <listing>
 <title><file>polyml.sml</file></title>
-<code>
+<code type="sml">
 val () = use "$(GIRAFFE_SML_LIB)/general/polyml.sml"
 val () = use "$(GIRAFFE_SML_LIB)/ffi/polyml.sml"
 val () = use "$(GIRAFFE_SML_LIB)/gir/polyml.sml"
@@ -326,7 +326,7 @@ val () = use "example-1.sml"
 </listing>
 <listing>
 <title><file>load-polyml.sml</file></title>
-<code>
+<code type="sml">
 val () =
   case OS.Process.getEnv "GIRAFFE_SML_LIB" of
     SOME dir => use (OS.Path.joinDirFile {dir = dir, file = "polyml.sml"})
@@ -341,7 +341,7 @@ given environment variables for the installation directories as follows:
 </p>
 <quote>
 <screen>
-<cmd>GIRAFFEHOME=<var>installdir</var>
+<cmd type="bash">GIRAFFEHOME=<var>installdir</var>
 POLYMLHOME=<var>polymldir</var>
 </cmd>
 </screen>
@@ -368,7 +368,7 @@ the following commands could be used.
       Under Linux:
     </p>
     <quote>
-    <screen><cmd>gcc \
+    <screen><cmd type="bash">gcc \
  -ggdb \
  -Wl,-rpath,${POLYMLHOME}/lib \
  -Wl,-rpath,${GIRAFFEHOME}/lib/polyml \
@@ -389,7 +389,7 @@ the following commands could be used.
       Under Darwin, the same as for Linux except that the <cmd>ld</cmd> flag <cmd>-no_pie</cmd> is also specified in case Poly/ML &lt; 5.9 or Poly/ML generates X86/32 code:
     </p>
     <quote>
-    <screen><cmd>gcc \
+    <screen><cmd type="bash">gcc \
  -ggdb \
  -Wl,-no_pie \
  -Wl,-rpath,${POLYMLHOME}/lib \

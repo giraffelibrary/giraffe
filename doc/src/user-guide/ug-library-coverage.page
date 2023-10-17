@@ -12,7 +12,7 @@ Of the entities provided by a library, many are not intended for introspection,
 that is to say they are not intended for use from languages other than C,
 and are therefore excluded from the SML interface.
 Such entities are annotated with <code>(skip)</code> in the gtk-doc comment in the source code
-and with ‘[skip]’ in the reference manual.
+and with ‘[skip]’ in the reference manual.  
 </p>
 <p>
 An SML interface does not usually include all library entities intended for introspection.
@@ -44,7 +44,7 @@ This section describes limitations are that inherent in using SML.
 <section>
 <title>Variadic functions</title>
 <p>
-A variadic function (and function that has an argument of type <code>va_list</code>)
+A variadic function (and function that has an argument of type <code type="c">va_list</code>)
 cannot be supported because there is no SML type for such a function.
 This is not a significant limitation in practice because
 the difficulties binding to such functions from many languages are recognised

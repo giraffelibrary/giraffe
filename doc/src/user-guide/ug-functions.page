@@ -37,29 +37,31 @@ as described below.
 <section>
 <title>Referring to functions</title>
 <p>
-For a function <code><var>someFunctionName</var></code>
-in a namespace <code><var>Namespace</var></code>,
+For a function <var>some_function_name</var>
+in a namespace <var>Namespace</var>,
 the hierarchical SML name is
-<code><var>Namespace</var>.<var>someFunctionName</var></code>.
+<code type="sml"><var>Namespace</var>.<var>someFunctionName</var></code>.
 </p>
 <example>
 <p>
-For example, the function <code>shellParseArgv</code>
-in the namespace <code>GLib</code> is
-<code>GLib.shellParseArgv</code>.
+For example, the function shell_parse_argv
+in the namespace GLib is
+<code type="sml">GLib.shellParseArgv</code>.
 </p>
 </example>
 <p>
-For a function <code><var>someFunctionName</var></code>
-in a named type <code><var>Namespace</var>.<var>Type</var></code>,
+For a function <var>some_function_name</var>
+in a named type <var>Type</var>
+in a namespace <var>Namespace</var>,
 the hierarchical SML name is
-<code><var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var></code>.
+<code type="sml"><var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var></code>.
 </p>
 <example>
 <p>
-For example, the function <code>grabFocus</code>
-in the class <code>Gtk.Widget</code> is
-<code>Gtk.Widget.grabFocus</code>.
+For example, the function grab_focus
+in the class Widget
+in the namespace Gtk is
+<code type="sml">Gtk.Widget.grabFocus</code>.
 </p>
 </example>
 <p>
@@ -74,22 +76,22 @@ because its arguments contain only initial values and
 the final values of are part of the returned value.
 </p>
 <p>
-The specification of <code><var>someFunctionName</var></code>
-in the signature <code><var>NAMESPACE</var></code> or <code><var>NAMESPACE</var>_<var>TYPE</var></code>
+The specification of <code type="sml"><var>someFunctionName</var></code>
+in the signature <code type="sml"><var>NAMESPACE</var></code> or <code type="sml"><var>NAMESPACE</var>_<var>TYPE</var></code>
 has the form:
 </p>
 <list>
 <item>
-  <code>
+  <code type="sml">
 val <var>someFunctionName</var> : <var>inTypes</var> <![CDATA[->]]> <var>retOutTypes</var>
 </code>
-  <p>if <code><var>someFunctionName</var></code> is not a method;</p>
+  <p>if <code type="sml"><var>someFunctionName</var></code> is not a method;</p>
 </item>
 <item>
-  <code>
+  <code type="sml">
 val <var>someFunctionName</var> : <var>instanceType</var> <![CDATA[->]]> <var>inTypes</var> <![CDATA[->]]> <var>retOutTypes</var>
 </code>
-  <p>if <code><var>someFunctionName</var></code> is a method of a class or interface.</p>
+  <p>if <code type="sml"><var>someFunctionName</var></code> is a method of a class or interface.</p>
 </item>
 </list>
 <p>
@@ -97,54 +99,54 @@ where
 </p>
 <terms>
 <item>
-  <title><code><var>instanceType</var></code></title>
+  <title><code type="sml"><var>instanceType</var></code></title>
   <p>
     is:
   </p>
   <list>
-    <item><p><code>'a class</code> for a class, which allows an instance of the class or any subclass of the class;</p></item>
-    <item><p><code>t</code> for an interface;</p></item>
+    <item><p><code type="sml">'a class</code> for a class, which allows an instance of the class or any subclass of the class;</p></item>
+    <item><p><code type="sml">t</code> for an interface;</p></item>
   </list>
 </item>
 <item>
-  <title><code><var>inTypes</var></code></title>
+  <title><code type="sml"><var>inTypes</var></code></title>
   <p>
     contains the types of the &#x2018;in&#x2019; and &#x2018;inout&#x2019; arguments,
-    as a tuple if there are two or more and as <code>unit</code> if there are none;
+    as a tuple if there are two or more and as <code type="sml">unit</code> if there are none;
   </p>
 <!--
   <table rules="rowgroups cols">
     <tbody>
       <tr>
         <td><p>Number of &#x2018;in&#x2019; and &#x2018;inout&#x2019; arguments</p></td>
-        <td><p><code><var>inTypes</var></code></p></td>
+        <td><p><code type="sml"><var>inTypes</var></code></p></td>
       </tr>
     </tbody>
     <tbody>
       <tr>
         <td><p>0</p></td>
-        <td><p><code>unit</code></p></td>
+        <td><p><code type="sml">unit</code></p></td>
       </tr>
       <tr>
         <td><p>1</p></td>
-        <td><p><code><var>inType1</var></code></p></td>
+        <td><p><code type="sml"><var>inType1</var></code></p></td>
       </tr>
       <tr>
         <td><p>2</p></td>
-        <td><p><code><var>inType1</var> * <var>inType2</var></code></p></td>
+        <td><p><code type="sml"><var>inType1</var> * <var>inType2</var></code></p></td>
       </tr>
       <tr>
         <td><p>&gt; 2</p></td>
-        <td><p><code><var>inType1</var> * <var>inType2</var> * …</code></p></td>
+        <td><p><code type="sml"><var>inType1</var> * <var>inType2</var> * …</code></p></td>
       </tr>
     </tbody>
   </table>
 -->
 </item>
 <item>
-  <title><code><var>retOutTypes</var></code></title>
+  <title><code type="sml"><var>retOutTypes</var></code></title>
   <p>
-    contains the following types as a tuple if there are two or more and as <code>unit</code> if there are none:
+    contains the following types as a tuple if there are two or more and as <code type="sml">unit</code> if there are none:
   </p>
   <list>
   <item>
@@ -156,25 +158,25 @@ where
       <tbody>
         <tr>
           <td><p>Number of &#x2018;out&#x2019; and &#x2018;inout&#x2019; arguments</p></td>
-          <td><p><code><var>retOutTypes</var></code></p></td>
+          <td><p><code type="sml"><var>retOutTypes</var></code></p></td>
         </tr>
       </tbody>
       <tbody>
         <tr>
           <td><p>0</p></td>
-          <td><p><code>unit</code></p></td>
+          <td><p><code type="sml">unit</code></p></td>
         </tr>
         <tr>
           <td><p>1</p></td>
-          <td><p><code><var>outType1</var></code></p></td>
+          <td><p><code type="sml"><var>outType1</var></code></p></td>
         </tr>
         <tr>
           <td><p>2</p></td>
-          <td><p><code><var>outType1</var> * <var>inType2</var></code></p></td>
+          <td><p><code type="sml"><var>outType1</var> * <var>inType2</var></code></p></td>
         </tr>
         <tr>
           <td><p>&gt; 2</p></td>
-          <td><p><code><var>outType1</var> * <var>outType2</var> * …</code></p></td>
+          <td><p><code type="sml"><var>outType1</var> * <var>outType2</var> * …</code></p></td>
         </tr>
       </tbody>
     </table>
@@ -194,25 +196,25 @@ where
       <tbody>
         <tr>
           <td><p>Number of &#x2018;out&#x2019; and &#x2018;inout&#x2019; arguments</p></td>
-          <td><p><code><var>retOutTypes</var></code></p></td>
+          <td><p><code type="sml"><var>retOutTypes</var></code></p></td>
         </tr>
       </tbody>
       <tbody>
         <tr>
           <td><p>0</p></td>
-          <td><p><code>retType</code></p></td>
+          <td><p><code type="sml">retType</code></p></td>
         </tr>
         <tr>
           <td><p>1</p></td>
-          <td><p><code>retType * <var>outType1</var></code></p></td>
+          <td><p><code type="sml">retType * <var>outType1</var></code></p></td>
         </tr>
         <tr>
           <td><p>2</p></td>
-          <td><p><code>retType * <var>outType1</var> * <var>outType2</var></code></p></td>
+          <td><p><code type="sml">retType * <var>outType1</var> * <var>outType2</var></code></p></td>
         </tr>
         <tr>
           <td><p>&gt; 2</p></td>
-          <td><p><code>retType * <var>outType1</var> * <var>outType2</var> * …</code></p></td>
+          <td><p><code type="sml">retType * <var>outType1</var> * <var>outType2</var> * …</code></p></td>
         </tr>
       </tbody>
     </table>
@@ -229,25 +231,25 @@ where
       <tbody>
         <tr>
           <td><p>Number of &#x2018;inout&#x2019; arguments</p></td>
-          <td><p><code><var>retOutTypes</var></code></p></td>
+          <td><p><code type="sml"><var>retOutTypes</var></code></p></td>
         </tr>
       </tbody>
       <tbody>
         <tr>
           <td><p>0</p></td>
-          <td><p><code><var>condOutTypes</var> option</code></p></td>
+          <td><p><code type="sml"><var>condOutTypes</var> option</code></p></td>
         </tr>
         <tr>
           <td><p>1</p></td>
-          <td><p><code><var>outType1</var> * <var>condOutTypes</var> option</code></p></td>
+          <td><p><code type="sml"><var>outType1</var> * <var>condOutTypes</var> option</code></p></td>
         </tr>
         <tr>
           <td><p>2</p></td>
-          <td><p><code><var>outType1</var> * <var>outType2</var> * <var>condOutTypes</var> option</code></p></td>
+          <td><p><code type="sml"><var>outType1</var> * <var>outType2</var> * <var>condOutTypes</var> option</code></p></td>
         </tr>
         <tr>
           <td><p>&gt; 2</p></td>
-          <td><p><code><var>outType1</var> * <var>outType2</var> * … * <var>condOutTypes</var> option</code></p></td>
+          <td><p><code type="sml"><var>outType1</var> * <var>outType2</var> * … * <var>condOutTypes</var> option</code></p></td>
         </tr>
       </tbody>
     </table>
@@ -255,21 +257,21 @@ where
       <tbody>
         <tr>
           <td><p>Number of &#x2018;out&#x2019; arguments</p></td>
-          <td><p><code><var>condOutTypes</var></code></p></td>
+          <td><p><code type="sml"><var>condOutTypes</var></code></p></td>
         </tr>
       </tbody>
       <tbody>
         <tr>
           <td><p>1</p></td>
-          <td><p><code><var>condOutType1</var></code></p></td>
+          <td><p><code type="sml"><var>condOutType1</var></code></p></td>
         </tr>
         <tr>
           <td><p>2</p></td>
-          <td><p><code><var>condOutType1</var> * <var>condOutType2</var></code></p></td>
+          <td><p><code type="sml"><var>condOutType1</var> * <var>condOutType2</var></code></p></td>
         </tr>
         <tr>
           <td><p>&gt; 2</p></td>
-          <td><p><code><var>condOutType1</var> * <var>condOutType2</var> * …</code></p></td>
+          <td><p><code type="sml"><var>condOutType1</var> * <var>condOutType2</var> * …</code></p></td>
         </tr>
       </tbody>
     </table>
@@ -446,19 +448,19 @@ the non-error &#x2018;out&#x2019; and &#x2018;inout&#x2019; arguments.
 </p>
 <example>
 <p>
-For example, given a call to a non-method C function <code><var>f</var></code> as follows:
+For example, given a call to a non-method C function <code type="c"><var>f</var></code> as follows:
 </p>
-<code>
+<code type="c">
 <var>ret</var> = <var>f</var> (<var>in1</var>, &amp;<var>inout2</var>, &amp;<var>out3</var>, &amp;<var>out4</var>, <var>in5</var>, &amp;<var>error</var>);
 </code>
 <p>
 the corresponding SML function could be called as follows:
 </p>
-<code>
+<code type="sml">
 val (<var>ret</var>, <var>inout2'</var>, <var>out3</var>, <var>out4</var>) = <var>f</var> (<var>in1</var>, <var>inout2</var>, <var>in5</var>)
 </code>
 <p>
-Note that the argument <code><var>error</var></code> is not treated like a normal &#x2018;out&#x2019; argument in SML
+Note that the argument <code type="c"><var>error</var></code> is not treated like a normal &#x2018;out&#x2019; argument in SML
 as described in the section <link xref="#errors"/>, below.
 </p>
 </example>
@@ -467,10 +469,10 @@ If the return type is void, no return value is included in the returned tuple.
 </p>
 <example>
 <p>
-For example, if the return type of <code><var>f</var></code> is void,
+For example, if the return type of <code type="c"><var>f</var></code> is void,
 the corresponding SML function could be called as follows:
 </p>
-<code>
+<code type="sml">
 val (<var>inout2'</var>, <var>out3</var>, <var>out4</var>) = <var>f</var> (<var>in1</var>, <var>inout2</var>, <var>in5</var>)
 </code>
 </example>
@@ -479,22 +481,22 @@ A tuple must have two or more elements.
 Therefore, if the input or output tuple would have:
 </p>
 <list style="compact">
-<item><p>no elements, it is replaced by the unit value <code>()</code>;</p></item>
+<item><p>no elements, it is replaced by the unit value <code type="sml">()</code>;</p></item>
 <item><p>one element, it is replaced by that element.</p></item>
 </list>
 <example>
 <p>
-For example, if an introspected function <code><var>get_x</var></code> has no arguments and has a non-void return type,
+For example, if an introspected function <var>get_x</var> has no arguments and has a non-void return type,
 the corresponding SML function could be called as follows:
 </p>
-<code>
+<code type="sml">
 val x = <var>getX</var> ()
 </code>
 <p>
-and if an introspected function <code><var>set_x</var></code> has one &#x2018;in&#x2019; argument and has return type void,
+and if an introspected function <var>set_x</var> has one &#x2018;in&#x2019; argument and has return type void,
 the corresponding SML function could be called as follows:
 </p>
-<code>
+<code type="sml">
 val () = <var>setX</var> x
 </code>
 </example>
@@ -509,15 +511,15 @@ an SML function that takes the remaining arguments as described above for a non-
 </p>
 <example>
 <p>
-For example, given a call to a method <code><var>m</var></code> on an object <code><var>obj</var></code> in C as follows:
+For example, given a call to a method <var>m</var> on an object <var>obj</var> in C as follows:
 </p>
-<code>
+<code type="c">
 <var>ret</var> = <var>m</var> (<var>obj</var>, <var>in1</var>, &amp;<var>inout2</var>, &amp;<var>out3</var>, &amp;<var>out4</var>, <var>in5</var>, &amp;<var>error</var>);
 </code>
 <p>
 the corresponding SML function could be called as follows:
 </p>
-<code>
+<code type="sml">
 val (<var>ret</var>, <var>inout2'</var>, <var>out3</var>, <var>out4</var>) = <var>m</var> <var>obj</var> (<var>in1</var>, <var>inout2</var>, <var>in5</var>)
 </code>
 </example>
@@ -532,14 +534,14 @@ the instance argument must be converted explicitly as described by the section <
 <example>
 <p>
 For example,
-if the method function <code><var>m</var></code>
-is from an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
-and <code>obj</code> has the type of a class <code><var>ClassNamespace</var>.<var>Class</var></code>
+if the method function <var>m</var>
+is from an interface <var>Iface</var> in a namespace <var>IfaceNamespace</var>
+and <var>obj</var> has the type of a class <var>Class</var> in a namespace <var>ClassNamespace</var>
 that implements the interface,
-the SML function <code><var>m</var></code>
+the SML function <code type="sml"><var>m</var></code>
 could be called as follows:
 </p>
-<code>
+<code type="sml">
 val (<var>ret</var>, <var>inout2'</var>, <var>out3</var>, <var>out4</var>) = <var>m</var> (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>) (<var>in1</var>, <var>inout2</var>, <var>in5</var>)
 </code>
 </example>
@@ -553,8 +555,8 @@ The SML type of an argument or the return value is based on the corresponding C 
 </p>
 <p>
 If an argument or return value has an introspection annotation that marks it as optional,
-its SML type is <code><var>t</var> option</code>
-where <code><var>t</var></code>
+its SML type is <code type="sml"><var>t</var> option</code>
+where <code type="sml"><var>t</var></code>
 is the SML type corresponding to the C type of the argument.
 </p>
 
@@ -643,9 +645,9 @@ followed by the (after) values of &#x2018;inout&#x2019; arguments.
 </p>
 <example>
 <p>
-For example, given a call to a C function <code><var>h</var></code> whose return type is gboolean as follows:
+For example, given a call to a C function <code type="c"><var>h</var></code> whose return type is gboolean as follows:
 </p>
-<code>
+<code type="c">
 if (<var>h</var> (<var>in1</var>, &amp;<var>inout2</var>, &amp;<var>out3</var>, &amp;<var>out4</var>, <var>in5</var>))
 {
   /* can use <var>inout2</var>, <var>out3</var>, <var>out4</var> */
@@ -660,7 +662,7 @@ else
 <p>
 the corresponding SML function could be called as follows:
 </p>
-<code>
+<code type="sml">
 let
   val (<var>inout2'</var>, condOuts) = <var>h</var> (<var>in1</var>, <var>inout2</var>, <var>in5</var>)
 in
@@ -683,17 +685,17 @@ Therefore, if the tuple for the conditional outputs would have one element, it i
 <title>Errors</title>
 <p>
 A C function reports an error by including an &#x2018;out&#x2019; argument
-of type <code>GError *</code>
+of type <code type="c">GError *</code>
 as the last argument.
 (The extra level of indirection for an &#x2018;out&#x2019; argument means that
-the C type will actually be <code>GError **</code>.)
+the C type will actually be <code type="c">GError **</code>.)
 </p>
 <example>
 <p>
-For example, the declaration of the non-method C function <code><var>f</var></code> mentioned in an earlier example,
+For example, the declaration of the non-method C function <code type="c"><var>f</var></code> mentioned in an earlier example,
 which case raise an error, is as follows:
 </p>
-<code>
+<code type="c">
 <var>ty</var>
 <var>f</var> (<var>ty1</var>      <var>in1</var>,
    <var>ty2</var>     *<var>inout2</var>,
@@ -709,10 +711,10 @@ Otherwise no error is raised.
 </p>
 <example>
 <p>
-For example, the C function <code><var>f</var></code> could be called as follows,
-assuming the return type <code><var>ty</var></code> is not void:
+For example, the C function <code type="c"><var>f</var></code> could be called as follows,
+assuming the return type <code type="c"><var>ty</var></code> is not void:
 </p>
-<code>
+<code type="c">
 GError *error = NULL;
 
 <var>ret</var> = <var>f</var> (<var>in1</var>, &amp;<var>inout2</var>, &amp;<var>out3</var>, &amp;<var>out4</var>, <var>in5</var>, &amp;error);
@@ -731,12 +733,12 @@ else
 </example>
 <p>
 If an error is raised, the corresponding SML function raises
-the exception <code>GLib.Error (<var>ex</var>, <var>error</var>)</code>
+the exception <code type="sml">GLib.Error (<var>ex</var>, <var>error</var>)</code>
 where
 </p>
 <list style="compact">
-<item><p><code><var>ex</var></code> of type <code>exn</code> is the error exception, which allows the domain and code to be pattern matched</p></item>
-<item><p><code><var>error</var></code> of type <code>GLib.Error.t</code> is the (after) value of the error &#x2018;out&#x2019; argument.</p></item>
+<item><p><code type="sml"><var>ex</var></code> of type <code type="sml">exn</code> is the error exception, which allows the domain and code to be pattern matched</p></item>
+<item><p><code type="sml"><var>error</var></code> of type <code type="sml">GLib.Error.t</code> is the (after) value of the error &#x2018;out&#x2019; argument.</p></item>
 </list>
 <p>
 Therefore, the SML function provides neither
@@ -752,9 +754,9 @@ the non-error &#x2018;out&#x2019; and &#x2018;inout&#x2019; arguments.
 </p>
 <example>
 <p>
-For example, the SML function corresponding to C function <code><var>f</var></code> could be called as follows:
+For example, the SML function corresponding to C function <code type="c"><var>f</var></code> could be called as follows:
 </p>
-<code>
+<code type="sml">
 let
   val (<var>ret</var>, <var>inout2'</var>, <var>out3</var>, <var>out4</var>) = <var>f</var> (<var>in1</var>, <var>inout2</var>, <var>in5</var>)
 in
@@ -778,10 +780,10 @@ the section <link xref="#conditional-out-arguments"/> does not apply if there is
 </p>
 <example>
 <p>
-For example, the C function <code><var>f</var></code> could be called as follows
-if the return type <code><var>ty</var></code> is gboolean (i.e. the return value indicates success):
+For example, the C function <code type="c"><var>f</var></code> could be called as follows
+if the return type <code type="c"><var>ty</var></code> is gboolean (i.e. the return value indicates success):
 </p>
-<code>
+<code type="c">
 GError *error = NULL;
 
 if (!<var>f</var> (<var>in1</var>, &amp;<var>inout2</var>, &amp;<var>out3</var>, &amp;<var>out4</var>, <var>in5</var>, &amp;error))
@@ -798,7 +800,7 @@ else
 <p>
 and the corresponding SML function could be called as follows:
 </p>
-<code>
+<code type="sml">
 let
   val (<var>inout2'</var>, <var>out3</var>, <var>out4</var>) = <var>f</var> (<var>in1</var>, <var>inout2</var>, <var>in5</var>)
 in

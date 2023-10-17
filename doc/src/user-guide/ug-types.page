@@ -11,14 +11,14 @@
 <title>Basic types</title>
 <p>
 For each <link href="https://developer-old.gnome.org/glib/stable/glib-Basic-Types.html">basic type</link> g<var>basictype</var>,
-there is an SML structure <code>G<var>BasicType</var></code>
-and the corresponding SML type is <code>G<var>BasicType</var>.t</code>.
+there is an SML structure <code type="sml">G<var>BasicType</var></code>
+and the corresponding SML type is <code type="sml">G<var>BasicType</var>.t</code>.
 The exception to this is guchar, which is treated as guint8 and does not have its own SML structure.
-For gint as a file descriptor, the corresponding SML structure is <code>GFileDesc</code>
-and the corresponding SML type is <code>Posix.ProcEnv.file_desc</code>.
+For gint as a file descriptor, the corresponding SML structure is <code type="sml">GFileDesc</code>
+and the corresponding SML type is <code type="sml">Posix.ProcEnv.file_desc</code>.
 These SML types are not abstract but are equivalent to types from the Basis Library.
 </p>
-<code>
+<code type="sml">
 structure GChar     :> C_SCALAR_EQ_NULL where type t = char
 structure GBool     :> C_SCALAR_EQ      where type t = bool
 structure GShort    :> C_SCALAR_EQ_NULL where type t = LargeInt.int
@@ -42,7 +42,7 @@ structure GDouble   :> C_SCALAR         where type t = real
 structure GFileDesc :> C_SCALAR_EQ      where type t = Posix.ProcEnv.file_desc
 </code>
 <p>
-When calling a function with an argument of type <code>LargeInt.int</code>,
+When calling a function with an argument of type <code type="sml">LargeInt.int</code>,
 an exception is raised if the argument is outside the range of the C type of the corresponding parameter.
 </p>
 </section>
@@ -54,10 +54,10 @@ an exception is raised if the argument is outside the range of the C type of the
 <title>UTF-8 and file name types</title>
 <p>
 For a C array that represents UTF-8 encoded text or a file name,
-there is an SML structure <code>Utf8</code> and the corresponding SML type is <code>Utf8.t</code>.
-The SML type is not abstract but is equivalent to <code>string</code> from the Basis Library and is, therefore, not mutable.
+there is an SML structure <code type="sml">Utf8</code> and the corresponding SML type is <code type="sml">Utf8.t</code>.
+The SML type is not abstract but is equivalent to <code type="sml">string</code> from the Basis Library and is, therefore, not mutable.
 </p>
-<code>
+<code type="sml">
 signature UTF_8 =
   C_ARRAY
     where type t = string
@@ -77,7 +77,7 @@ To perform operations on UTF-8 encoded text that is not in the ASCII subset, an 
 <section id="c-array-types">
 <title>C array types</title>
 <p>
-For each C array type whose element type has an SML structure <code><var>Elem</var></code>,
+For each C array type whose element type has an SML structure <code type="sml"><var>Elem</var></code>,
 there may be SML structures as follows:
 </p>
 <table rules="rowgroups colgroups">
@@ -88,8 +88,8 @@ there may be SML structures as follows:
 <tr>                                                                           <td><p>zero terminated</p></td><td><p>separate parameter</p></td></tr>
 </tbody>
 <tbody>
-<tr><td rowspan="2"><p>elements</p></td><td><p>packed inline</p></td>          <td><p><code><var>Elem</var>CArray</code></p></td>   <td><p><code><var>Elem</var>CArrayN</code></p></td></tr>
-<tr>                                    <td><p>referenced by a pointer</p></td><td><p><code><var>Elem</var>CPtrArray</code></p></td><td><p><code><var>Elem</var>CPtrArrayN</code></p></td></tr>
+<tr><td rowspan="2"><p>elements</p></td><td><p>packed inline</p></td>          <td><p><code type="sml"><var>Elem</var>CArray</code></p></td>   <td><p><code type="sml"><var>Elem</var>CArrayN</code></p></td></tr>
+<tr>                                    <td><p>referenced by a pointer</p></td><td><p><code type="sml"><var>Elem</var>CPtrArray</code></p></td><td><p><code type="sml"><var>Elem</var>CPtrArrayN</code></p></td></tr>
 </tbody>
 </table>
 <p>
@@ -97,15 +97,15 @@ These structures are collectively referred to as <code><var>Elem</var>C</code>[<
 The corresponding SML type is <code><var>Elem</var>C</code>[<code>Ptr</code>]<code>Array</code>[<code>N</code>]<code>.t</code>.
 The SML type is abstract: internally it is a C array and is, therefore, mutable.
 </p>
-<code>
+<code type="sml">
 structure <var>Elem</var>CArray     :> C_ARRAY   where type elem = <var>Elem</var>.t
 structure <var>Elem</var>CPtrArray  :> C_ARRAY   where type elem = <var>Elem</var>.t
 structure <var>Elem</var>CArrayN    :> C_ARRAY_N where type elem = <var>Elem</var>.t
 structure <var>Elem</var>CPtrArrayN :> C_ARRAY_N where type elem = <var>Elem</var>.t
 </code>
 <p>
-The signature <code>C_ARRAY</code> specifies various array operations.
-The signature <code>C_ARRAY_N</code> includes <code>C_ARRAY</code> and specifies additional operations
+The signature <code type="sml">C_ARRAY</code> specifies various array operations.
+The signature <code type="sml">C_ARRAY_N</code> includes <code type="sml">C_ARRAY</code> and specifies additional operations
 that allow the array to be treated as a &#x2018;right hand slice&#x2019;:
 the first index is always zero but the last index can be changed to exclude trailing elements in the underlying array.
 </p>
@@ -115,19 +115,19 @@ the SML type <code><var>Elem</var>C</code>[<code>Ptr</code>]<code>Array</code>[<
 is referenced because the family of such structures is infinite, given arrays of arrays.
 </p>
 <p>
-Note that if <code><var>Elem</var></code> is the structure for a named type <code><var>Namespace</var>.<var>Type</var></code>:
+Note that if <code type="sml"><var>Elem</var></code> is the structure for a named type <code><var>Namespace</var>.<var>Type</var></code>:
 </p>
 <list>
 <item>
   <p>
-    <code><var>Elem</var></code> has the form <code><var>Namespace</var><var>Type</var></code>
+    <code type="sml"><var>Elem</var></code> has the form <code type="sml"><var>Namespace</var><var>Type</var></code>
   </p>
 </item>
 <item>
   <p>
     The SML type <code><var>Namespace</var><var>Type</var>C</code>[<code>Ptr</code>]<code>Array</code>[<code>N</code>]<code>.t</code>
     may be referenced from either <code><var>Namespace</var></code> or another namespace.
-    In the former case only, the signature <code><var>NAMESPACE</var></code>
+    In the former case only, the signature <code type="sml"><var>NAMESPACE</var></code>
     specifies an equivalent local structure <code><var>Type</var>C</code>[<code>Ptr</code>]<code>Array</code>[<code>N</code>]
     so there is an equivalent SML type <code><var>Namespace</var>.<var>Type</var>C</code>[<code>Ptr</code>]<code>Array</code>[<code>N</code>]<code>.t</code>.
   </p>
@@ -142,14 +142,14 @@ Note that if <code><var>Elem</var></code> is the structure for a named type <cod
 <p>
 For each <link href="https://developer-old.gnome.org/gobject/stable/gobject-Enumeration-and-Flag-Types.html">enumeration type</link> <var>Enum</var>
 in a namespace <var>Namespace</var>,
-there is an SML structure <code><var>Namespace</var>.<var>Enum</var></code>
-and the SML type for the enumeration is <code><var>Namespace</var>.<var>Enum</var>.t</code>
+there is an SML structure <code type="sml"><var>Namespace</var>.<var>Enum</var></code>
+and the SML type for the enumeration is <code type="sml"><var>Namespace</var>.<var>Enum</var>.t</code>
 which is a datatype that has a parameterless constructor for each enumeration literal.
-The structure <code><var>Namespace</var>.<var>Enum</var></code>
-implements the signature <code><var>NAMESPACE</var>_<var>ENUM</var></code>,
+The structure <code type="sml"><var>Namespace</var>.<var>Enum</var></code>
+implements the signature <code type="sml"><var>NAMESPACE</var>_<var>ENUM</var></code>,
 which has the following form:
 </p>
-<code>
+<code type="sml">
 signature <var>NAMESPACE</var>_<var>ENUM</var> =
   sig
     datatype t =
@@ -161,9 +161,9 @@ signature <var>NAMESPACE</var>_<var>ENUM</var> =
 </code>
 <example>
 <p>
-For example, the structure <code>Gtk.ButtonsType</code> implements the signature <code>GTK_BUTTONS_TYPE</code>, which is defined as follows:
+For example, the structure <code type="sml">Gtk.ButtonsType</code> implements the signature <code type="sml">GTK_BUTTONS_TYPE</code>, which is defined as follows:
 </p>
-<code>
+<code type="sml">
 signature GTK_BUTTONS_TYPE =
   sig
     datatype t =
@@ -184,16 +184,16 @@ signature GTK_BUTTONS_TYPE =
 <p>
 For each <link href="https://developer-old.gnome.org/gobject/stable/gobject-Enumeration-and-Flag-Types.html">flags (bitfield) type</link> <var>Flags</var>
 in a namespace <var>Namespace</var>,
-there is an SML structure <code><var>Namespace</var>.<var>Flags</var></code>
-and the SML type for the flags is <code><var>Namespace</var>.<var>Flags</var>.t</code>.
+there is an SML structure <code type="sml"><var>Namespace</var>.<var>Flags</var></code>
+and the SML type for the flags is <code type="sml"><var>Namespace</var>.<var>Flags</var>.t</code>.
 For each predefined flags value <var>VALUE</var>,
-there is an SML value <code><var>Namespace</var>.<var>Flags</var>.<var>VALUE</var></code>.
-The structure <code><var>Namespace</var>.<var>Flags</var></code>
-implements the signature <code><var>NAMESPACE</var>_<var>FLAGS</var></code>,
-which includes the signature <code><link href="https://smlfamily.github.io/Basis/bit-flags.html">BIT_FLAGS</link></code> to provide operations on the flags
+there is an SML value <code type="sml"><var>Namespace</var>.<var>Flags</var>.<var>VALUE</var></code>.
+The structure <code type="sml"><var>Namespace</var>.<var>Flags</var></code>
+implements the signature <code type="sml"><var>NAMESPACE</var>_<var>FLAGS</var></code>,
+which includes the signature <code type="sml"><link href="https://smlfamily.github.io/Basis/bit-flags.html">BIT_FLAGS</link></code> to provide operations on the flags
 as follows:
 </p>
-<code>
+<code type="sml">
 signature <var>NAMESPACE</var>_<var>FLAGS</var> =
   sig
     eqtype t
@@ -206,9 +206,9 @@ signature <var>NAMESPACE</var>_<var>FLAGS</var> =
 </code>
 <example>
 <p>
-For example, the structure <code>Gtk.StateFlags</code> implements the signature <code>GTK_STATE_FLAGS</code>, which is defined as follows:
+For example, the structure <code type="sml">Gtk.StateFlags</code> implements the signature <code type="sml">GTK_STATE_FLAGS</code>, which is defined as follows:
 </p>
-<code>
+<code type="sml">
 signature GTK_STATE_FLAGS =
   sig
     eqtype t
@@ -232,33 +232,33 @@ signature GTK_STATE_FLAGS =
 <p>
 For each class <var>Class</var>
 in a namespace <var>Namespace</var>,
-there is an SML structure <code><var>Namespace</var>.<var>Class</var></code>.
+there is an SML structure <code type="sml"><var>Namespace</var>.<var>Class</var></code>.
 </p>
 <p>
 The SML type for <var>Class</var> or any subclass of <var>Class</var> is
 </p>
 <quote>
-<p><code>'<var>a</var> <var>Namespace</var>.<var>Class</var>.class</code></p>
+<p><code type="sml">'<var>a</var> <var>Namespace</var>.<var>Class</var>.class</code></p>
 </quote>
 <p>
-where <code>'<var>a</var></code> is a type variable.
+where <code type="sml">'<var>a</var></code> is a type variable.
 The SML type for <var>Class</var> but not a subclass of <var>Class</var> is
 </p>
 <quote>
-<p><code>base <var>Namespace</var>.<var>Class</var>.class</code></p>
+<p><code type="sml">base <var>Namespace</var>.<var>Class</var>.class</code></p>
 </quote>
 <p>
 which is abbreviated to
 </p>
 <quote>
-<p><code><var>Namespace</var>.<var>Class</var>.t</code></p>
+<p><code type="sml"><var>Namespace</var>.<var>Class</var>.t</code></p>
 </quote>
 <p>
-The structure <code><var>Namespace</var>.<var>Class</var></code>
-implements the signature <code><var>NAMESPACE</var>_<var>CLASS</var></code>,
+The structure <code type="sml"><var>Namespace</var>.<var>Class</var></code>
+implements the signature <code type="sml"><var>NAMESPACE</var>_<var>CLASS</var></code>,
 which has the following form:
 </p>
-<code>
+<code type="sml">
 signature <var>NAMESPACE</var>_<var>CLASS</var> =
   sig
     type 'a class
@@ -269,7 +269,7 @@ signature <var>NAMESPACE</var>_<var>CLASS</var> =
 </code>
 <note style="tip">
 <p>
-At run time, an object with type <code><var>Namespace</var>.<var>Class</var>.t</code>
+At run time, an object with type <code type="sml"><var>Namespace</var>.<var>Class</var>.t</code>
 may actually be an instance of a subclass of <var>Class</var>
 even though the type does not indicate this.
 The SML types are <em>static</em> and represent what is known at compilation time.
@@ -277,12 +277,12 @@ The SML types are <em>static</em> and represent what is known at compilation tim
 </note>
 <note style="tip">
 <p>
-There is also a structure <code><var>Namespace</var>.<var>Class</var>Class</code>
+There is also a structure <code type="sml"><var>Namespace</var>.<var>Class</var>Class</code>
 but applications do not need to use this.
-Even if <code><var>Namespace</var>.<var>Class</var>Class</code> is not referenced in code,
+Even if <code type="sml"><var>Namespace</var>.<var>Class</var>Class</code> is not referenced in code,
 it may be referenced in type error messages from a compiler because
-the type <code>'a <var>Namespace</var>.<var>Class</var>Class.class</code>
-is equivalent to the type <code>'a <var>Namespace</var>.<var>Class</var>.class</code>.
+the type <code type="sml">'a <var>Namespace</var>.<var>Class</var>Class.class</code>
+is equivalent to the type <code type="sml">'a <var>Namespace</var>.<var>Class</var>.class</code>.
 </p>
 </note>
 <p>
@@ -305,37 +305,37 @@ The encoding is equivalent to that described in
 The object type for a class <var>C</var> or any subclass of <var>C</var> is
 </p>
 <quote>
-<p><code>'a <var>C</var>.class</code></p>
+<p><code type="sml">'a <var>C</var>.class</code></p>
 </quote>
 <p>
 The type parameter, indicated by the type variable 'a, may be instantiated to constrain the type to a subclass of <var>C</var> by instantiating it with the witness type of a child class.
-Each derived class <var>D</var> has its own witness type <code>'b <var>d</var></code> that creates a unique type for the class relative to its parent.
+Each derived class <var>D</var> has its own witness type <code type="sml">'b <var>d</var></code> that creates a unique type for the class relative to its parent.
 If <var>D</var> is a child class of <var>C</var>, the object type for <var>D</var> or any subclass of <var>D</var> is
 </p>
 <quote>
-<p><code>'b <var>d</var> <var>C</var>.class</code></p>
+<p><code type="sml">'b <var>d</var> <var>C</var>.class</code></p>
 </quote>
 <p>
 This type is abbreviated to
 </p>
 <quote>
-<p><code>'b <var>D</var>.class</code></p>
+<p><code type="sml">'b <var>D</var>.class</code></p>
 </quote>
 <p>
-In turn, the type parameter, indicated by the type variable <code>'b</code>, may be instantiated to constrain the type to a subclass of <var>D</var>.
+In turn, the type parameter, indicated by the type variable <code type="sml">'b</code>, may be instantiated to constrain the type to a subclass of <var>D</var>.
 </p>
 <p>
 The type for a class is constrained to be none of its subclasses by using the type base for the witness type.
 Therefore, the type of class <var>C</var> but not a subclass of <var>C</var> is
 </p>
 <quote>
-<p><code>base <var>C</var>.class</code></p>
+<p><code type="sml">base <var>C</var>.class</code></p>
 </quote>
 <p>
 This type is abbreviated to
 </p>
 <quote>
-<p><code><var>C</var>.t</code></p>
+<p><code type="sml"><var>C</var>.t</code></p>
 </quote>
 <p>
 Given the class hierarchy
@@ -360,20 +360,20 @@ Given the class hierarchy
 the following types are equivalent, and may be used interchangeably in type error messages:
 </p>
 <list type="none" style="compact">
-  <item><p><code>'a F.class</code></p></item>
-  <item><p><code>'a f E.class</code></p></item>
-  <item><p><code>'a f e D.class</code></p></item>
-  <item><p><code>'a f e d C.class</code></p></item>
+  <item><p><code type="sml">'a F.class</code></p></item>
+  <item><p><code type="sml">'a f E.class</code></p></item>
+  <item><p><code type="sml">'a f e D.class</code></p></item>
+  <item><p><code type="sml">'a f e d C.class</code></p></item>
 </list>
 <p>
 Similarly, the following types are equivalent:
 </p>
 <list type="none" style="compact">
-  <item><p><code>F.t</code></p></item>
-  <item><p><code>base F.class</code></p></item>
-  <item><p><code>base f E.class</code></p></item>
-  <item><p><code>base f e D.class</code></p></item>
-  <item><p><code>base f e d C.class</code></p></item>
+  <item><p><code type="sml">F.t</code></p></item>
+  <item><p><code type="sml">base F.class</code></p></item>
+  <item><p><code type="sml">base f E.class</code></p></item>
+  <item><p><code type="sml">base f e D.class</code></p></item>
+  <item><p><code type="sml">base f e d C.class</code></p></item>
 </list>
 </section>
 </section>
@@ -383,13 +383,13 @@ Similarly, the following types are equivalent:
 <p>
 For each interface <var>Iface</var>
 in a namespace <var>IfaceNamespace</var>,
-there is an SML structure <code><var>IfaceNamespace</var>.<var>Iface</var></code>
-and the SML type for the interface is <code><var>IfaceNamespace</var>.<var>Iface</var>.t</code>.
-The structure <code><var>IfaceNamespace</var>.<var>Iface</var></code>
-implements the signature <code><var>IFACE</var>_<var>NAMESPACE</var>_<var>IFACE</var></code>,
+there is an SML structure <code type="sml"><var>IfaceNamespace</var>.<var>Iface</var></code>
+and the SML type for the interface is <code type="sml"><var>IfaceNamespace</var>.<var>Iface</var>.t</code>.
+The structure <code type="sml"><var>IfaceNamespace</var>.<var>Iface</var></code>
+implements the signature <code type="sml"><var>IFACE</var>_<var>NAMESPACE</var>_<var>IFACE</var></code>,
 which has the following form:
 </p>
-<code>
+<code type="sml">
 signature <var>IFACE</var>_<var>NAMESPACE</var>_<var>IFACE</var> =
   sig
     type t
@@ -398,20 +398,20 @@ signature <var>IFACE</var>_<var>NAMESPACE</var>_<var>IFACE</var> =
 </code>
 <note style="tip">
 <p>
-An interface is currently represented as a child class of <code>GObject.Object</code> (the root class).
+An interface is currently represented as a child class of <code type="sml">GObject.Object</code> (the root class).
 This would be problematic for an interface implemented by a class descended from a different root class.
 However there are no such interfaces at the moment.
-Applications should avoid treating an instance of <code><var>IfaceNamespace</var>.<var>Iface</var>.t</code> as an instance of
-<code>GObject.Object.t</code>, even though the SML types allow this.
+Applications should avoid treating an instance of <code type="sml"><var>IfaceNamespace</var>.<var>Iface</var>.t</code> as an instance of
+<code type="sml">GObject.Object.t</code>, even though the SML types allow this.
 </p>
 <p>
 Due to this representation,
-there is also a structure <code><var>IfaceNamespace</var>.<var>Iface</var>Class</code> but
+there is also a structure <code type="sml"><var>IfaceNamespace</var>.<var>Iface</var>Class</code> but
 applications do not need to use this.
-Even if <code><var>IfaceNamespace</var>.<var>Iface</var>Class</code> is not referenced in code,
+Even if <code type="sml"><var>IfaceNamespace</var>.<var>Iface</var>Class</code> is not referenced in code,
 it may be referenced in type error messages from a compiler because
-the type <code>'a <var>IfaceNamespace</var>.<var>Iface</var>Class.class</code>
-is equivalent to the type <code>'a <var>IfaceNamespace</var>.<var>Iface</var>.class</code>.
+the type <code type="sml">'a <var>IfaceNamespace</var>.<var>Iface</var>Class.class</code>
+is equivalent to the type <code type="sml">'a <var>IfaceNamespace</var>.<var>Iface</var>.class</code>.
 </p>
 </note>
 <section id="implemented-interfaces">
@@ -420,25 +420,25 @@ is equivalent to the type <code>'a <var>IfaceNamespace</var>.<var>Iface</var>.cl
 The type encoding for a class hierarchy captures only the single-inheritance relationship of classes.
 Therefore, for a class or interface <var>Type</var> in a namespace <var>Namespace</var>
 that implements an interface <var>Iface</var> in a namespace <var>IfaceNamespace</var>,
-the SML type <code><var>Namespace</var>.<var>Type</var>.t</code> is not an instance of <code><var>IfaceNamespace</var>.<var>Iface</var>.t</code> and
+the SML type <code type="sml"><var>Namespace</var>.<var>Type</var>.t</code> is not an instance of <code type="sml"><var>IfaceNamespace</var>.<var>Iface</var>.t</code> and
 explicit conversion is required between these types.
-Conversion is provided by the function <code><var>Namespace</var>.<var>Type</var>.as<var>Iface</var></code>
+Conversion is provided by the function <code type="sml"><var>Namespace</var>.<var>Type</var>.as<var>Iface</var></code>
 which is internally the identity function.
 </p>
 <example>
 <p>
-For example, the function <code>Gtk.Button.asActionable</code>
-converts an instance of <code>'a Gtk.Button.class</code> to <code>Gtk.Actionable.t</code>.
+For example, the function <code type="sml">Gtk.Button.asActionable</code>
+converts an instance of <code type="sml">'a Gtk.Button.class</code> to <code type="sml">Gtk.Actionable.t</code>.
 </p>
 </example>
 <p>
-The specification of <code><var>Namespace</var>.<var>Type</var>.as<var>Iface</var></code>
-in the signature <code><var>NAMESPACE</var>_<var>TYPE</var></code>
+The specification of <code type="sml"><var>Namespace</var>.<var>Type</var>.as<var>Iface</var></code>
+in the signature <code type="sml"><var>NAMESPACE</var>_<var>TYPE</var></code>
 has the form
 </p>
 <list>
 <item>
-  <code>
+  <code type="sml">
 val as<var>Iface</var> : 'a class <![CDATA[->]]> <var>IfaceNamespace</var>.<var>Iface</var>.t
 </code>
   <p>
@@ -446,7 +446,7 @@ val as<var>Iface</var> : 'a class <![CDATA[->]]> <var>IfaceNamespace</var>.<var>
   </p>
 </item>
 <item>
-  <code>
+  <code type="sml">
 val as<var>Iface</var> : t <![CDATA[->]]> <var>IfaceNamespace</var>.<var>Iface</var>.t
 </code>
   <p>
@@ -456,8 +456,8 @@ val as<var>Iface</var> : t <![CDATA[->]]> <var>IfaceNamespace</var>.<var>Iface</
 </list>
 <p>
 (In the case that <var>IfaceNamespace</var> is the same as <var>Namespace</var>,
-note that a local name <code><var>iface</var>_t</code> would be used
-instead of <code><var>IfaceNamespace</var>.<var>Iface</var>.t</code>
+note that a local name <code type="sml"><var>iface</var>_t</code> would be used
+instead of <code type="sml"><var>IfaceNamespace</var>.<var>Iface</var>.t</code>
 in the above specifications.)
 </p>
 </section>
@@ -468,13 +468,13 @@ in the above specifications.)
 <p>
 For each record (i.e. struct type) <var>Record</var>
 in a namespace <var>Namespace</var>,
-there is an SML structure <code><var>Namespace</var>.<var>Record</var></code>
-and the SML type for the record is <code><var>Namespace</var>.<var>Record</var>.t</code>.
-The structure <code><var>Namespace</var>.<var>Record</var></code>
-implements the signature <code><var>NAMESPACE</var>_<var>RECORD</var></code>,
+there is an SML structure <code type="sml"><var>Namespace</var>.<var>Record</var></code>
+and the SML type for the record is <code type="sml"><var>Namespace</var>.<var>Record</var>.t</code>.
+The structure <code type="sml"><var>Namespace</var>.<var>Record</var></code>
+implements the signature <code type="sml"><var>NAMESPACE</var>_<var>RECORD</var></code>,
 which has a form equivalent to the following:
 </p>
-<code>
+<code type="sml">
 signature <var>NAMESPACE</var>_<var>RECORD</var> =
   sig
     type t
@@ -488,33 +488,33 @@ signature <var>NAMESPACE</var>_<var>RECORD</var> =
 <p>
 For each union <var>Union</var>
 in a namespace <var>Namespace</var>,
-there is an SML structure <code><var>Namespace</var>.<var>Union</var></code>.
+there is an SML structure <code type="sml"><var>Namespace</var>.<var>Union</var></code>.
 </p>
 <p>
 The SML type for any field of <var>Union</var> or an unknown field of <var>Union</var> is
 </p>
 <quote>
-<p><code>'<var>a</var> <var>Namespace</var>.<var>Union</var>.union</code></p>
+<p><code type="sml">'<var>a</var> <var>Namespace</var>.<var>Union</var>.union</code></p>
 </quote>
 <p>
-where <code>'<var>a</var></code> is a type variable.
+where <code type="sml">'<var>a</var></code> is a type variable.
 The SML type for an unknown field of <var>Union</var> is
 </p>
 <quote>
-<p><code>base <var>Namespace</var>.<var>Union</var>.union</code></p>
+<p><code type="sml">base <var>Namespace</var>.<var>Union</var>.union</code></p>
 </quote>
 <p>
 which is abbreviated to
 </p>
 <quote>
-<p><code><var>Namespace</var>.<var>Union</var>.t</code></p>
+<p><code type="sml"><var>Namespace</var>.<var>Union</var>.t</code></p>
 </quote>
 <p>
-The structure <code><var>Namespace</var>.<var>Union</var></code>
-implements the signature <code><var>NAMESPACE</var>_<var>UNION</var></code>,
+The structure <code type="sml"><var>Namespace</var>.<var>Union</var></code>
+implements the signature <code type="sml"><var>NAMESPACE</var>_<var>UNION</var></code>,
 which has a form equivalent to the following:
 </p>
-<code>
+<code type="sml">
 signature <var>NAMESPACE</var>_<var>UNION</var> =
   sig
     type 'a union
@@ -525,8 +525,8 @@ signature <var>NAMESPACE</var>_<var>UNION</var> =
 </code>
 <note style="tip">
 <p>
-The only union type currently provided by Giraffe Library is <code>Gdk.Event</code>
-whose classification function is <code><link xref="ug-special-structures#classify-event">ClassifyEvent</link>.classify</code>.
+The only union type currently provided by Giraffe Library is <code type="sml">Gdk.Event</code>
+whose classification function is <code type="sml"><link xref="ug-special-structures#classify-event">ClassifyEvent</link>.classify</code>.
 </p>
 </note>
 </section>

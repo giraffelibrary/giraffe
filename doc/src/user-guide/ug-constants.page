@@ -16,21 +16,22 @@ The value is static.
 <section>
 <title>Referring to constants</title>
 <p>
-For a constant <code><var>SOME_CONSTANT_NAME</var></code>
-in a namespace <code><var>Namespace</var></code>,
+For a constant <var>SOME_CONSTANT_NAME</var>
+in a namespace <var>Namespace</var>,
 the hierarchical SML name is
-<code><var>Namespace</var>.<var>SOME_CONSTANT_NAME</var></code>.
+<code type="sml"><var>Namespace</var>.<var>SOME_CONSTANT_NAME</var></code>.
 </p>
 <example>
 <p>
-For example, <code>GLib.PRIORITY_DEFAULT_IDLE</code>.
+For example, <code type="sml">GLib.PRIORITY_DEFAULT_IDLE</code>.
 </p>
 </example>
 <p>
-For a constant <code><var>SOME_CONSTANT_NAME</var></code>
-in a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
+For a constant <var>SOME_CONSTANT_NAME</var>
+in a class or interface <var>Type</var>
+in a namespace <var>Namespace</var>,
 the hierarchical SML name is
-<code><var>Namespace</var>.<var>Type</var>.<var>SOME_CONSTANT_NAME</var></code>.
+<code type="sml"><var>Namespace</var>.<var>Type</var>.<var>SOME_CONSTANT_NAME</var></code>.
 </p>
 <example>
 <p>
@@ -38,21 +39,21 @@ There is no example of this in the currently supported libraries.
 </p>
 </example>
 <p>
-The specification of <code><var>SOME_CONSTANT_NAME</var></code>
-in the signature <code><var>NAMESPACE</var></code> or <code><var>NAMESPACE</var>_<var>TYPE</var></code>
+The specification of <var>SOME_CONSTANT_NAME</var>
+in the signature <code type="sml"><var>NAMESPACE</var></code> or <code type="sml"><var>NAMESPACE_TYPE</var></code>
 has the form:
 </p>
-<code>
+<code type="sml">
 val <var>SOME_CONSTANT_NAME</var> : <var>valueType</var>
 </code>
 <p>
-where <code><var>valueType</var></code> is the type of the constant, as described in the section <link xref="ug-types"/>.
+where <code type="sml"><var>valueType</var></code> is the type of the constant, as described in the section <link xref="ug-types"/>.
 </p>
 <example>
 <p>
-For example, the specification of the constant <code>GLib.PRIORITY_DEFAULT_IDLE</code> is
+For example, the specification of the constant <code type="sml">GLib.PRIORITY_DEFAULT_IDLE</code> is
 </p>
-<code>
+<code type="sml">
 val PRIORITY_DEFAULT_IDLE : LargeInt.int
 </code>
 </example>

@@ -13,7 +13,7 @@ This section describes how to build a stand-alone executable using MLton.
 <title>Source files</title>
 <p>
 We assume that the main program for the application is
-a function <code><var>main</var> : unit -> unit</code>,
+a function <code type="sml"><var>main</var> : unit -> unit</code>,
 as described in the section <link xref="ug-main-program"/>,
 and that this is defined in a source file <file><var>app</var>.sml</file>.
 </p>
@@ -24,7 +24,7 @@ to keep <file><var>app</var>.sml</file> portable:
 </p>
 <listing>
 <title><file>mlton-main.sml</file></title>
-<code>
+<code type="sml">
 val () = <var>main</var> ()
 </code>
 </listing>
@@ -54,11 +54,11 @@ $(GIRAFFE_SML_LIB)/<var>namespace</var>-<var>version</var>/mlton.mlb
 </code>
 <p>
 for each namespace <var>Namespace</var>-<var>Version</var>
-whose structure <code><var>Namespace</var></code> is referenced in the SML source.
+whose structure <code type="sml"><var>Namespace</var></code> is referenced in the SML source.
 </p>
 <example>
 <p>
-For example, if the SML source references the structure <code>Gio</code>
+For example, if the SML source references the structure <code type="sml">Gio</code>
 to use the Gio-2.0 namespace,
 then the MLB file should include
 </p>
@@ -123,7 +123,7 @@ This is achieved by the following command:
 </p>
 <quote>
 <screen>
-<cmd>mlton \
+<cmd type="bash">mlton \
  -mlb-path-var "GIRAFFE_SML_LIB <var>installdir</var>/lib/sml" \
  -link-opt "-L<var>installdir</var>/lib/mlton \
             -lgiraffe-<var>namespace1</var>-<var>version1</var> \
@@ -153,10 +153,10 @@ The <cmd>mlton</cmd> command could usefully do the following:
 </p>
 <list>
 <item><p>Specify the name of the output executable file.</p></item>
-<item><p>Set the constant <code>GiraffeDebug.isEnabled</code> for diagnostic output.</p></item>
+<item><p>Set the constant <code type="sml">GiraffeDebug.isEnabled</code> for diagnostic output.</p></item>
 <item>
   <p>
-    Set the constant <code>Exn.keepHistory</code> to keep exception history for diagnostic output.
+    Set the constant <code type="sml">Exn.keepHistory</code> to keep exception history for diagnostic output.
     (Giraffe Library will print the history of an unhandled exception that occurs in a callback to SML.)
   </p>
 </item>
@@ -167,7 +167,7 @@ This is achieved by the following command:
 </p>
 <quote>
 <screen>
-<cmd>mlton \
+<cmd type="bash">mlton \
  -mlb-path-var "GIRAFFE_SML_LIB <var>installdir</var>/lib/sml" \
  -output <var>name</var> \
  -const "GiraffeDebug.isEnabled <var>debugEnabled</var>" \
@@ -219,7 +219,7 @@ given an environment variable for the installation directory as follows:
 </p>
 <quote>
 <screen>
-<cmd>GIRAFFEHOME=<var>installdir</var>
+<cmd type="bash">GIRAFFEHOME=<var>installdir</var>
 </cmd>
 </screen>
 </quote>
@@ -228,7 +228,7 @@ the following <cmd>mlton</cmd> command could be used:
 </p>
 <quote>
 <screen>
-<cmd>mlton \
+<cmd type="bash">mlton \
  -mlb-path-var "GIRAFFE_SML_LIB ${GIRAFFEHOME}/lib/sml" \
  -output example-1-mlton \
  -const "GiraffeDebug.isEnabled true" \
@@ -291,7 +291,7 @@ by the command
 </p>
 <quote>
 <screen>
-<cmd>(ulimit -Sv <var>n</var> ; <var>cmd</var>)</cmd>
+<cmd type="bash">(ulimit -Sv <var>n</var> ; <var>cmd</var>)</cmd>
 </screen>
 </quote>
 <example>
@@ -301,7 +301,7 @@ memory usage can be limited to 2G by the command
 </p>
 <quote>
 <screen>
-<cmd>(ulimit -Sv $((2*1024*1024)) ; make mlton)</cmd>
+<cmd type="bash">(ulimit -Sv $((2*1024*1024)) ; make mlton)</cmd>
 </screen>
 </quote>
 </example>

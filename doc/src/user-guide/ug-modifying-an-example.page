@@ -47,7 +47,7 @@ and the following files for building with Make that do <em>not</em> need to be c
 </list>
 <p>
 Note that <file>mlton-main.sml</file> should not be changed
-because <file>Makefile</file> expects the main function to be called <code>main</code> for Poly/ML.
+because <file>Makefile</file> expects the main function to be called <code type="sml">main</code> for Poly/ML.
 </p>
 
 <section>
@@ -98,7 +98,7 @@ These are derived automatically so do not need to be updated.
 <title>Changing library dependencies</title>
 <p>
 If the application source code introduces or removes
-dependence on an SML structure <code><var>Namespace</var></code>
+dependence on an SML structure <code type="sml"><var>Namespace</var></code>
 for a namespace <var>Namespace</var>-<var>Version</var>,
 the library dependency (with the indicated form)
 should be added or removed, respectively, in:
@@ -160,7 +160,7 @@ if and only if the file <file>mlton.mlb</file> includes
   </p>
   <p>
     This file should not be changed
-    (because <file>Makefile</file> expects the main function to be called <code>main</code> for Poly/ML).
+    (because <file>Makefile</file> expects the main function to be called <code type="sml">main</code> for Poly/ML).
   </p>
 </item>
 <item>

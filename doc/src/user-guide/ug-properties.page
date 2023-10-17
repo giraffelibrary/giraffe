@@ -11,10 +11,10 @@ A property is a named parameter of a class or interface
 whose attributes determine its type and modes of use (readable, writable, construct-only).
 </p>
 <p>
-The special structure <code><link xref="ug-special-structures#property">Property</link></code>
+The special structure <code type="sml"><link xref="ug-special-structures#property">Property</link></code>
 provides support for working with properties in a type safe way.
-The the type <code>Property.init_t</code> is used to specify initial properties
-for use with <code>GObject.Object.new</code> as described by <link xref="#object-construction"/> below.
+The the type <code type="sml">Property.init_t</code> is used to specify initial properties
+for use with <code type="sml">GObject.Object.new</code> as described by <link xref="#object-construction"/> below.
 </p>
 
 <section>
@@ -24,15 +24,15 @@ In GObject, a property name is string of ASCII letters and digits with words sep
 where the first word starts with a letter.
 The SML interface provides an abstract value for each property.
 For a property “<var>some</var>-<var>property</var>-<var>name</var>”
-of a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
+of a class or interface <var>Type</var> in a namespace <var>Namespace</var>,
 the hierarchical SML name is
-<code><var>Namespace</var>.<var>Type</var>.<var>somePropertyName</var>Prop</code>.
+<code type="sml"><var>Namespace</var>.<var>Type</var>.<var>somePropertyName</var>Prop</code>.
 </p>
 <example>
 <p>
 For example, the property “always-show-image”
-of the class <code>Gtk.Button</code> is
-<code>Gtk.Button.alwaysShowImageProp</code>
+of the class Button in the namespace Gtk is
+<code type="sml">Gtk.Button.alwaysShowImageProp</code>
 </p>
 </example>
 <p>
@@ -42,11 +42,11 @@ the property, the type of the property and
 access to the property.
 </p>
 <p>
-The specification of <code><var>Namespace</var>.<var>Type</var>.<var>somePropertyName</var>Prop</code>
-in the signature <code><var>NAMESPACE</var>_<var>TYPE</var></code>
+The specification of <code type="sml"><var>Namespace</var>.<var>Type</var>.<var>somePropertyName</var>Prop</code>
+in the signature <code type="sml"><var>NAMESPACE</var>_<var>TYPE</var></code>
 has the form:
 </p>
-<code>
+<code type="sml">
 val <var>some</var><var>Property</var><var>Name</var>Prop : (<var>instanceType</var>, <var>getType</var>, <var>setType</var>, <var>initType</var>) Property.t
 </code>
 <p>
@@ -54,26 +54,26 @@ where
 </p>
 <terms>
 <item>
-  <title><code><var>instanceType</var></code></title>
+  <title><code type="sml"><var>instanceType</var></code></title>
   <p>
     is:
   </p>
   <list>
-    <item><p><code>'a class</code> for a class, which allows an instance of the class or any subclass of the class;</p></item>
-    <item><p><code>t</code> for an interface;</p></item>
+    <item><p><code type="sml">'a class</code> for a class, which allows an instance of the class or any subclass of the class;</p></item>
+    <item><p><code type="sml">t</code> for an interface;</p></item>
   </list>
 </item>
 <item>
-  <title><code><var>getType</var></code></title>
-  <p>is <code>unit -> <var>readType</var></code> if the property is readable and, otherwise, is <code>unit</code>;</p>
+  <title><code type="sml"><var>getType</var></code></title>
+  <p>is <code type="sml">unit -> <var>readType</var></code> if the property is readable and, otherwise, is <code type="sml">unit</code>;</p>
 </item>
 <item>
-  <title><code><var>setType</var></code></title>
-  <p>is <code><var>writeType</var> -> unit</code> if the property is writable and not contruct-only and, otherwise, is <code>unit</code>;</p>
+  <title><code type="sml"><var>setType</var></code></title>
+  <p>is <code type="sml"><var>writeType</var> -> unit</code> if the property is writable and not contruct-only and, otherwise, is <code type="sml">unit</code>;</p>
 </item>
 <item>
-  <title><code><var>initType</var></code></title>
-  <p>is <code><var>writeType</var> -> unit</code> if the property is writable and, otherwise, is <code>unit</code>;</p>
+  <title><code type="sml"><var>initType</var></code></title>
+  <p>is <code type="sml"><var>writeType</var> -> unit</code> if the property is writable and, otherwise, is <code type="sml">unit</code>;</p>
 </item>
 </terms>
 <p>
@@ -81,11 +81,11 @@ where
 </p>
 <terms>
 <item>
-  <title><code><var>readType</var></code></title>
+  <title><code type="sml"><var>readType</var></code></title>
   <p>is the type of the value read from the property;</p>
 </item>
 <item>
-  <title><code><var>writeType</var></code></title>
+  <title><code type="sml"><var>writeType</var></code></title>
   <p>is the type of the value written to the property.</p>
 </item>
 </terms>
@@ -94,28 +94,28 @@ The term <em>construct-only</em> means that the property is writable only at the
 </p>
 <example>
 <p>
-For example, in the signature <code>GTK_WINDOW</code>,
-the specification of the readable and writable property <code>Gtk.Window.transientForProp</code> is
+For example, in the signature <code type="sml">GTK_WINDOW</code>,
+the specification of the readable and writable property <code type="sml">Gtk.Window.transientForProp</code> is
 </p>
-<code>
+<code type="sml">
 val transientForProp : ('a class, unit -> base class option, 'b class option -> unit, 'b class option -> unit) Property.t
 </code>
 <p>
-and the specification of the readable, writable and construct-only property <code>Gtk.Window.typeProp</code> is
+and the specification of the readable, writable and construct-only property <code type="sml">Gtk.Window.typeProp</code> is
 </p>
-<code>
+<code type="sml">
 val typeProp : ('a class, unit -> window_type_t, unit, window_type_t -> unit) Property.t
 </code>
 <p>
-and the specification of the write-only property <code>Gtk.Window.startupIdProp</code> is
+and the specification of the write-only property <code type="sml">Gtk.Window.startupIdProp</code> is
 </p>
-<code>
+<code type="sml">
 val startupIdProp : ('a class, unit, string option -> unit, string option -> unit) Property.t
 </code>
 <p>
-and the specification of the read-only property <code>Gtk.Window.hasToplevelFocusProp</code> is
+and the specification of the read-only property <code type="sml">Gtk.Window.hasToplevelFocusProp</code> is
 </p>
-<code>
+<code type="sml">
 val hasToplevelFocusProp : ('a class, unit -> bool, unit, unit) Property.t
 </code>
 </example>
@@ -128,32 +128,32 @@ val hasToplevelFocusProp : ('a class, unit -> bool, unit, unit) Property.t
 <title>Reading</title>
 <p>
 For a property “<var>a</var>”
-of a class <code><var>ClassNamespace</var>.<var>Class</var></code>,
-the value of the property in an object <code><var>obj</var></code>
+of a class <code type="sml"><var>ClassNamespace</var>.<var>Class</var></code>,
+the value of the property in an object <code type="sml"><var>obj</var></code>
 is given by
 </p>
-<code>
+<code type="sml">
 Property.get <var>ClassNamespace</var>.<var>Class</var>.<var>a</var>Prop <var>obj</var>
 </code>
 <p>
 For a property “<var>a</var>”
-of an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
-implemented by the class <code><var>ClassNamespace</var>.<var>Class</var></code>,
-the value of the property in the object <code><var>obj</var></code>
-is given by either converting <code><var>obj</var></code>:
+of an interface <var>IfaceNamespace</var>.<var>Iface</var>
+implemented by the class <var>ClassNamespace</var>.<var>Class</var>,
+the value of the property in the object <code type="sml"><var>obj</var></code>
+is given by either converting <code type="sml"><var>obj</var></code>:
 </p>
-<code>
+<code type="sml">
 Property.get <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Prop (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>)
 </code>
 <p>or converting the property:</p>
-<code>
+<code type="sml">
 Property.get (Property.conv <var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Prop) <var>obj</var>
 </code>
 <p>
 The above expressions do not type check if any of the following are satisfied:
 </p>
 <list style="compact">
-<item><p><var>obj</var> is not an instance of the class <code><var>ClassNamespace</var>.<var>Class</var></code>;</p></item>
+<item><p><var>obj</var> is not an instance of the class <var>ClassNamespace</var>.<var>Class</var>;</p></item>
 <item><p>the property is not readable.</p></item>
 </list>
 </section>
@@ -161,35 +161,35 @@ The above expressions do not type check if any of the following are satisfied:
 <title>Writing</title>
 <p>
 For a property “<var>a</var>”
-of a class <code><var>ClassNamespace</var>.<var>Class</var></code>,
-the value of the property in an object <code><var>obj</var></code>
-is set to <code><var>x</var></code> by
+of a class <var>ClassNamespace</var>.<var>Class</var>,
+the value of the property in an object <code type="sml"><var>obj</var></code>
+is set to <code type="sml"><var>x</var></code> by
 </p>
-<code>
+<code type="sml">
 Property.set <var>ClassNamespace</var>.<var>Class</var>.<var>a</var>Prop <var>x</var> <var>obj</var>
 </code>
 <p>
 For a property “<var>a</var>”
-of an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
-implemented by the class <code><var>ClassNamespace</var>.<var>Class</var></code>,
-the value of the property in the object <code><var>obj</var></code>
-is set to <code><var>x</var></code> by either converting <code><var>obj</var></code>:
+of an interface <var>IfaceNamespace</var>.<var>Iface</var>
+implemented by the class <var>ClassNamespace</var>.<var>Class</var>,
+the value of the property in the object <code type="sml"><var>obj</var></code>
+is set to <code type="sml"><var>x</var></code> by either converting <code type="sml"><var>obj</var></code>:
 </p>
-<code>
+<code type="sml">
 Property.set <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Prop <var>x</var> (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>)
 </code>
 <p>or converting the property:</p>
-<code>
+<code type="sml">
 Property.set (Property.conv <var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Prop) <var>x</var> <var>obj</var>
 </code>
 <p>
 The above expressions do not type check if any of the following are satisfied:
 </p>
 <list style="compact">
-<item><p><var>obj</var> is not an instance of the class <code><var>ClassNamespace</var>.<var>Class</var></code>;</p></item>
+<item><p><var>obj</var> is not an instance of the class <var>ClassNamespace</var>.<var>Class</var>;</p></item>
 <item><p>the property is not writable;</p></item>
 <item><p>the property is construct-only;</p></item>
-<item><p>the type of <code><var>x</var></code> is not an instance of the type of the property.</p></item>
+<item><p>the type of <code type="sml"><var>x</var></code> is not an instance of the type of the property.</p></item>
 </list>
 </section>
 </section>
@@ -197,13 +197,13 @@ The above expressions do not type check if any of the following are satisfied:
 <section id="object-construction">
 <title>Initializing properties on object construction</title>
 <p>
-Using <code>GObject.Object.new</code>,
+Using <code type="sml">GObject.Object.new</code>,
 the value of a property “<var>a</var>”
-of a class <code><var>ClassNamespace</var>.<var>Class</var></code>
-is initialized to <code><var>x</var></code>
+of a class <var>ClassNamespace</var>.<var>Class</var>
+is initialized to <code type="sml"><var>x</var></code>
 on construction of an instance of a class <var>C</var> as follows:
 </p>
-<code>
+<code type="sml">
 val <var>obj</var> =
   GObject.Object.new
     (
@@ -217,12 +217,12 @@ val <var>obj</var> =
 </code>
 <p>
 The value of a property “<var>a</var>”
-of an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
-implemented by a class <code><var>ClassNamespace</var>.<var>Class</var></code>
-is initialized to <code><var>x</var></code>
+of an interface <var>IfaceNamespace</var>.<var>Iface</var>
+implemented by a class <var>ClassNamespace</var>.<var>Class</var>
+is initialized to <code type="sml"><var>x</var></code>
 on construction of an instance of a class <var>C</var> as follows:
 </p>
-<code>
+<code type="sml">
 val <var>obj</var> =
   GObject.Object.new
     (
@@ -238,9 +238,9 @@ val <var>obj</var> =
 The above expressions do not type check if any of the following are satisfied:
 </p>
 <list style="compact">
-<item><p><var>C</var> is neither equal to nor a subclass of <code><var>ClassNamespace</var>.<var>Class</var></code>;</p></item>
+<item><p><var>C</var> is neither equal to nor a subclass of <var>ClassNamespace</var>.<var>Class</var>;</p></item>
 <item><p>the property “<var>a</var>” is not writable;</p></item>
-<item><p>the type of <code><var>x</var></code> is not an instance of the type of the property.</p></item>
+<item><p>the type of <code type="sml"><var>x</var></code> is not an instance of the type of the property.</p></item>
 </list>
 </section>
 

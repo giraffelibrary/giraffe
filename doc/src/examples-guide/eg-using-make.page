@@ -152,12 +152,12 @@ For example
 </example>
 <note style="tip">
 <p>
-To test an application based on <code>Gio.Application</code> with different compilers,
+To test an application based on Gio.Application with different compilers,
 all running instances of the program should be closed before running
 the program built with a different compiler.
 </p>
 <p>
-Unless the <code>Gio.Application</code> object has been been told to ignore uniqueness,
+Unless the Gio.Application object has been been told to ignore uniqueness,
 it will check for a running instance with the same application identifier
 when a program is started.
 If there is already a running instance of the application,

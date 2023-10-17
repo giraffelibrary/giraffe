@@ -39,17 +39,17 @@ For example,
 </example>
 <p>
 For each namespace <var>Namespace</var>,
-there is a signature <code><var>NAMESPACE</var></code>
-and a structure <code><var>Namespace</var></code> that implements the signature:
+there is a signature <code type="sml"><var>NAMESPACE</var></code>
+and a structure <code type="sml"><var>Namespace</var></code> that implements the signature:
 </p>
-<code>
+<code type="sml">
 structure <var>Namespace</var> : <var>NAMESPACE</var>
 </code>
 <example>
 <p>
 For example:
 </p>
-<code>
+<code type="sml">
 structure GLib : G_LIB
 structure GObject : G_OBJECT
 structure Gio : GIO
@@ -78,7 +78,7 @@ A namespace may define the following entities:
 <item><p>function &#8212; see section <link xref="ug-functions"/></p></item>
 </list>
 <p>
-The signature <code><var>NAMESPACE</var></code>
+The signature <code type="sml"><var>NAMESPACE</var></code>
 contains a specification for each entity.
 The specification for a function and a constant is described in the sections referenced above.
 </p>
@@ -86,7 +86,7 @@ The specification for a function and a constant is described in the sections ref
 <p>
 For example:
 </p>
-<code>
+<code type="sml">
 signature GTK =
   sig
     <em>(* named types *)</em>
@@ -113,11 +113,11 @@ signature GTK =
 </example>
 <p>
 For each named type <var>Type</var> in <var>Namespace</var>,
-the signature <code><var>NAMESPACE</var></code> contains
-a specification of a structure <code><var>Type</var></code>
-where a separate signature <code><var>NAMESPACE</var>_<var>TYPE</var></code> specifies the SML interface:
+the signature <code type="sml"><var>NAMESPACE</var></code> contains
+a specification of a structure <code type="sml"><var>Type</var></code>
+where a separate signature <code type="sml"><var>NAMESPACE</var>_<var>TYPE</var></code> specifies the SML interface:
 </p>
-<code>
+<code type="sml">
 signature <var>NAMESPACE</var> =
   sig
     …
@@ -126,38 +126,38 @@ signature <var>NAMESPACE</var> =
   end
 </code>
 <p>
-Therefore, the SML interface of <code><var>Namespace</var>.<var>Type</var></code>
-is specified by <code><var>NAMESPACE</var>_<var>TYPE</var></code>.
+Therefore, the SML interface of <code type="sml"><var>Namespace</var>.<var>Type</var></code>
+is specified by <code type="sml"><var>NAMESPACE</var>_<var>TYPE</var></code>.
 </p>
 <example>
 <p>
-For example <code>GTK_WINDOW</code> specifies the SML interface for <code>Window</code>:
+For example <code type="sml">GTK_WINDOW</code> specifies the SML interface for <code type="sml">Window</code>:
 </p>
-<code>
+<code type="sml">
     structure Window : GTK_WINDOW
 </code>
 <p>
-Therefore, the SML interface of <code>Gtk.Window</code>
-is specified by <code>GTK_WINDOW</code>.
+Therefore, the SML interface of <code type="sml">Gtk.Window</code>
+is specified by <code type="sml">GTK_WINDOW</code>.
 </p>
 </example>
 <p>
 A named type may depend on other named types.
 Consequently, the signature for a named type typically refers to the SML type of other named types.
-A named type in another namespace can be referenced, e.g. <code>Gdk.Rectangle.t</code>,
+A named type in another namespace can be referenced, e.g. <code type="sml">Gdk.Rectangle.t</code>,
 but a named type in the same namespace does not yet have a structure that implements it.
 Therefore local SML types are introduced in the signature that are linked in the namespace signature.
 This is not shown in the simplified example above.
 </p>
 <example>
 <p>
-For example, in the namespace <code>Gtk</code>,
-the class <code>Window</code> refers to the enum <code>WindowType</code>.
-Therefore the signature <code>GTK_WINDOW</code> needs to refer to <code>WindowType.t</code>
-but instead uses a local type <code>window_type_t</code>
-that is linked by the structure specification for <code>Window</code> as follows:
+For example, in the namespace Gtk,
+the class Window refers to the enum WindowType.
+Therefore the signature <code type="sml">GTK_WINDOW</code> needs to refer to <code type="sml">WindowType.t</code>
+but instead uses a local type <code type="sml">window_type_t</code>
+that is linked by the structure specification for <code type="sml">Window</code> as follows:
 </p>
-<code>
+<code type="sml">
     structure Window :
       GTK_WINDOW
         where type 'a buildable_class = 'a Buildable.class
@@ -177,21 +177,21 @@ satisfies the depencies.
 </p>
 <example>
 <p>
-For example, in the namespace <code>Gtk</code>,
-the class <code>Window</code> and class <code>WindowGroup</code>
+For example, in the namespace Gtk,
+the class Window and class WindowGroup
 depend on each other's named type.
-The structure specification for <code>WindowGroup</code> would
+The structure specification for <code type="sml">WindowGroup</code> would
 be as follows:
 </p>
-<code>
+<code type="sml">
     structure WindowGroup :
       GTK_WINDOW_GROUP
         where type 'a widget_class = 'a Widget.class
         where type 'a window_class = 'a Window.class
 </code>
 <p>
-This depends on the structure specification of <code>Window</code>
-but the structure specification of <code>Window</code> depends on this.
+This depends on the structure specification of <code type="sml">Window</code>
+but the structure specification of <code type="sml">Window</code> depends on this.
 </p>
 </example>
 <p>
@@ -200,12 +200,12 @@ a separate structure that defines the SML type and no other part of the interfac
 </p>
 <example>
 <p>
-For example, for the class <code>Window</code> and class <code>WindowGroup</code>,
-the SML types are introduced by the structures <code>WindowClass</code> and <code>WindowGroupClass</code>, respectively.
+For example, for the class Window and class WindowGroup,
+the SML types are introduced by the structures <code type="sml">WindowClass</code> and <code type="sml">WindowGroupClass</code>, respectively.
 This avoids a cyclic dependency between the structure specifcations
-of <code>Window</code> and <code>WindowGroup</code>:
+of <code type="sml">Window</code> and <code type="sml">WindowGroup</code>:
 </p>
-<code>
+<code type="sml">
     structure WindowGroupClass : GTK_WINDOW_GROUP_CLASS
     …
     structure WindowClass :
@@ -257,15 +257,15 @@ A named type may define the following entities:
 <item><p>member (enum and flags only)</p></item>
 </list>
 <p>
-The signature <code><var>NAMESPACE</var>_<var>TYPE</var></code> for the named type
-always specifies a type <code>t</code> as described in the section <link xref="ug-types"/>
+The signature <code type="sml"><var>NAMESPACE</var>_<var>TYPE</var></code> for the named type
+always specifies a type <code type="sml">t</code> as described in the section <link xref="ug-types"/>
 and contains a specification for each entity as described in the sections referenced above.
 </p>
 <example>
 <p>
 For example:
 </p>
-<code>
+<code type="sml">
 signature GTK_BUTTON =
   sig
     <em>(* local types *)</em>
@@ -305,7 +305,7 @@ signature GTK_BUTTON =
 </example>
 <p>
 A callback has none of the entities listed above.
-Therefore, the signature for the callback specifies only the type <code>t</code>.
+Therefore, the signature for the callback specifies only the type <code type="sml">t</code>.
 </p>
 <p>
 An alias is a named type defined in terms of another (named or unnamed) type.
@@ -315,7 +315,7 @@ The signature for the alias is defined to be equal to the signature for the othe
 <p>
 For example:
 </p>
-<code>
+<code type="sml">
 signature GTK_ALLOCATION_RECORD = GDK_RECTANGLE_RECORD
 </code>
 </example>

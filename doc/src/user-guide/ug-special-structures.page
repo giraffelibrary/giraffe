@@ -14,14 +14,14 @@ or deviate significantly from their introspected form.
 <section id="giraffe">
 <title>Giraffe</title>
 <p>
-The top-level structure <code>Giraffe</code> provides general purpose utilities.
+The top-level structure <code type="sml">Giraffe</code> provides general purpose utilities.
 Currently, the structure provides functions for exiting an application
 that are more convenient than the Basis Library alternatives.
 </p>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 structure Giraffe :> GIRAFFE
 ]]></code>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 signature GIRAFFE =
   sig
     (**
@@ -44,28 +44,28 @@ signature GIRAFFE =
 <note style="tip">
 <p>
 This structure is unlikely to be needed by an application because
-there is rarely a need to use a <code>GObject.Value</code> directly,
-especially as the structure <code>Property</code> provides a
+there is rarely a need to use a GObject.Value instance directly,
+especially as the structure <code type="sml">Property</code> provides a
 high-level type safe interface for properties.
 </p>
 </note>
 <p>
-The top-level structure <code>ValueAccessor</code> is included with the <code>GObject</code> structure
-and provides support for working with <code>GObject.Value</code> records directly.
-The structure defines the type <code>'a ValueAccessor.t</code>
-that encapsulates typed access to a <code>GObject.Value</code> record.
-This does <em>not</em> provide type safe access to a <code>GObject.Value</code> record
-but each accessor links an SML type and GObject dynamic type (represented by <code>GObject.Type</code>)
-allowing type safe wrappers to be created around a <code>GObject.Value</code> record.
+The top-level structure <code type="sml">ValueAccessor</code> is included with the structure <code type="sml">GObject</code>
+and provides support for working with GObject.Value records directly.
+The structure defines the type <code type="sml">'a ValueAccessor.t</code>
+that encapsulates typed access to a GObject.Value record.
+This does <em>not</em> provide type safe access to a GObject.Value record
+but each accessor links an SML type and GObject dynamic type (represented by GObject.Type)
+allowing type-safe wrappers to be created around a GObject.Value record.
 </p>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 structure ValueAccessor :>
 ]]>  VALUE_ACCESSOR
     where type type_t = <link xref="#g-object-type">GObjectType</link>.t
     where type value_t = GObjectValueRecord.t
     where type C.value_v = GObjectValueRecord.C.v
 </code>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 signature VALUE_ACCESSOR =
   sig
     type 'a t
@@ -123,18 +123,18 @@ signature VALUE_ACCESSOR =
 <section id="signal">
 <title>Signal</title>
 <p>
-The top-level structure <code>Signal</code> is included with the <code>GObject</code> structure
+The top-level structure <code type="sml">Signal</code> is included with the structure <code type="sml">GObject</code>
 and provides a high-level type safe representation of a signal,
-<code>('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) Signal.t</code>,
+<code type="sml">('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) Signal.t</code>,
 and associated operations.
 </p>
 <p>
-The internal representation of type <code>Signal.t</code> is exposed to work around the
+The internal representation of type <code type="sml">Signal.t</code> is exposed to work around the
 value restriction when declaring a signal value.
-(A parameter of type <code>Signal.t</code> always contains a variable.)
+(A parameter of type <code type="sml">Signal.t</code> always contains a variable.)
 Typically, applications do not declare signals so the internal representation can be ignored.
 </p>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 structure Signal :>
 ]]>  SIGNAL
     where type 'a object_class = 'a GObjectObjectClass.class
@@ -143,7 +143,7 @@ structure Signal :>
     where type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller =
             ('arg_r, 'arg_w, 'res_r, 'res_w) <link xref="#g-object-closure">GObjectClosure</link>.marshaller
 </code>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 signature SIGNAL =
   sig
     type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller
@@ -246,31 +246,31 @@ signature SIGNAL =
 <section id="child-signal">
 <title>ChildSignal</title>
 <p>
-The top-level structure <code>ChildSignal</code> is included with the <code>Gtk</code> structure
+The top-level structure <code type="sml">ChildSignal</code> is included with the structure <code type="sml">Gtk</code>
 and provides convenience functions
-that connect a handler to a signal of a non <code>Gtk.Widget</code> object
+that connect a handler to a signal of a non Gtk.Widget object
 where the handler is disconnected when
-a <code>Gtk.Widget</code> object receives the “destroy” signal.
+a Gtk.Widget object receives the “destroy” signal.
 </p>
 <p>
 This is intended to be used for connecting a handler to a signal of an object
 where the handler function directly or indirectly references the object.
 In this scenario, there is a reference cycle that is not visible to the SML compiler's garbage collector.
-There is no issue for a signal of a <code>Gtk.Widget</code> object
+There is no issue for a signal of a Gtk.Widget object
 because the “destroy” signal causes any signal handlers to be disconnected.
-For a non <code>Gtk.Widget</code> object,
+For a non Gtk.Widget object,
 which does not have a “destroy” signal,
 the signal handler must be explicitly disconnected to remove the reference cycle.
 The functions in this structure simplify this when there is a widget whose lifespan
 can be used as the lifespan of the handler function
 (and there typically is such a widget).
 </p>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 structure ChildSignal :>
 ]]>  CHILD_SIGNAL
     where type 'a widget_class = 'a GtkWidgetClass.class
 </code>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 signature CHILD_SIGNAL =
   sig
     type 'a widget_class
@@ -292,12 +292,12 @@ signature CHILD_SIGNAL =
 <section id="property">
 <title>Property</title>
 <p>
-The top-level structure <code>Property</code> is included with the <code>GObject</code> structure
+The top-level structure <code type="sml">Property</code> is included with the structure <code type="sml">GObject</code>
 and provides a high-level type safe representation of a property,
-<code>('object_class, 'get, 'set, 'init) Property.t</code>,
+<code type="sml">('object_class, 'get, 'set, 'init) Property.t</code>,
 and associated operations.
 </p>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 structure Property :>
 ]]>  PROPERTY
     where type type_t = <link xref="#g-object-type">GObjectType</link>.t
@@ -305,7 +305,7 @@ structure Property :>
     where type 'a object_class = 'a GObjectObjectClass.class
     where type 'a binding_class = 'a GObjectBindingClass.class
 </code>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 signature PROPERTY =
   sig
     type type_t
@@ -456,14 +456,14 @@ signature PROPERTY =
 <section id="classify-event">
 <title>ClassifyEvent</title>
 <p>
-The top-level structure <code>ClassifyEvent</code> is included with the <code>Gdk</code> structure
+The top-level structure <code type="sml">ClassifyEvent</code> is included with the structure <code type="sml">Gdk</code>
 and provides
-a data type <code>ClassifyEvent.t</code> and
-a function <code>ClassifyEvent.classify</code>
-to return the current field of a <code>Gdk.Event</code> union
+a data type <code type="sml">ClassifyEvent.t</code> and
+a function <code type="sml">ClassifyEvent.classify</code>
+to return the current field of a Gdk.Event union
 according to its discriminant.
 </p>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 structure ClassifyEvent :>
 ]]>  CLASSIFY_EVENT
     where type 'a event_union = 'a GdkEvent.union
@@ -504,7 +504,7 @@ structure ClassifyEvent :>
     where type event_owner_change_record_event = GdkEventOwnerChangeRecord.event
     where type event_grab_broken_record_event = GdkEventGrabBrokenRecord.event
 </code>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 signature CLASSIFY_EVENT =
   sig
     type 'a event_union
@@ -600,16 +600,16 @@ are listed for reference.
 <section id="g-object-type">
 <title>GObjectType</title>
 <p>
-The top-level structure <code>GObjectType</code> provides the implementation of the <code>GObject.Type</code> structure.
+The top-level structure <code type="sml">GObjectType</code> provides the implementation of the <code type="sml">GObject.Type</code> structure.
 In the GObject namespace, introspection metadata defines the type named Type as an alias for gsize
-which would result in <code>GObject.Type.t</code> being equivalent to the type <code>GSize.t</code>.
-This structure makes <code>GObject.Type.t</code> an abstract scalar equality type to prevent use as an integer
+which would result in <code type="sml">GObject.Type.t</code> being equivalent to the type <code type="sml">GSize.t</code>.
+This structure makes <code type="sml">GObject.Type.t</code> an abstract scalar equality type to prevent use as an integer
 and provides operations and constructors for this type.
 </p>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 structure GObjectType :> G_OBJECT_TYPE
 ]]></code>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 signature G_OBJECT_TYPE =
   sig
     include C_SCALAR_EQ_NULL
@@ -672,24 +672,24 @@ signature G_OBJECT_TYPE =
 <section id="g-object-value">
 <title>GObjectValue</title>
 <p>
-The top-level structure <code>GObjectValue</code> provides the implementation of the <code>GObject.Value</code> structure.
+The top-level structure <code type="sml">GObjectValue</code> provides the implementation of the <code type="sml">GObject.Value</code> structure.
 This structure excludes the introspected get and set functions
-because the <code>ValueAccessor</code> structure is used instead.
-Accessors for the fundamental types are provided in the structure <code>ValueAccessor.Types</code>.
+because the <code type="sml">ValueAccessor</code> structure is used instead.
+Accessors for the fundamental types are provided in the structure <code type="sml">ValueAccessor.Types</code>.
 </p>
 <p>
-The function <code>GObjectValue.reset</code> deviates from its introspected form by returning <code>unit</code> rather than its argument.
+The function <code type="sml">GObjectValue.reset</code> deviates from its introspected form by returning <code type="sml">unit</code> rather than its argument.
 </p>
 <p>
-The function <code>GObjectValue.new</code> is provided in addition to the introspected functions.
+The function <code type="sml">GObjectValue.new</code> is provided in addition to the introspected functions.
 </p>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 structure GObjectValue :>
 ]]>  G_OBJECT_VALUE
     where type t = GObjectValueRecord.t
     where type type_t = <link xref="#g-object-type">GObjectType</link>.t
 </code>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 signature G_OBJECT_VALUE =
   sig
     type t
@@ -723,20 +723,20 @@ signature G_OBJECT_VALUE =
 <section id="g-object-closure">
 <title>GObjectClosure</title>
 <p>
-The top-level structure <code>GObjectClosure</code> provides the implementation of the <code>GObject.Closure</code> structure.
+The top-level structure <code type="sml">GObjectClosure</code> provides the implementation of the <code type="sml">GObject.Closure</code> structure.
 This structure excludes most of the introspected entities
-and provides a constructor <code>GObjectClosure.new</code> that creates
-a GObject closure that wraps an SML function of type <code>'arg_r -> 'res_w</code>
-given an SML marshaller of type <code>('arg_r, 'arg_w, 'res_r, 'res_w) ClosureMarshal.marshaller</code>.
+and provides a constructor <code type="sml">GObjectClosure.new</code> that creates
+a GObject closure that wraps an SML function of type <code type="sml">'arg_r -> 'res_w</code>
+given an SML marshaller of type <code type="sml">('arg_r, 'arg_w, 'res_r, 'res_w) ClosureMarshal.marshaller</code>.
 </p>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 structure GObjectClosure :>
 ]]>  G_OBJECT_CLOSURE
     where type t = GObjectClosureRecord.t
     where type type_t = <link xref="#g-object-type">GObjectType</link>.t
     where type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller = ('arg_r, 'arg_w, 'res_r, 'res_w) <link xref="#closure-marshal">ClosureMarshal</link>.marshaller
 </code>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 signature G_OBJECT_CLOSURE =
   sig
     type t
@@ -752,21 +752,21 @@ signature G_OBJECT_CLOSURE =
 <section id="closure-marshal">
 <title>ClosureMarshal</title>
 <p>
-The top-level structure <code>ClosureMarshal</code> is included with the <code>GObject</code> structure
+The top-level structure <code type="sml">ClosureMarshal</code> is included with the structure <code type="sml">GObject</code>
 and provides functions to construct an SML marshaller for a GObject closure.
 An SML marshaller is bidirectional:
-given an SML marshaller of type <code>('arg_r, 'arg_w, 'res_r, 'res_w) ClosureMarshal.marshaller</code>,
-a GObject closure can be called by an SML function of type <code>'arg_w -> 'res_r</code>
-and an SML function of type <code>'arg_r -> 'res_w</code> can be called by a GObject closure.
+given an SML marshaller of type <code type="sml">('arg_r, 'arg_w, 'res_r, 'res_w) ClosureMarshal.marshaller</code>,
+a GObject closure can be called by an SML function of type <code type="sml">'arg_w -> 'res_r</code>
+and an SML function of type <code type="sml">'arg_r -> 'res_w</code> can be called by a GObject closure.
 </p>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 structure ClosureMarshal :>
 ]]>  CLOSURE_MARSHAL
     where type 'a accessor = 'a <link xref="#value-accessor">ValueAccessor</link>.t
     where type C.value_v = GObjectValueRecord.C.v
     where type C.value_array_v = GObjectValueRecordCArrayN.C.non_opt GObjectValueRecordCArrayN.C.p
 </code>
-<code><![CDATA[
+<code type="sml"><![CDATA[
 infixr &&&
 
 signature CLOSURE_MARSHAL =

@@ -13,7 +13,7 @@ A function is called on emission of a signal by connecting to the signal
 and specifying the function as the handler.
 </p>
 <p>
-The special structure <code><link xref="ug-special-structures#signal">Signal</link></code>
+The special structure <code type="sml"><link xref="ug-special-structures#signal">Signal</link></code>
 provides support for working with signals in a type safe way.
 </p>
 
@@ -24,15 +24,15 @@ In GObject, a signal name is string of ASCII letters and digits with words separ
 where the first word starts with a letter.
 The SML interface provides an abstract value for each signal.
 For a signal “<var>some</var>-<var>signal</var>-<var>name</var>”
-of a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
+of a class or interface <var>Type</var> in a namespace <var>Namespace</var>,
 the hierarchical SML name is
-<code><var>Namespace</var>.<var>Type</var>.<var>someSignalName</var>Sig</code>.
+<code type="sml"><var>Namespace</var>.<var>Type</var>.<var>someSignalName</var>Sig</code>.
 </p>
 <example>
 <p>
 For example, the signal “insert-at-cursor”
-of the class <code>Gtk.TextView</code> is
-<code>Gtk.TextView.insertAtCursorSig</code>
+of the class TextView in the namespace Gtk is
+<code type="sml">Gtk.TextView.insertAtCursorSig</code>
 </p>
 </example>
 <p>
@@ -41,11 +41,11 @@ each signal has an SML specification constraining the instance type that emits
 the signal and the type of the emitter and handler functions.
 </p>
 <p>
-The specification of <code><var>Namespace</var>.<var>Type</var>.<var>someSignalName</var>Sig</code>
-in the signature <code><var>NAMESPACE</var>_<var>TYPE</var></code>
+The specification of <code type="sml"><var>Namespace</var>.<var>Type</var>.<var>someSignalName</var>Sig</code>
+in the signature <code type="sml"><var>NAMESPACE</var>_<var>TYPE</var></code>
 has the form:
 </p>
-<code>
+<code type="sml">
 val <var>some</var><var>Signal</var><var>Name</var>Sig : (<var>instanceType</var>, <var>argType_e</var>, <var>argType_h</var>, <var>resType_h</var>, <var>resType_e</var>) Signal.t
 </code>
 <p>
@@ -53,38 +53,38 @@ where
 </p>
 <terms>
 <item>
-  <title><code><var>instanceType</var></code></title>
+  <title><code type="sml"><var>instanceType</var></code></title>
   <p>
     is:
   </p>
   <list>
-    <item><p><code>'a class</code> for a class, which allows an instance of the class or any subclass of the class;</p></item>
-    <item><p><code>t</code> for an interface;</p></item>
+    <item><p><code type="sml">'a class</code> for a class, which allows an instance of the class or any subclass of the class;</p></item>
+    <item><p><code type="sml">t</code> for an interface;</p></item>
   </list>
 </item>
 <item>
-  <title><code><var>argType_e</var> -> <var>resType_e</var></code></title>
+  <title><code type="sml"><var>argType_e</var> -> <var>resType_e</var></code></title>
   <p>
     is the type of a function that emits the signal;
   </p>
 </item>
 <item>
-  <title><code><var>argType_h</var> -> <var>resType_h</var></code></title>
+  <title><code type="sml"><var>argType_h</var> -> <var>resType_h</var></code></title>
   <p>
     is the type of a function that handles the signal;
   </p>
 </item>
 <item>
-  <title><code><var>argType_e</var></code> and <code><var>argType_h</var></code></title>
+  <title><code type="sml"><var>argType_e</var></code> and <code type="sml"><var>argType_h</var></code></title>
   <p>
     contain the types of the &#x2018;in&#x2019; and &#x2018;inout&#x2019; arguments,
-    as a tuple if there are two or more and as <code>unit</code> if there are none;
+    as a tuple if there are two or more and as <code type="sml">unit</code> if there are none;
   </p>
 </item>
 <item>
-  <title><code><var>resType_e</var></code> and <code><var>resType_h</var></code></title>
+  <title><code type="sml"><var>resType_e</var></code> and <code type="sml"><var>resType_h</var></code></title>
   <p>
-    contain the following types as a tuple if there are two or more and as <code>unit</code> if there are none:
+    contain the following types as a tuple if there are two or more and as <code type="sml">unit</code> if there are none:
   </p>
   <list>
   <item>
@@ -101,25 +101,25 @@ where
 </item>
 </terms>
 <p>
-The difference between <code><var>argType_e</var></code> and <code><var>argType_h</var></code> and
-between <code><var>resType_e</var></code> and <code><var>resType_h</var></code>
+The difference between <code type="sml"><var>argType_e</var></code> and <code type="sml"><var>argType_h</var></code> and
+between <code type="sml"><var>resType_e</var></code> and <code type="sml"><var>resType_h</var></code>
 is in the SML types for a class or union:
-<code><var>argType_e</var></code> and <code><var>resType_h</var></code> allow
+<code type="sml"><var>argType_e</var></code> and <code type="sml"><var>resType_h</var></code> allow
 an object of any subclass of the class and
 a union instance to have the type of any field of the union
-whereas <code><var>resType_e</var></code> and <code><var>argType_h</var></code> do not.
+whereas <code type="sml"><var>resType_e</var></code> and <code type="sml"><var>argType_h</var></code> do not.
 </p>
 <example>
 <p>
-For example, the specification of <code>Gtk.TextView.insertAtCursorSig</code> is
+For example, the specification of <code type="sml">Gtk.TextView.insertAtCursorSig</code> is
 </p>
-<code>
+<code type="sml">
 val insertAtCursorSig : ('a class, string, string, unit, unit) Signal.t
 </code>
 </example>
 <p>
 As the example above shows,
-neither <code><var>argType_e</var></code> nor <code><var>argType_h</var></code>
+neither <code type="sml"><var>argType_e</var></code> nor <code type="sml"><var>argType_h</var></code>
 have an argument
 for the instance that emits the signal.
 </p>
@@ -132,48 +132,48 @@ for the instance that emits the signal.
 In GObject, the detail of a signal is a string whose format is specific to the signal.
 The SML representation of a signal includes the detail,
 which is used by both signal connection and emission functions.
-The detail of a signal value is returned by the function <code>Signal.detail</code>
-and is overridden by the functions <code>Signal.withDetail</code> and <code>Signal.withPropDetail</code>
+The detail of a signal value is returned by the function <code type="sml">Signal.detail</code>
+and is overridden by the functions <code type="sml">Signal.withDetail</code> and <code type="sml">Signal.withPropDetail</code>
 which return a new signal value.
 </p>
 <p>
-The detail of a signal <code><var>signal</var></code> is given by
+The detail of a signal <code type="sml"><var>signal</var></code> is given by
 </p>
-<code>
-Signal.detail <code><var>signal</var></code>
+<code type="sml">
+Signal.detail <var>signal</var>
 </code>
 <p>
 The detail of each signal provided in the SML interface is empty:
 for a signal “<var>a</var>”
-of a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
-<code>
+of a class or interface <var>Namespace</var>.<var>Type</var>,
+<code type="sml">
 Signal.detail <var>Namespace</var>.<var>Type</var>.<var>a</var>Sig
 </code>
-is <code>""</code>.
+is <code type="sml">""</code>.
 </p>
 <p>
-A signal <code><var>signal</var></code>
-with the detail replaced by <code><var>detail</var></code> is given by
+A signal <code type="sml"><var>signal</var></code>
+with the detail replaced by <code type="sml"><var>detail</var></code> is given by
 </p>
-<code>
-Signal.withDetail (<code><var>signal</var></code>, <var>detail</var>)
+<code type="sml">
+Signal.withDetail (<var>signal</var>, <var>detail</var>)
 </code>
 <p>
-Specifying <code><var>detail</var></code> as <code>""</code> has the effect of removing any detail.
+Specifying <code type="sml"><var>detail</var></code> as <code type="sml">""</code> has the effect of removing any detail.
 </p>
 <p>
-The detail of the signal “notify” of the class <code>GObject.Object</code> requires a property name if non-empty.
-Using <code>Signal.withDetail</code> to override this detail requires the property name to be written as a string.
-Instead, this detail can be overridden by specifying a property value using <code>Signal.withPropDetail</code>.
-A signal <code><var>signal</var></code>
-with the detail replaced by the name of a property <code><var>prop</var></code> and
+The detail of the signal “notify” of the class GObject.Object requires a property name if non-empty.
+Using <code type="sml">Signal.withDetail</code> to override this detail requires the property name to be written as a string.
+Instead, this detail can be overridden by specifying a property value using <code type="sml">Signal.withPropDetail</code>.
+A signal <code type="sml"><var>signal</var></code>
+with the detail replaced by the name of a property <code type="sml"><var>prop</var></code> and
 with its type constrained for use only on instances with the property is given by
 </p>
-<code>
-Signal.withPropDetail (<code><var>signal</var></code>, <var>prop</var>)
+<code type="sml">
+Signal.withPropDetail (<var>signal</var>, <var>prop</var>)
 </code>
 <p>
-<code>Signal.withPropDetail</code> is preferable for a signal whose detail is a property name
+<code type="sml">Signal.withPropDetail</code> is preferable for a signal whose detail is a property name
 because type checking also ensures that:
 </p>
 <list style="compact">
@@ -201,18 +201,18 @@ There is no support for
 <title>Connecting signal handlers</title>
 <p>
 A handler function is connected to a signal of an object (instance)
-using <code>Signal.connect</code> or <code>Signal.connectAfter</code>.
+using <code type="sml">Signal.connect</code> or <code type="sml">Signal.connectAfter</code>.
 The handler function is called
-<em>before</em> the default handler by using <code>Signal.connect</code> and
-<em>after</em> the default handler by using <code>Signal.connectAfter</code>.
+<em>before</em> the default handler by using <code type="sml">Signal.connect</code> and
+<em>after</em> the default handler by using <code type="sml">Signal.connectAfter</code>.
 </p>
 <p>
 For a signal “<var>a</var>”
-of a class <code><var>ClassNamespace</var>.<var>Class</var></code>,
-a handler function <code><var>f</var></code>
-is connected to the signal on an object <code><var>obj</var></code> by
+of a class <var>Class</var> in a namespace <var>ClassNamespace</var>,
+a handler function <code type="sml"><var>f</var></code>
+is connected to the signal on an object <code type="sml"><var>obj</var></code> by
 </p>
-<code>
+<code type="sml">
 Signal.connect <var>obj</var> (<var>ClassNamespace</var>.<var>Class</var>.<var>a</var>Sig, <var>f</var>)
 </code>
 <p>
@@ -220,37 +220,37 @@ whose value is a handler id to allow the signal connection to be modified or che
 </p>
 <p>
 For a signal “<var>a</var>”
-of an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
-implemented by the class <code><var>ClassNamespace</var>.<var>Class</var></code>,
-a handler function <code><var>f</var></code>
-is connected to the signal on the object <code><var>obj</var></code> by
-either converting <code><var>obj</var></code>:
+of an interface <var>IfaceNamespace</var>.<var>Iface</var>
+implemented by the class <var>ClassNamespace</var>.<var>Class</var>,
+a handler function <code type="sml"><var>f</var></code>
+is connected to the signal on the object <code type="sml"><var>obj</var></code> by
+either converting <code type="sml"><var>obj</var></code>:
 </p>
-<code>
+<code type="sml">
 Signal.connect (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>) (<var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Sig, <var>f</var>)
 </code>
 <p>or converting the signal:</p>
-<code>
+<code type="sml">
 Signal.connect <var>obj</var> (Signal.conv <var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Sig, <var>f</var>)
 </code>
 <example>
 <p>
 For example, to handle emission of the signal “insert-at-cursor”
-from the object <code>textView</code>
-using the function <code>onInsert</code>, connect to the signal as follows:
+from the object <code type="sml">textView</code>
+using the function <code type="sml">onInsert</code>, connect to the signal as follows:
 </p>
-<code>
+<code type="sml">
 val handlerId = Signal.connect textView (Gtk.TextView.insertAtCursorSig, onInsert)
 </code>
 <p>
-<code>handlerId</code> can be used to modify this signal connection subsequently.
+<code type="sml">handlerId</code> can be used to modify this signal connection subsequently.
 </p>
 </example>
 <p>
-It is not unusual for the handler function <code><var>f</var></code> to need to refer to the object that emitted the signal, <code><var>obj</var></code>, but <code><var>argType_h</var></code> does not have an argument to pass <code><var>obj</var></code> to the handler <code><var>f</var></code>.
-This is easily achieved by defining <code><var>f</var></code> to take the emitting object as the first argument and supplying the argument when connecting the handler as follows:
+It is not unusual for the handler function <code type="sml"><var>f</var></code> to need to refer to the object that emitted the signal, <code type="sml"><var>obj</var></code>, but <code type="sml"><var>argType_h</var></code> does not have an argument to pass <code type="sml"><var>obj</var></code> to the handler <code type="sml"><var>f</var></code>.
+This is easily achieved by defining <code type="sml"><var>f</var></code> to take the emitting object as the first argument and supplying the argument when connecting the handler as follows:
 </p>
-<code>
+<code type="sml">
 Signal.connect <var>obj</var> (<var>Namespace</var>.<var>Type</var>.<var>a</var>Sig, <var>f</var> <var>obj</var>)
 </code>
 <p>
@@ -266,8 +266,8 @@ Type checking ensures that when a handler is connected to a signal of an object,
 <section>
 <title>Blocking signal handlers</title>
 <p>
-A signal handler is blocked using <code>Signal.handlerBlock</code>
-and unblocked using <code>Signal.handlerUnblock</code>.
+A signal handler is blocked using <code type="sml">Signal.handlerBlock</code>
+and unblocked using <code type="sml">Signal.handlerUnblock</code>.
 (Note that blocking is cumulative so a signal handler becomes active
 only once it has been unblocked as many times as it has been blocked.)
 The signal handler to block or unblock is identified by the object that emits the signal and
@@ -275,16 +275,16 @@ the handler id returned when it was connected.
 </p>
 <example>
 <p>
-For example, a signal handler on <code>textView</code> identified by <code>handlerId</code>
+For example, a signal handler on <code type="sml">textView</code> identified by <code type="sml">handlerId</code>
 is blocked as follows:
 </p>
-<code>
+<code type="sml">
 Signal.handlerBlock textView handlerId
 </code>
 <p>
 and is unblocked as follows:
 </p>
-<code>
+<code type="sml">
 Signal.handlerUnblock textView handlerId
 </code>
 </example>
@@ -293,16 +293,16 @@ Signal.handlerUnblock textView handlerId
 <section>
 <title>Disconnecting signal handlers</title>
 <p>
-A signal handler is disconnected using <code>Signal.handlerDisconnect</code>.
+A signal handler is disconnected using <code type="sml">Signal.handlerDisconnect</code>.
 The signal handler to disconnect is identified by the object that emits the signal and
 the handler id returned when it was connected.
 </p>
 <example>
 <p>
-For example, a signal handler on <code>textView</code> identified by <code>handlerId</code>
+For example, a signal handler on <code type="sml">textView</code> identified by <code type="sml">handlerId</code>
 is disconnected as follows:
 </p>
-<code>
+<code type="sml">
 Signal.handlerDisconnect textView handlerId
 </code>
 </example>
@@ -311,16 +311,16 @@ Signal.handlerDisconnect textView handlerId
 <section>
 <title>Testing whether signal handlers are still connected</title>
 <p>
-<code>Signal.handlerIsConnected</code> tests whether a signal is connected.
+<code type="sml">Signal.handlerIsConnected</code> tests whether a signal is connected.
 The signal handler is identified by the object that emits the signal and
 the handler id returned when it was connected.
 </p>
 <example>
 <p>
-For example, a signal handler on <code>textView</code> identified by <code>handlerId</code>
+For example, a signal handler on <code type="sml">textView</code> identified by <code type="sml">handlerId</code>
 is tested as follows:
 </p>
-<code>
+<code type="sml">
 Signal.handlerIsConnected textView handlerId
 </code>
 </example>
@@ -332,14 +332,14 @@ Signal.handlerIsConnected textView handlerId
 <title>Emitting signals</title>
 <p>
 A signal is emitted on an object (instance)
-using <code>Signal.emit</code>.
+using <code type="sml">Signal.emit</code>.
 </p>
 <p>
 For a signal “<var>a</var>”
-of a class <code><var>ClassNamespace</var>.<var>Class</var></code>,
-the signal is emitted on an object <code><var>obj</var></code> with an argument <code><var>arg</var></code> by
+of a class <var>ClassNamespace</var>.<var>Class</var>,
+the signal is emitted on an object <code type="sml"><var>obj</var></code> with an argument <code type="sml"><var>arg</var></code> by
 </p>
-<code>
+<code type="sml">
 Signal.emit <var>obj</var> <var>ClassNamespace</var>.<var>Class</var>.<var>a</var>Sig <var>arg</var>
 </code>
 <p>
@@ -356,32 +356,32 @@ the result contains
 <item><p>the before value for &#x2018;inout&#x2019; arguments.</p></item>
 </list>
 <p>
-The default value is the value set on initialization of a <code>GValue</code>
-by <code><link href="https://developer-old.gnome.org/gobject/stable/gobject-Generic-values.html#g-value-init">g_value_init</link></code>
-for the <code>GType</code> of the corresponding &#x2018;out&#x2019; argument or return value.
+The default value is the value set on initialization of a <code type="c">GValue</code>
+by <code type="c"><link href="https://developer-old.gnome.org/gobject/stable/gobject-Generic-values.html#g-value-init">g_value_init</link></code>
+for the <code type="c">GType</code> of the corresponding &#x2018;out&#x2019; argument or return value.
 </p>
 </note>
 <p>
 For a signal “<var>a</var>”
-of an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
-implemented by the class <code><var>ClassNamespace</var>.<var>Class</var></code>,
-the signal is emitted on an object <code><var>obj</var></code> with an argument <code><var>arg</var></code> by
-either converting <code><var>obj</var></code>:
+of an interface <var>IfaceNamespace</var>.<var>Iface</var>
+implemented by the class <var>ClassNamespace</var>.<var>Class</var>,
+the signal is emitted on an object <code type="sml"><var>obj</var></code> with an argument <code type="sml"><var>arg</var></code> by
+either converting <code type="sml"><var>obj</var></code>:
 </p>
-<code>
+<code type="sml">
 Signal.emit (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>) <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Sig <var>arg</var>
 </code>
 <p>or converting the signal:</p>
-<code>
+<code type="sml">
 Signal.emit <var>obj</var> (Signal.conv <var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Sig) <var>arg</var>
 </code>
 <example>
 <p>
 For example, to emit the signal “button-press-event”
-on the object <code>button</code>
-with the argument <code>e</code>, emit the signal as follows:
+on the object <code type="sml">button</code>
+with the argument <code type="sml">e</code>, emit the signal as follows:
 </p>
-<code>
+<code type="sml">
 val res = Signal.emit button Widget.buttonPressEventSig e
 </code>
 </example>
