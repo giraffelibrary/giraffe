@@ -195,7 +195,7 @@ The commands can be adjusted as required.
 <p>
 If the required versions cannot be provided via the package management system,
 the libraries can be build from source.
-To do this, a build environment such as <link href="https://wiki.gnome.org/HowDoI/Jhbuild">JHBuild</link>
+To do this, a build environment such as <link href="https://gnome.pages.gitlab.gnome.org/jhbuild/">JHBuild</link>
 or <link href="https://wiki.gnome.org/Newcomers/BuildSystemComponent">BuildStream</link> is recommended.
 </p>
 </section>
