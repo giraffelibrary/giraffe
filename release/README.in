@@ -6,7 +6,7 @@
       |\`-'       Version @GIRAFFE_VERSION@
       |/|
       |\|         SML interface to libraries using GObject Introspection
-      |/|         http://giraffelibrary.org/
+      |/|         https://giraffelibrary.org/
       |\|
 
 
@@ -20,7 +20,7 @@ This README file covers the following topics:
 
 Full documentation is available at
 
-  http://giraffelibrary.org/
+  https://giraffelibrary.org/
 
 
          ---------------          1.  Overview          ---------------
@@ -89,4 +89,4 @@ See the file 'INSTALL'.
 
 Please send any queries to the Giraffe User mailing list:
 
-  http://giraffelibrary.org/mailman/listinfo/giraffe-user_giraffelibrary.org
+  https://giraffelibrary.org/mailman/listinfo/giraffe-user_giraffelibrary.org

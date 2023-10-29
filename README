@@ -10,7 +10,7 @@
           / |\         The latest release packages and documentation have been
          /_/\_\        generated for you and are available from
         /|/  \|\
-       /_/    \_\          http://giraffelibrary.org/
+       /_/    \_\          https://giraffelibrary.org/
       /|/      \|\
      /_/        \_\
 
@@ -30,7 +30,7 @@ and generated files.  After the code generation steps below are performed, the
 final source release is in the directory 'release', which can be used as a
 Giraffe Library release.  However, users do not need to generate the release,
 which may require additional tools, as the latest is available from the website
-(http://giraffelibrary.org/).
+(https://giraffelibrary.org/).
 
 
 This document contains the following sections:
