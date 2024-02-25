@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2016-2018, 2020 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016-2018, 2020, 2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -39,4 +39,54 @@ mlton_g_log (SML_CVECTOR_VAL(gchar, log_domain),
   giraffe_g_log (GET_SML_CVECTOR_VAL(gchar, log_domain),
                  log_level,
                  GET_SML_CVECTOR_VAL(gchar, format));
+}
+
+
+/* GSource */
+
+GSource *
+giraffe_g_child_watch_source_new (GPid pid,
+                                  GSourceFunc func,
+                                  gpointer data,
+                                  GDestroyNotify notify)
+{
+  GSource *source = g_child_watch_source_new (pid);
+  g_source_set_callback (source, func, data, notify);
+
+  return source;
+}
+
+GSource *
+giraffe_g_idle_source_new (GSourceFunc func,
+                           gpointer data,
+                           GDestroyNotify notify)
+{
+  GSource *source = g_idle_source_new ();
+  g_source_set_callback (source, func, data, notify);
+
+  return source;
+}
+
+GSource *
+giraffe_g_timeout_source_new (guint interval,
+                              GSourceFunc func,
+                              gpointer data,
+                              GDestroyNotify notify)
+{
+  GSource *source = g_timeout_source_new (interval);
+  g_source_set_callback (source, func, data, notify);
+
+  return source;
+}
+
+GSource *
+giraffe_g_timeout_source_new_seconds (guint interval,
+                                      GSourceFunc func,
+                                      gpointer data,
+                                      GDestroyNotify notify)
+{
+  GSource *source = g_timeout_source_new_seconds (interval);
+  g_source_set_callback (source, func, data, notify);
+
+  return source;
 }

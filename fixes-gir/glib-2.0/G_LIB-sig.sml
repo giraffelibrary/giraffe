@@ -364,7 +364,7 @@ signature G_LIB =
        * Pid.t
        * ChildWatchFunc.t
        -> LargeInt.int
-    val childWatchSourceNew : Pid.t -> SourceRecord.t
+    val childWatchSourceNew : Pid.t * ChildWatchFunc.t -> SourceRecord.t
     val close : GFileDesc.t -> unit
     val computeChecksumForBytes : ChecksumType.t * BytesRecord.t -> string
     val computeChecksumForData : ChecksumType.t * GUInt8CArrayN.t -> string
@@ -486,7 +486,7 @@ signature G_LIB =
     val hostnameIsNonAscii : string -> bool
     val hostnameToAscii : string -> string
     val hostnameToUnicode : string -> string
-    val idleSourceNew : unit -> SourceRecord.t
+    val idleSourceNew : SourceFunc.t -> SourceRecord.t
     val idleAdd : LargeInt.int * SourceFunc.t -> LargeInt.int
     val ioAddWatch :
       IOChannelRecord.t
@@ -629,8 +629,8 @@ signature G_LIB =
        * LargeInt.int
        * SourceFunc.t
        -> LargeInt.int
-    val timeoutSourceNew : LargeInt.int -> SourceRecord.t
-    val timeoutSourceNewSeconds : LargeInt.int -> SourceRecord.t
+    val timeoutSourceNew : LargeInt.int * SourceFunc.t -> SourceRecord.t
+    val timeoutSourceNewSeconds : LargeInt.int * SourceFunc.t -> SourceRecord.t
     val unixFdSourceNew : LargeInt.int * IOCondition.t -> SourceRecord.t
     val unixSetFdNonblocking : LargeInt.int * bool -> unit
     val unixSignalSourceNew : LargeInt.int -> SourceRecord.t

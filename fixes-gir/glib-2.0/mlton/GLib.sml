@@ -214,7 +214,26 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val childWatchSourceNew_ = _import "g_child_watch_source_new" : GLibPid.FFI.val_ -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
+    val childWatchSourceNew_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4 =>
+          (
+            _import "giraffe_g_child_watch_source_new" :
+              GLibPid.FFI.val_
+               * GLibChildWatchFunc.FFI.non_opt GLibChildWatchFunc.FFI.dispatch_p
+               * GLibChildWatchFunc.FFI.non_opt GLibChildWatchFunc.FFI.p
+               * GLibChildWatchFunc.FFI.destroy_notify_p
+               -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val close_ = fn x1 & x2 => (_import "g_close" : GFileDesc.FFI.val_ * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
     val computeChecksumForBytes_ = fn x1 & x2 => (_import "g_compute_checksum_for_bytes" : GLibChecksumType.FFI.val_ * GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
     val computeChecksumForData_ =
@@ -729,7 +748,6 @@ structure GLib : G_LIB =
     val hostnameIsNonAscii_ = _import "mlton_g_hostname_is_non_ascii" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
     val hostnameToAscii_ = _import "mlton_g_hostname_to_ascii" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val hostnameToUnicode_ = _import "mlton_g_hostname_to_unicode" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
-    val idleSourceNew_ = _import "g_idle_source_new" : unit -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
     val idleAdd_ =
       fn
         x1
@@ -749,6 +767,23 @@ structure GLib : G_LIB =
               x2,
               x3,
               x4
+            )
+    val idleSourceNew_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "giraffe_g_idle_source_new" :
+              GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.dispatch_p
+               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.p
+               * GLibSourceFunc.FFI.destroy_notify_p
+               -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3
             )
     val ioAddWatch_ =
       fn
@@ -1310,8 +1345,46 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val timeoutSourceNew_ = _import "g_timeout_source_new" : GUInt.FFI.val_ -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
-    val timeoutSourceNewSeconds_ = _import "g_timeout_source_new_seconds" : GUInt.FFI.val_ -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
+    val timeoutSourceNew_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4 =>
+          (
+            _import "giraffe_g_timeout_source_new" :
+              GUInt.FFI.val_
+               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.dispatch_p
+               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.p
+               * GLibSourceFunc.FFI.destroy_notify_p
+               -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
+    val timeoutSourceNewSeconds_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4 =>
+          (
+            _import "giraffe_g_timeout_source_new_seconds" :
+              GUInt.FFI.val_
+               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.dispatch_p
+               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.p
+               * GLibSourceFunc.FFI.destroy_notify_p
+               -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val unixFdSourceNew_ = fn x1 & x2 => (_import "g_unix_fd_source_new" : GInt.FFI.val_ * GLibIOCondition.FFI.val_ -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;) (x1, x2)
     val unixSetFdNonblocking_ =
       fn
@@ -1700,9 +1773,21 @@ structure GLib : G_LIB =
           )
     end
     local
-      val call = GLibPid.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true
+      val call =
+        GLibPid.FFI.withVal
+         &&&> GLibChildWatchFunc.FFI.withDispatchPtr false
+         &&&> GLibChildWatchFunc.FFI.withPtr false
+         &&&> GLibChildWatchFunc.FFI.withDestroyNotifyPtr
+         ---> GLibSourceRecord.FFI.fromPtr true
     in
-      fun childWatchSourceNew pid = call childWatchSourceNew_ pid
+      fun childWatchSourceNew (pid, function) =
+        call childWatchSourceNew_
+          (
+            pid
+             & ()
+             & function
+             & ()
+          )
     end
     local
       val call = GFileDesc.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore
@@ -2375,11 +2460,6 @@ structure GLib : G_LIB =
       fun hostnameToUnicode hostname = call hostnameToUnicode_ hostname
     end
     local
-      val call = I ---> GLibSourceRecord.FFI.fromPtr true
-    in
-      fun idleSourceNew () = call idleSourceNew_ ()
-    end
-    local
       val call =
         GInt.FFI.withVal
          &&&> GLibSourceFunc.FFI.withDispatchPtr false
@@ -2392,6 +2472,21 @@ structure GLib : G_LIB =
           (
             priority
              & ()
+             & function
+             & ()
+          )
+    end
+    local
+      val call =
+        GLibSourceFunc.FFI.withDispatchPtr false
+         &&&> GLibSourceFunc.FFI.withPtr false
+         &&&> GLibSourceFunc.FFI.withDestroyNotifyPtr
+         ---> GLibSourceRecord.FFI.fromPtr true
+    in
+      fun idleSourceNew function =
+        call idleSourceNew_
+          (
+            ()
              & function
              & ()
           )
@@ -3089,14 +3184,38 @@ structure GLib : G_LIB =
           )
     end
     local
-      val call = GUInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true
+      val call =
+        GUInt.FFI.withVal
+         &&&> GLibSourceFunc.FFI.withDispatchPtr false
+         &&&> GLibSourceFunc.FFI.withPtr false
+         &&&> GLibSourceFunc.FFI.withDestroyNotifyPtr
+         ---> GLibSourceRecord.FFI.fromPtr true
     in
-      fun timeoutSourceNew interval = call timeoutSourceNew_ interval
+      fun timeoutSourceNew (interval, function) =
+        call timeoutSourceNew_
+          (
+            interval
+             & ()
+             & function
+             & ()
+          )
     end
     local
-      val call = GUInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true
+      val call =
+        GUInt.FFI.withVal
+         &&&> GLibSourceFunc.FFI.withDispatchPtr false
+         &&&> GLibSourceFunc.FFI.withPtr false
+         &&&> GLibSourceFunc.FFI.withDestroyNotifyPtr
+         ---> GLibSourceRecord.FFI.fromPtr true
     in
-      fun timeoutSourceNewSeconds interval = call timeoutSourceNewSeconds_ interval
+      fun timeoutSourceNewSeconds (interval, function) =
+        call timeoutSourceNewSeconds_
+          (
+            interval
+             & ()
+             & function
+             & ()
+          )
     end
     local
       val call = GInt.FFI.withVal &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true
