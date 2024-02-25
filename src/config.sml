@@ -649,6 +649,12 @@ newFlagsEnumValueNames := [
 
 mltonImportAttributes := [
   (
+    [("GLib", "2.0")],
+    [
+      ("g_source_remove", ["reentrant"])
+    ]
+  ),
+  (
     [("Gio", "2.0")],
     [
       ("g_application_run", ["reentrant"])
