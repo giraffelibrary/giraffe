@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2017-2021, 2023 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2017-2021, 2023-2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -100,8 +100,8 @@ structure Signal :>
         marshaller :
           unit
            -> (
-                (unit,          'arg_h) pair,
-                ('object_class, 'arg_e) pair,
+                (base object_class, 'arg_h) pair,
+                ('object_class,     'arg_e) pair,
                 'res_e,
                 'res_h
               )
@@ -264,7 +264,12 @@ structure Signal :>
     fun connect instance (signal, f) =
       let
         val {name, detail, marshaller} = signal
-        val closure = GObjectClosure.new (marshaller (), fn () & arg => f arg)
+        (* `GObjectObjectClass.toDerivedUnchecked object` casts `object`
+         * to the type of `instance` by the type constraint in the
+         * signature.  This is valid because a signal handler always
+         * receives the object that the handler is connected to. *)
+        fun handlerFunc (object & arg) = f (GObjectObjectClass.toDerivedUnchecked object) arg
+        val closure = GObjectClosure.new (marshaller (), handlerFunc)
         val detailedSignal =
           case detail of
             "" => name
@@ -278,7 +283,12 @@ structure Signal :>
     fun connectAfter instance (signal, f) =
       let
         val {name, detail, marshaller} = signal
-        val closure = GObjectClosure.new (marshaller (), fn () & arg => f arg)
+        (* `GObjectObjectClass.toDerivedUnchecked object` casts `object`
+         * to the type of `instance` by the type constraint in the
+         * signature.  This is valid because a signal handler always
+         * receives the object that the handler is connected to. *)
+        fun handlerFunc (object & arg) = f (GObjectObjectClass.toDerivedUnchecked object) arg
+        val closure = GObjectClosure.new (marshaller (), handlerFunc)
         val detailedSignal =
           case detail of
             "" => name

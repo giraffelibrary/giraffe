@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2017, 2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2017, 2021, 2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -8,6 +8,8 @@
 signature SIGNAL =
   sig
     type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller
+
+    type 'a object_class
 
     (**
      * Representation of a signal
@@ -19,8 +21,9 @@ signature SIGNAL =
      *     'arg_e -> 'res_e
      *       is the type of a function that emits the signal and
      *
-     *     'arg_h -> 'res_h
-     *       is the type of a function that handles the signal.
+     *     'a object_class -> 'arg_h -> 'res_h
+     *       is the type of a function that handles the signal, where
+     *       type `'a object_class` is compatible with `'object_class`.
      *
      * The type parameters `'arg_e`, `'arg_h`, `'res_h` and `'res_e` capture
      * the type and direction of the signal arguments and the type of the
@@ -56,8 +59,8 @@ signature SIGNAL =
         marshaller :
           unit
            -> (
-                (unit,          'arg_h) pair,
-                ('object_class, 'arg_e) pair,
+                (base object_class, 'arg_h) pair,
+                ('object_class,     'arg_e) pair,
                 'res_e,
                 'res_h
               )
@@ -69,8 +72,6 @@ signature SIGNAL =
        -> ('b, 'arg_e, 'arg_h, 'res_h, 'res_e) t
        -> ('a, 'arg_e, 'arg_h, 'res_h, 'res_e) t
 
-    type 'a object_class
-
     val emit :
       'a object_class
        -> ('a object_class, 'arg_e, 'b, 'c, 'res_e) t
@@ -79,11 +80,13 @@ signature SIGNAL =
     type handler_id
     val connect :
       'a object_class
-       -> ('a object_class, 'b, 'arg_h, 'res_h, 'c) t * ('arg_h -> 'res_h)
+       -> ('a object_class, 'b, 'arg_h, 'res_h, 'c) t
+           * ('a object_class -> 'arg_h -> 'res_h)
        -> handler_id
     val connectAfter :
       'a object_class
-       -> ('a object_class, 'b, 'arg_h, 'res_h, 'c) t * ('arg_h -> 'res_h)
+       -> ('a object_class, 'b, 'arg_h, 'res_h, 'c) t
+           * ('a object_class -> 'arg_h -> 'res_h)
        -> handler_id
     val handlerBlock   : 'a object_class -> handler_id -> unit
     val handlerUnblock : 'a object_class -> handler_id -> unit

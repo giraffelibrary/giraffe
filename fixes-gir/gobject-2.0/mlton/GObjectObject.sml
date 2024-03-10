@@ -397,7 +397,7 @@ structure GObjectObject :>
                 () =>
                   map
                     (
-                      fn () & pspec => () & pspec,
+                      fn self & pspec => GObjectObjectClass.toBase self & pspec,
                       fn self & pspec => GObjectObjectClass.toBase self & GObjectParamSpecClass.toBase pspec,
                       fn () => (),
                       fn () => ()

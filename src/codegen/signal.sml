@@ -593,25 +593,34 @@ fun makeSignalStrDec
      *
      *   <ContainerNamespace><ContainerName>Class.toBase
      *)
-    val toBaseExp = mkLIdLNameExp (prefixInterfaceStrId iRef [toBaseId])
+    val toContainerBaseExp = mkLIdLNameExp (prefixInterfaceStrId iRef [toBaseId])
+
+    (* Construct conversion function for the instance parameter of the form:
+     *
+     *   GObjectObjectClass.toBase
+     *)
+    val objectIRef = makeObjectIRef signalNamespace (SOME containerName)
+    val toObjectBaseExp = mkLIdLNameExp (prefixInterfaceStrId objectIRef [toBaseId])
 
     (* Construct conversion function for reading the arguments with the form:
      *
-     *   fn () & <inParamNameJ[1]> & ... & <inParamNameJ[J]> => () & (<inParamExpL[1]>, ..., <inParamExpL[L]>)
+     *   fn self & <inParamNameJ[1]> & ... & <inParamNameJ[J]> =>
+     *     GObjectObjectClass.toBase self & (<inParamExpL[1]>, ..., <inParamExpL[L]>)
      *     if J > 0
      *
-     *   fn () => () & ()
+     *   fn self => self & ()
      *     otherwise
      *)
     val argReadConvExp =
       let
         val funPat =
           case map mkIdVarPat revInParamNameJs of
-            op :: revPats1 => mkAPat (unitPat, foldl1 mkAPat revPats1)
-          | []             => unitPat
+            op :: revPats1 => mkAPat (mkIdVarPat selfId, foldl1 mkAPat revPats1)
+          | []             => mkIdVarPat selfId
 
+        val toBaseSelfExp = ExpApp (toObjectBaseExp, selfExp)
         val exps1 = getList1 (rev revInParamExpLs, unitExp)
-        val funExp = mkAExp (unitExp, mkTupleExp1 exps1)
+        val funExp = mkAExp (toBaseSelfExp, mkTupleExp1 exps1)
       in
         ExpFn (toList1 [(funPat, funExp)])
       end
@@ -630,7 +639,7 @@ fun makeSignalStrDec
         val pats1 = getList1 (revMap mkIdVarPat revInParamNameLs, unitPat)
         val funPat = mkAPat (mkIdVarPat selfId, mkTuplePat1 pats1)
 
-        val toBaseSelfExp = ExpApp (toBaseExp, selfExp)
+        val toBaseSelfExp = ExpApp (toContainerBaseExp, selfExp)
         val funExp =
           case revInParamExpJs of
             op :: revExps1 => mkAExp (toBaseSelfExp, foldl1 mkAExp revExps1)

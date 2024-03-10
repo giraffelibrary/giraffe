@@ -2781,7 +2781,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => GtkWidgetClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -2801,7 +2801,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -2821,7 +2821,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -2841,7 +2841,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & signalId => () & signalId,
+                      fn self & signalId => GObjectObjectClass.toBase self & signalId,
                       fn self & signalId => GtkWidgetClass.toBase self & signalId,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -2861,7 +2861,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & childProperty => () & childProperty,
+                      fn self & childProperty => GObjectObjectClass.toBase self & childProperty,
                       fn self & childProperty => GtkWidgetClass.toBase self & GObjectParamSpecClass.toBase childProperty,
                       fn () => (),
                       fn () => ()
@@ -2881,7 +2881,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => GtkWidgetClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -2901,7 +2901,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -2921,7 +2921,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -2941,7 +2941,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & GdkEvent.toBase event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -2961,7 +2961,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => GtkWidgetClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -2981,7 +2981,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & GdkEvent.toBase event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3001,7 +3001,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & previousDirection => () & previousDirection,
+                      fn self & previousDirection => GObjectObjectClass.toBase self & previousDirection,
                       fn self & previousDirection => GtkWidgetClass.toBase self & previousDirection,
                       fn () => (),
                       fn () => ()
@@ -3021,7 +3021,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & context => () & context,
+                      fn self & context => GObjectObjectClass.toBase self & context,
                       fn self & context => GtkWidgetClass.toBase self & GdkDragContextClass.toBase context,
                       fn () => (),
                       fn () => ()
@@ -3041,7 +3041,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & context => () & context,
+                      fn self & context => GObjectObjectClass.toBase self & context,
                       fn self & context => GtkWidgetClass.toBase self & GdkDragContextClass.toBase context,
                       fn () => (),
                       fn () => ()
@@ -3068,12 +3068,12 @@ structure GtkWidget :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & context
                          & data
                          & info
                          & time =>
-                          ()
+                          GObjectObjectClass.toBase self
                            & (
                                context,
                                data,
@@ -3120,14 +3120,14 @@ structure GtkWidget :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & context
                          & x
                          & y
                          & data
                          & info
                          & time =>
-                          ()
+                          GObjectObjectClass.toBase self
                            & (
                                context,
                                x,
@@ -3178,12 +3178,12 @@ structure GtkWidget :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & context
                          & x
                          & y
                          & time =>
-                          ()
+                          GObjectObjectClass.toBase self
                            & (
                                context,
                                x,
@@ -3221,7 +3221,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & context => () & context,
+                      fn self & context => GObjectObjectClass.toBase self & context,
                       fn self & context => GtkWidgetClass.toBase self & GdkDragContextClass.toBase context,
                       fn () => (),
                       fn () => ()
@@ -3246,10 +3246,10 @@ structure GtkWidget :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & context
                          & result =>
-                          () & (context, result),
+                          GObjectObjectClass.toBase self & (context, result),
                       fn
                         self & (context, result) =>
                           GtkWidgetClass.toBase self
@@ -3278,10 +3278,10 @@ structure GtkWidget :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & context
                          & time =>
-                          () & (context, time),
+                          GObjectObjectClass.toBase self & (context, time),
                       fn
                         self & (context, time) =>
                           GtkWidgetClass.toBase self
@@ -3312,12 +3312,12 @@ structure GtkWidget :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & context
                          & x
                          & y
                          & time =>
-                          ()
+                          GObjectObjectClass.toBase self
                            & (
                                context,
                                x,
@@ -3355,7 +3355,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & cr => () & cr,
+                      fn self & cr => GObjectObjectClass.toBase self & cr,
                       fn self & cr => GtkWidgetClass.toBase self & cr,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3375,7 +3375,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3395,7 +3395,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & GdkEvent.toBase event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3415,7 +3415,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & GdkEvent.toBase event,
                       fn () => (),
                       fn () => ()
@@ -3435,7 +3435,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & direction => () & direction,
+                      fn self & direction => GObjectObjectClass.toBase self & direction,
                       fn self & direction => GtkWidgetClass.toBase self & direction,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3455,7 +3455,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3475,7 +3475,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3495,7 +3495,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3515,7 +3515,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => GtkWidgetClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -3535,7 +3535,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & wasGrabbed => () & wasGrabbed,
+                      fn self & wasGrabbed => GObjectObjectClass.toBase self & wasGrabbed,
                       fn self & wasGrabbed => GtkWidgetClass.toBase self & wasGrabbed,
                       fn () => (),
                       fn () => ()
@@ -3555,7 +3555,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => GtkWidgetClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -3575,7 +3575,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & previousToplevel => () & previousToplevel,
+                      fn self & previousToplevel => GObjectObjectClass.toBase self & previousToplevel,
                       fn self & previousToplevel => GtkWidgetClass.toBase self & Option.map GtkWidgetClass.toBase previousToplevel,
                       fn () => (),
                       fn () => ()
@@ -3595,7 +3595,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3615,7 +3615,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3635,7 +3635,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & direction => () & direction,
+                      fn self & direction => GObjectObjectClass.toBase self & direction,
                       fn self & direction => GtkWidgetClass.toBase self & direction,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3655,7 +3655,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3675,7 +3675,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => GtkWidgetClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -3695,7 +3695,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3715,7 +3715,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & groupCycling => () & groupCycling,
+                      fn self & groupCycling => GObjectObjectClass.toBase self & groupCycling,
                       fn self & groupCycling => GtkWidgetClass.toBase self & groupCycling,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3735,7 +3735,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3755,7 +3755,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & direction => () & direction,
+                      fn self & direction => GObjectObjectClass.toBase self & direction,
                       fn self & direction => GtkWidgetClass.toBase self & direction,
                       fn () => (),
                       fn () => ()
@@ -3775,7 +3775,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & oldParent => () & oldParent,
+                      fn self & oldParent => GObjectObjectClass.toBase self & oldParent,
                       fn self & oldParent => GtkWidgetClass.toBase self & Option.map GtkWidgetClass.toBase oldParent,
                       fn () => (),
                       fn () => ()
@@ -3795,7 +3795,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => GtkWidgetClass.toBase self,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3815,7 +3815,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3835,7 +3835,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3855,7 +3855,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3882,12 +3882,12 @@ structure GtkWidget :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & x
                          & y
                          & keyboardMode
                          & tooltip =>
-                          ()
+                          GObjectObjectClass.toBase self
                            & (
                                x,
                                y,
@@ -3925,7 +3925,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => GtkWidgetClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -3945,7 +3945,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & previousScreen => () & previousScreen,
+                      fn self & previousScreen => GObjectObjectClass.toBase self & previousScreen,
                       fn self & previousScreen => GtkWidgetClass.toBase self & Option.map GdkScreenClass.toBase previousScreen,
                       fn () => (),
                       fn () => ()
@@ -3965,7 +3965,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -3985,7 +3985,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -4011,11 +4011,11 @@ structure GtkWidget :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & data
                          & info
                          & time =>
-                          ()
+                          GObjectObjectClass.toBase self
                            & (
                                data,
                                info,
@@ -4050,7 +4050,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -4075,10 +4075,10 @@ structure GtkWidget :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & data
                          & time =>
-                          () & (data, time),
+                          GObjectObjectClass.toBase self & (data, time),
                       fn
                         self & (data, time) =>
                           GtkWidgetClass.toBase self
@@ -4102,7 +4102,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -4122,7 +4122,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => GtkWidgetClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -4142,7 +4142,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & helpType => () & helpType,
+                      fn self & helpType => GObjectObjectClass.toBase self & helpType,
                       fn self & helpType => GtkWidgetClass.toBase self & helpType,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -4162,7 +4162,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & allocation => () & allocation,
+                      fn self & allocation => GObjectObjectClass.toBase self & allocation,
                       fn self & allocation => GtkWidgetClass.toBase self & allocation,
                       fn () => (),
                       fn () => ()
@@ -4182,7 +4182,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & state => () & state,
+                      fn self & state => GObjectObjectClass.toBase self & state,
                       fn self & state => GtkWidgetClass.toBase self & state,
                       fn () => (),
                       fn () => ()
@@ -4202,7 +4202,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & flags => () & flags,
+                      fn self & flags => GObjectObjectClass.toBase self & flags,
                       fn self & flags => GtkWidgetClass.toBase self & flags,
                       fn () => (),
                       fn () => ()
@@ -4222,7 +4222,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & previousStyle => () & previousStyle,
+                      fn self & previousStyle => GObjectObjectClass.toBase self & previousStyle,
                       fn self & previousStyle => GtkWidgetClass.toBase self & Option.map GtkStyleClass.toBase previousStyle,
                       fn () => (),
                       fn () => ()
@@ -4242,7 +4242,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => GtkWidgetClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -4262,7 +4262,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & object => () & object,
+                      fn self & object => GObjectObjectClass.toBase self & object,
                       fn self & object => GtkWidgetClass.toBase self & GdkEvent.toBase object,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -4282,7 +4282,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => GtkWidgetClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -4302,7 +4302,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -4322,7 +4322,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => GtkWidgetClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -4342,7 +4342,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal
@@ -4362,7 +4362,7 @@ structure GtkWidget :>
                 () =>
                   map
                     (
-                      fn () & event => () & event,
+                      fn self & event => GObjectObjectClass.toBase self & event,
                       fn self & event => GtkWidgetClass.toBase self & event,
                       fn retVal => retVal,
                       fn retVal => retVal

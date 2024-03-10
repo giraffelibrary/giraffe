@@ -42,7 +42,7 @@ signature CLOSURE_MARSHAL =
       ('arg_r, 'arg_w) arg * ('res_r, 'res_w) res
        -> ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller
 
-    val parInst :        'a accessor -> (unit, 'a) arg
+    val parInst :        'a accessor -> ('a,   'a) arg
     val parIn   : int -> 'a accessor -> ('a,   'a) arg
     val parOut  : int -> 'a accessor -> ('a,   'a)   res
     val ret     :        'a accessor -> ('a,   'a)   res

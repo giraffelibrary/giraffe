@@ -1245,7 +1245,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1270,10 +1270,10 @@ structure VteTerminal :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & width
                          & height =>
-                          () & (width, height),
+                          GObjectObjectClass.toBase self & (width, height),
                       fn
                         self & (width, height) =>
                           VteTerminalClass.toBase self
@@ -1297,7 +1297,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () & status => () & status,
+                      fn self & status => GObjectObjectClass.toBase self & status,
                       fn self & status => VteTerminalClass.toBase self & status,
                       fn () => (),
                       fn () => ()
@@ -1322,10 +1322,10 @@ structure VteTerminal :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & text
                          & size =>
-                          () & (text, size),
+                          GObjectObjectClass.toBase self & (text, size),
                       fn
                         self & (text, size) =>
                           VteTerminalClass.toBase self
@@ -1349,7 +1349,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1369,7 +1369,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1389,7 +1389,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1409,7 +1409,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1429,7 +1429,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1449,7 +1449,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1469,7 +1469,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1489,7 +1489,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1509,7 +1509,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1534,10 +1534,10 @@ structure VteTerminal :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & uri
                          & bbox =>
-                          () & (uri, bbox),
+                          GObjectObjectClass.toBase self & (uri, bbox),
                       fn
                         self & (uri, bbox) =>
                           VteTerminalClass.toBase self
@@ -1561,7 +1561,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1581,7 +1581,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1601,7 +1601,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1621,7 +1621,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1641,7 +1641,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1666,10 +1666,10 @@ structure VteTerminal :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & x
                          & y =>
-                          () & (x, y),
+                          GObjectObjectClass.toBase self & (x, y),
                       fn
                         self & (x, y) =>
                           VteTerminalClass.toBase self
@@ -1698,10 +1698,10 @@ structure VteTerminal :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & summary
                          & body =>
-                          () & (summary, body),
+                          GObjectObjectClass.toBase self & (summary, body),
                       fn
                         self & (summary, body) =>
                           VteTerminalClass.toBase self
@@ -1725,7 +1725,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1745,7 +1745,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1765,7 +1765,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1790,10 +1790,10 @@ structure VteTerminal :>
                   map
                     (
                       fn
-                        ()
+                        self
                          & width
                          & height =>
-                          () & (width, height),
+                          GObjectObjectClass.toBase self & (width, height),
                       fn
                         self & (width, height) =>
                           VteTerminalClass.toBase self
@@ -1817,7 +1817,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1837,7 +1837,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1857,7 +1857,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1877,7 +1877,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1897,7 +1897,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1917,7 +1917,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1937,7 +1937,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()
@@ -1957,7 +1957,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () & delta => () & delta,
+                      fn self & delta => GObjectObjectClass.toBase self & delta,
                       fn self & delta => VteTerminalClass.toBase self & delta,
                       fn () => (),
                       fn () => ()
@@ -1977,7 +1977,7 @@ structure VteTerminal :>
                 () =>
                   map
                     (
-                      fn () => () & (),
+                      fn self => GObjectObjectClass.toBase self & (),
                       fn self & () => VteTerminalClass.toBase self,
                       fn () => (),
                       fn () => ()

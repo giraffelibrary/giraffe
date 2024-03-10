@@ -262,7 +262,8 @@ inverse of an array X is denoted X~.
           fn () =>
             map
               (
-                fn () & <inParamNameJ[1]> & ... & <inParamNameJ[J]> => () & (<inParamExpL[1]>, ..., <inParamExpL[L]>),
+                fn self & <inParamNameJ[1]> & ... & <inParamNameJ[J]> =>
+                  GObjectObjectClass.toBase self & (<inParamExpL[1]>, ..., <inParamExpL[L]>),
                 fn self & (<inParamNameL[1]>, ..., <inParamNameL[L]>) =>
                   <ContainerNamespace><ContainerName>Class.toBase self & <inParamExpJ[1]> & ... & <inParamExpJ[J]>,
                 fn <outParamNameN[1]> & ... & <outParamNameN[N]> & <retValPat> => <resExp>,
@@ -288,7 +289,7 @@ inverse of an array X is denoted X~.
           fn () =>
             map
               (
-                fn () => () & (),
+                fn self => GObjectObjectClass.toBase self & (),
                 fn self & () => <ContainerNamespace><ContainerName>Class.toBase self,
                 fn <outParamNameN[1]> & ... & <outParamNameN[N]> & <retValPat> => <resExp>,
                 fn <resPat> => <outParamExpN[1]> & ... & <outParamExpN[N]> & <retValExp>,
@@ -314,7 +315,8 @@ inverse of an array X is denoted X~.
           fn () =>
             map
               (
-                fn () & <inParamNameJ[1]> & ... & <inParamNameJ[J]> => () & (<inParamExpL[1]>, ..., <inParamExpL[L]>),
+                fn self & <inParamNameJ[1]> & ... & <inParamNameJ[J]> =>
+                  GObjectObjectClass.toBase self & (<inParamExpL[1]>, ..., <inParamExpL[L]>),
                 fn self & (<inParamNameL[1]>, ..., <inParamNameL[L]>) =>
                   <ContainerNamespace><ContainerName>Class.toBase self & <inParamExpJ[1]> & ... & <inParamExpJ[J]>,
                 fn <retValPat> => <resExp>,
@@ -340,7 +342,7 @@ inverse of an array X is denoted X~.
           fn () =>
             map
               (
-                fn () => () & (),
+                fn self => GObjectObjectClass.toBase self & (),
                 fn self & () => <ContainerNamespace><ContainerName>Class.toBase self,
                 fn <retValPat> => <resExp>,
                 fn <resPat> => <retValExp>,

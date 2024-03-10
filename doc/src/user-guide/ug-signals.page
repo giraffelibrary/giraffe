@@ -69,7 +69,7 @@ where
   </p>
 </item>
 <item>
-  <title><code type="sml"><var>argType_h</var> -> <var>resType_h</var></code></title>
+  <title><code type="sml"><var>instanceType</var> -> <var>argType_h</var> -> <var>resType_h</var></code></title>
   <p>
     is the type of a function that handles the signal;
   </p>
@@ -247,8 +247,10 @@ val handlerId = Signal.connect textView (Gtk.TextView.insertAtCursorSig, onInser
 </p>
 </example>
 <p>
-It is not unusual for the handler function <code type="sml"><var>f</var></code> to need to refer to the object that emitted the signal, <code type="sml"><var>obj</var></code>, but <code type="sml"><var>argType_h</var></code> does not have an argument to pass <code type="sml"><var>obj</var></code> to the handler <code type="sml"><var>f</var></code>.
-This is easily achieved by defining <code type="sml"><var>f</var></code> to take the emitting object as the first argument and supplying the argument when connecting the handler as follows:
+When the handler function <code type="sml"><var>f</var></code> needs to refer to the object that emitted the signal, <code type="sml"><var>obj</var></code>,
+it is preferable to use its first argument (which is always <code type="sml"><var>obj</var></code>) rather than referencing <code type="sml"><var>obj</var></code> directly.
+If the handler function <code type="sml"><var>f</var></code> references <code type="sml"><var>obj</var></code>, <code type="sml"><var>obj</var></code> cannot be destroyed until the handler is explicitly disconnected.
+If the handler function <code type="sml"><var>f</var></code> uses its first argument then it will hold a reference to <code type="sml"><var>obj</var></code> only temporarily each time <code type="sml"><var>f</var></code> is called (provided <code type="sml"><var>f</var></code> does not store its first argument anywhere).
 </p>
 <code type="sml">
 Signal.connect <var>obj</var> (<var>Namespace</var>.<var>Type</var>.<var>a</var>Sig, <var>f</var> <var>obj</var>)

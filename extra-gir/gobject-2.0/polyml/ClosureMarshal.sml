@@ -206,7 +206,7 @@ structure ClosureMarshal :>
 
     fun parInst t =
       {
-        get  = fn _ => (),
+        get  = fn vs => ValueAccessor.C.get t (C.offset vs 0),
         set  = fn vs => fn x => ValueAccessor.C.set t (C.offset vs 0) x,
         init = [(0, fn v => ValueAccessor.C.init v (ValueAccessor.C.gtype t ()))],
         last = 0
