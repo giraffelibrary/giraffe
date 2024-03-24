@@ -72,6 +72,8 @@ signature SIGNAL =
        -> ('b, 'arg_e, 'arg_h, 'res_h, 'res_e) t
        -> ('a, 'arg_e, 'arg_h, 'res_h, 'res_e) t
 
+    (* `emit instance signal` uses the same calling closure for each
+     * argument that it is applied to. *)
     val emit :
       'a object_class
        -> ('a object_class, 'arg_e, 'b, 'c, 'res_e) t

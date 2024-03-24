@@ -211,6 +211,8 @@ signature SIGNAL =
        -> ('b, 'arg_e, 'arg_h, 'res_h, 'res_e) t
        -> ('a, 'arg_e, 'arg_h, 'res_h, 'res_e) t
 
+    (* `emit instance signal` uses the same calling closure for each
+     * argument that it is applied to. *)
     val emit :
       'a object_class
        -> ('a object_class, 'arg_e, 'b, 'c, 'res_e) t
@@ -799,6 +801,7 @@ structure ClosureMarshal :>
     where type 'a accessor = 'a <link xref="#value-accessor">ValueAccessor</link>.t
     where type C.value_v = GObjectValueRecord.C.v
     where type C.value_array_v = GObjectValueRecordCArrayN.C.non_opt GObjectValueRecordCArrayN.C.p
+    where type C.size_v = GUInt32.C.v
 </code>
 <code type="sml"><![CDATA[
 infixr &&&
@@ -812,6 +815,7 @@ signature CLOSURE_MARSHAL =
       sig
         type value_v
         type value_array_v
+        type size_v
       end
 
     type ('r, 'w) arg
@@ -838,7 +842,7 @@ signature CLOSURE_MARSHAL =
       ('arg_r, 'arg_w) arg * ('res_r, 'res_w) res
        -> ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller
 
-    val parInst :        'a accessor -> (unit, 'a) arg
+    val parInst :        'a accessor -> ('a,   'a) arg
     val parIn   : int -> 'a accessor -> ('a,   'a) arg
     val parOut  : int -> 'a accessor -> ('a,   'a)   res
     val ret     :        'a accessor -> ('a,   'a)   res
@@ -852,10 +856,16 @@ signature CLOSURE_MARSHAL =
        -> ('arg1_r, 'arg1_w, 'res1_r, 'res1_w) marshaller
        -> ('arg2_r, 'arg2_w, 'res2_r, 'res2_w) marshaller
 
-    type callback
+    type callback = C.value_v * C.value_array_v * C.size_v -> unit
+
     val makeCallback :
       ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller * ('arg_r -> 'res_w)
        -> callback
+
+    val call :
+      ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller
+       -> callback
+       -> 'arg_w -> 'res_r
 
 
     …

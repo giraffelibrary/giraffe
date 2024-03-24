@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2016-2021, 2023 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2016-2021, 2023-2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,6 +11,7 @@ structure ClosureMarshal :>
       where type 'a accessor = 'a ValueAccessor.t
       where type C.value_v = GObjectValueRecord.C.v
       where type C.value_array_v = GObjectValueRecordCArrayN.C.non_opt GObjectValueRecordCArrayN.C.p
+      where type C.size_v = GUInt32.C.v
   end =
   struct
     type 'a accessor = 'a ValueAccessor.t
@@ -20,13 +21,9 @@ structure ClosureMarshal :>
       Closure(
         val name = "GObject.Closure"
         type args =
-          (
-            GObjectValueRecord.C.non_opt GObjectValueRecord.C.p,
-            (
-              GObjectValueRecordCArrayN.C.non_opt GObjectValueRecordCArrayN.C.p,
-              GUInt32.FFI.val_
-            ) pair
-          ) pair
+          GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
+           * GObjectValueRecordCArrayN.C.non_opt GObjectValueRecordCArrayN.C.p
+           * GUInt32.C.v
         type ret = unit
         val exnRetVal = ()
         val noneRetVal = ()
@@ -53,7 +50,7 @@ structure ClosureMarshal :>
      *)
     fun dispatch (closure, v, size, vs, _, _) = (
       log (GiraffeDebug.C2DispatchEnter, closure);
-      Closure.call (getData_ closure) (v & vs & size)
+      Closure.call (getData_ closure) (v, vs, size)
        before log (GiraffeDebug.C2DispatchLeave, closure)
     ) handle e => app print [exnMessage e, "\n"]
 
@@ -89,6 +86,7 @@ structure ClosureMarshal :>
       struct
         type value_v = GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
         type value_array_v = GObjectValueRecordCArrayN.C.non_opt GObjectValueRecordCArrayN.C.p
+        type size_v = GUInt32.C.v
         fun offset vs n = GObjectValueRecordCArrayN.C.Pointer.get (vs, n)
       end
 
@@ -283,8 +281,35 @@ structure ClosureMarshal :>
       }
 
     type callback = Closure.callback
+
     fun makeCallback ({getArg, setRes, ...}, func) =
-      fn v & vs & _ => setRes (vs, v) (func (getArg vs))
+      fn (v, vs, _) => setRes (vs, v) (func (getArg vs))
+
+    fun call {setArg, getRes, initPars, initRet, ...} =
+      let
+        val numPars = VectorSequence.length initPars
+
+        val (pars, ret) =
+          let
+            open GObjectValueRecordCArrayN
+            val n = numPars + 1  (* last element is for the return value *)
+            fun initValue _ p (i, init) = init (C.ArrayType.get n p i)
+            fun getInit i = VectorSequence.get initPars i handle Subscript => initRet
+            val p = C.ArrayType.init initValue (n, getInit)
+          in
+            (p, C.ArrayType.get n p numPars)
+          end
+      in
+        fn func => fn arg =>
+          let
+            val () = setArg pars arg
+            val () = func (ret, pars, GUInt32Type.toC (LargeInt.fromInt numPars))
+            val res = getRes (pars, ret)
+            val () = GObjectValueRecordCArrayN.C.ArrayType.free ~1 numPars pars
+          in
+            res
+          end
+      end
 
     structure FFI =
       struct

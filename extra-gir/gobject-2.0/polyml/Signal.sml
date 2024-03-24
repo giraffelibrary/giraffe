@@ -134,31 +134,10 @@ structure Signal :>
               in
                 quarkFromString_ s before Utf8.C.ArrayType.free ~1 s
               end
+        fun emit (ret, pars, _) = signalEmit_ (pars & signalId & detailQuark & ret)
+        val call = ClosureMarshal.call (marshaller ()) emit 
       in
-        fn arg =>
-          let
-            val {setArg, getRes, initPars, initRet, ...} = marshaller ()
-            val numPars = VectorSequence.length initPars
-
-            val (pars, ret) =
-              let
-                open GObjectValueRecordCArrayN
-                val n = numPars + 1  (* last element is for the return value *)
-                fun initValue _ p (i, init) = init (C.ArrayType.get n p i)
-                fun getInit i = VectorSequence.get initPars i handle Subscript => initRet
-                val p = C.ArrayType.init initValue (n, getInit)
-              in
-                (p, C.ArrayType.get n p numPars)
-              end
-
-            val () = setArg pars (instance & arg)
-            val () = signalEmit_ (pars & signalId & detailQuark & ret)
-            val res = getRes (pars, ret)
-
-            val () = GObjectValueRecordCArrayN.C.ArrayType.free ~1 numPars pars
-          in
-            res
-          end
+        fn arg => call (instance & arg)
       end
 
     (* For a value `{id, closure, detailedSignal}` of type `handler_id`,

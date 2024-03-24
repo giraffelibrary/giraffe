@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2016, 2020-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016, 2020-2021, 2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -16,6 +16,7 @@ signature CLOSURE_MARSHAL =
       sig
         type value_v
         type value_array_v
+        type size_v
       end
 
     type ('r, 'w) arg
@@ -56,10 +57,16 @@ signature CLOSURE_MARSHAL =
        -> ('arg1_r, 'arg1_w, 'res1_r, 'res1_w) marshaller
        -> ('arg2_r, 'arg2_w, 'res2_r, 'res2_w) marshaller
 
-    type callback
+    type callback = C.value_v * C.value_array_v * C.size_v -> unit
+
     val makeCallback :
       ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller * ('arg_r -> 'res_w)
        -> callback
+
+    val call :
+      ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller
+       -> callback
+       -> 'arg_w -> 'res_r
 
     structure FFI :
       sig
