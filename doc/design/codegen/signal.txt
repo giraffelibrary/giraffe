@@ -33,7 +33,7 @@ SignalSpec has the form:
 
 
   val <signalName>Sig :
-    (<var> class, <argType(false)>, <argType(true)>, <resType(false)>, <resType(true)>) <Signal>
+    (<var> class, <handlerType>, <emitterType>) <Signal>
 
 
 where
@@ -42,7 +42,7 @@ where
   Signal
     is defined as follows:
 
-      Signal.t     
+      Signal.t
         if belowGObject
 
       signal_t
@@ -50,6 +50,26 @@ where
 
 
   var is a fresh type variable
+
+
+  handlerType
+    is defined as follows:
+
+      <argType(true)> -> <resType(false)>
+        if L > 0
+
+      <resType(false)>
+        if L = 0
+
+
+  emitterType
+    is defined as follows:
+
+      <argType(false)> -> <resType(true)>
+        if L > 0
+
+      <resType(true)>
+        if L = 0
 
 
   argType(isRead)
@@ -253,6 +273,22 @@ inverse of an array X is denoted X~.
       parInst <ContainerNamespace><ContainerName>Class.t
        &&&> <inParamFun[1]> &&&> ... &&&> <inParamFun[J]>
        ---> <outParamFun[1]> &&& ... &&& <outParamFun[N]> &&& <retFun>
+
+    fun hConv f (self & <inParamNameJ[1]> & ... & <inParamNameJ[J]>) =
+      let
+        val <resPat> =
+          f (GObjectObjectClass.toBase self) (<inParamExpL[1]>, ..., <inParamExpL[L]>)
+      in
+        <outParamExpN[1]> & ... & <outParamExpN[N]> & <retValExp>
+      end
+
+    fun eConv f self (<inParamNameL[1]>, ..., <inParamNameL[L]>) =
+      let
+        val <outParamNameN[1]> & ... & <outParamNameN[N]> & <retValPat> =
+          f (<ContainerNamespace><ContainerName>Class.toBase self & <inParamExpJ[1]> & ... & <inParamExpJ[J]>)
+      in
+        <resExp>
+      end
   in
     val <signalName>Sig =
       {
@@ -260,26 +296,74 @@ inverse of an array X is denoted X~.
         detail = "",
         marshaller =
           fn () =>
-            map
-              (
-                fn self & <inParamNameJ[1]> & ... & <inParamNameJ[J]> =>
-                  GObjectObjectClass.toBase self & (<inParamExpL[1]>, ..., <inParamExpL[L]>),
-                fn self & (<inParamNameL[1]>, ..., <inParamNameL[L]>) =>
-                  <ContainerNamespace><ContainerName>Class.toBase self & <inParamExpJ[1]> & ... & <inParamExpJ[J]>,
-                fn <outParamNameN[1]> & ... & <outParamNameN[N]> & <retValPat> => <resExp>,
-                fn <resPat> => <outParamExpN[1]> & ... & <outParamExpN[N]> & <retValExp>,
-              )
-              marshaller
+            {
+              h = makeCallback marshaller o hConv,
+              e = eConv o call marshaller
+            }
       }
   end
 
-    if J > 0 and N > 0
+    if L > 0 and N > 0  (which implies J > 0 because L <= J)
+
+
+  local
+    val marshaller =
+      parInst <ContainerNamespace><ContainerName>Class.t
+       &&&> <inParamFun[1]> &&&> ... &&&> <inParamFun[J]>
+       ---> <outParamFun[1]> &&& ... &&& <outParamFun[N]> &&& <retFun>
+
+    fun hConv f (self & <inParamNameJ[1]> & ... & <inParamNameJ[J]>) =
+      let
+        val <resPat> =
+          f (GObjectObjectClass.toBase self)
+      in
+        <outParamExpN[1]> & ... & <outParamExpN[N]> & <retValExp>
+      end
+
+    fun eConv f self =
+      let
+        val <outParamNameN[1]> & ... & <outParamNameN[N]> & <retValPat> =
+          f (<ContainerNamespace><ContainerName>Class.toBase self & <inParamExpJ[1]> & ... & <inParamExpJ[J]>)
+      in
+        <resExp>
+      end
+  in
+    val <signalName>Sig =
+      {
+        name = "<signal-name>",
+        detail = "",
+        marshaller =
+          fn () =>
+            {
+              h = makeCallback marshaller o hConv,
+              e = eConv o call marshaller
+            }
+      }
+  end
+
+    if J > 0 and L = 0 and N > 0  (which implies J > 0 because L <= J)
 
 
   local
     val marshaller =
       parInst <ContainerNamespace><ContainerName>Class.t
        ---> <outParamFun[1]> &&& ... &&& <outParamFun[N]> &&& <retFun>
+
+    fun hConv f self =
+      let
+        val <resPat> =
+          f (GObjectObjectClass.toBase self)
+      in
+        <outParamExpN[1]> & ... & <outParamExpN[N]> & <retValExp>
+      end
+
+    fun eConv f self =
+      let
+        val <outParamNameN[1]> & ... & <outParamNameN[N]> & <retValPat> =
+          f (<ContainerNamespace><ContainerName>Class.toBase self)
+      in
+        <resExp>
+      end
   in
     val <signalName>Sig =
       {
@@ -287,14 +371,10 @@ inverse of an array X is denoted X~.
         detail = "",
         marshaller =
           fn () =>
-            map
-              (
-                fn self => GObjectObjectClass.toBase self & (),
-                fn self & () => <ContainerNamespace><ContainerName>Class.toBase self,
-                fn <outParamNameN[1]> & ... & <outParamNameN[N]> & <retValPat> => <resExp>,
-                fn <resPat> => <outParamExpN[1]> & ... & <outParamExpN[N]> & <retValExp>,
-              )
-              marshaller
+            {
+              h = makeCallback marshaller o hConv,
+              e = eConv o call marshaller
+            }
       }
   end
 
@@ -306,6 +386,22 @@ inverse of an array X is denoted X~.
       parInst <ContainerNamespace><ContainerName>Class.t
        &&&> <inParamFun[1]> &&&> ... &&&> <inParamFun[J]>
        ---> <retFun>
+
+    fun hConv f (self & <inParamNameJ[1]> & ... & <inParamNameJ[J]>) =
+      let
+        val <resPat> =
+          f (GObjectObjectClass.toBase self) (<inParamExpL[1]>, ..., <inParamExpL[L]>)
+      in
+        <retValExp>
+      end
+
+    fun eConv f self (<inParamNameL[1]>, ..., <inParamNameL[L]>) =
+      let
+        val <retValPat> =
+          f (<ContainerNamespace><ContainerName>Class.toBase self & <inParamExpJ[1]> & ... & <inParamExpJ[J]>)
+      in
+        <resExp>
+      end
   in
     val <signalName>Sig =
       {
@@ -313,26 +409,74 @@ inverse of an array X is denoted X~.
         detail = "",
         marshaller =
           fn () =>
-            map
-              (
-                fn self & <inParamNameJ[1]> & ... & <inParamNameJ[J]> =>
-                  GObjectObjectClass.toBase self & (<inParamExpL[1]>, ..., <inParamExpL[L]>),
-                fn self & (<inParamNameL[1]>, ..., <inParamNameL[L]>) =>
-                  <ContainerNamespace><ContainerName>Class.toBase self & <inParamExpJ[1]> & ... & <inParamExpJ[J]>,
-                fn <retValPat> => <resExp>,
-                fn <resPat> => <retValExp>,
-              )
-              marshaller
+            {
+              h = makeCallback marshaller o hConv,
+              e = eConv o call marshaller
+            }
       }
   end
 
-    if J > 0 and N = 0  (which implies K = 0 because K <= N)
+    if L > 0 and N = 0  (which implies J > 0 and K = 0 because L <= J and K <= N)
+
+
+  local
+    val marshaller =
+      parInst <ContainerNamespace><ContainerName>Class.t
+       &&&> <inParamFun[1]> &&&> ... &&&> <inParamFun[J]>
+       ---> <retFun>
+
+    fun hConv f (self & <inParamNameJ[1]> & ... & <inParamNameJ[J]>) =
+      let
+        val <resPat> =
+          f (GObjectObjectClass.toBase self)
+      in
+        <retValExp>
+      end
+
+    fun eConv f self =
+      let
+        val <retValPat> =
+          f (<ContainerNamespace><ContainerName>Class.toBase self & <inParamExpJ[1]> & ... & <inParamExpJ[J]>)
+      in
+        <resExp>
+      end
+  in
+    val <signalName>Sig =
+      {
+        name = "<signal-name>",
+        detail = "",
+        marshaller =
+          fn () =>
+            {
+              h = makeCallback marshaller o hConv,
+              e = eConv o call marshaller
+            }
+      }
+  end
+
+    if J > 0 and L = 0 and N = 0  (which implies K = 0 because K <= N)
 
 
   local
     val marshaller =
       parInst <ContainerNamespace><ContainerName>Class.t
        ---> <retFun>
+
+    fun hConv f self =
+      let
+        val <resPat> =
+          f (GObjectObjectClass.toBase self)
+      in
+        <retValExp>
+      end
+
+    fun eConv f self =
+      let
+        val <retValPat> =
+          f (<ContainerNamespace><ContainerName>Class.toBase self)
+      in
+        <resExp>
+      end
   in
     val <signalName>Sig =
       {
@@ -340,14 +484,10 @@ inverse of an array X is denoted X~.
         detail = "",
         marshaller =
           fn () =>
-            map
-              (
-                fn self => GObjectObjectClass.toBase self & (),
-                fn self & () => <ContainerNamespace><ContainerName>Class.toBase self,
-                fn <retValPat> => <resExp>,
-                fn <resPat> => <retValExp>,
-              )
-              marshaller
+            {
+              h = makeCallback marshaller o hConv,
+              e = eConv o call marshaller
+            }
       }
   end
 

@@ -331,7 +331,7 @@ structure Property :>
             in
               toValue & true
             end
-          val transformTo = SOME (GObjectClosure.new (marshaller, convert))
+          val transformTo = SOME (GObjectClosure.new (ClosureMarshal.makeCallback marshaller convert))
           val transformFrom = NONE
         in
           bindPropertyFull
@@ -405,8 +405,8 @@ structure Property :>
             in
               toValue & true
             end
-          val transformTo = SOME (GObjectClosure.new (marshaller, convertTo))
-          val transformFrom = SOME (GObjectClosure.new (marshaller, convertFrom))
+          val transformTo = SOME (GObjectClosure.new (ClosureMarshal.makeCallback marshaller convertTo))
+          val transformFrom = SOME (GObjectClosure.new (ClosureMarshal.makeCallback marshaller convertFrom))
         in
           bindPropertyFull
             (

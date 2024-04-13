@@ -12,13 +12,13 @@ signature CHILD_SIGNAL =
     val connect :
       'a widget_class
        -> 'b GObject.ObjectClass.class
-       -> ('b GObject.ObjectClass.class, 'c, 'arg_h, 'res_h, 'd) Signal.t
-           * ('b GObject.ObjectClass.class -> 'arg_h -> 'res_h)
+       -> ('b GObject.ObjectClass.class, 'h, 'e) Signal.t
+           * ('b GObject.ObjectClass.class -> 'h)
        -> unit
     val connectAfter :
       'a widget_class
        -> 'b GObject.ObjectClass.class
-       -> ('b GObject.ObjectClass.class, 'c, 'arg_h, 'res_h, 'd) Signal.t
-           * ('b GObject.ObjectClass.class -> 'arg_h -> 'res_h)
+       -> ('b GObject.ObjectClass.class, 'h, 'e) Signal.t
+           * ('b GObject.ObjectClass.class -> 'h)
        -> unit
   end

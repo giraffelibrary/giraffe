@@ -46,7 +46,7 @@ in the signature <code type="sml"><var>NAMESPACE</var>_<var>TYPE</var></code>
 has the form:
 </p>
 <code type="sml">
-val <var>some</var><var>Signal</var><var>Name</var>Sig : (<var>instanceType</var>, <var>argType_e</var>, <var>argType_h</var>, <var>resType_h</var>, <var>resType_e</var>) Signal.t
+val <var>some</var><var>Signal</var><var>Name</var>Sig : (<var>instanceType</var>, <var>handlerType</var>, <var>emitterType</var>) Signal.t
 </code>
 <p>
 where
@@ -63,22 +63,30 @@ where
   </list>
 </item>
 <item>
-  <title><code type="sml"><var>argType_e</var> -> <var>resType_e</var></code></title>
+  <title><code type="sml"><var>instanceType</var> -> <var>handlerType</var></code></title>
   <p>
-    is the type of a function that emits the signal;
+    is the type of a function that handles the signal, where <code type="sml"><var>handlerType</var></code> has the form:
   </p>
+  <list>
+    <item><p><code type="sml"><var>argType_h</var> -> <var>resType_h</var></code> if the signal has one or more &#x2018;in&#x2019; or &#x2018;inout&#x2019; arguments;</p></item>
+    <item><p><code type="sml"><var>resType_h</var></code> otherwise;</p></item>
+  </list>
 </item>
 <item>
-  <title><code type="sml"><var>instanceType</var> -> <var>argType_h</var> -> <var>resType_h</var></code></title>
+  <title><code type="sml"><var>emitterType</var></code></title>
   <p>
-    is the type of a function that handles the signal;
+    is the type of a function that emits the signal, which has the form:
   </p>
+  <list>
+    <item><p><code type="sml"><var>argType_e</var> -> <var>resType_e</var></code> if the signal has one or more &#x2018;in&#x2019; or &#x2018;inout&#x2019; arguments;</p></item>
+    <item><p><code type="sml"><var>resType_e</var></code> otherwise;</p></item>
+  </list>
 </item>
 <item>
   <title><code type="sml"><var>argType_e</var></code> and <code type="sml"><var>argType_h</var></code></title>
   <p>
     contain the types of the &#x2018;in&#x2019; and &#x2018;inout&#x2019; arguments,
-    as a tuple if there are two or more and as <code type="sml">unit</code> if there are none;
+    as a tuple if there are two or more;
   </p>
 </item>
 <item>
@@ -114,15 +122,9 @@ whereas <code type="sml"><var>resType_e</var></code> and <code type="sml"><var>a
 For example, the specification of <code type="sml">Gtk.TextView.insertAtCursorSig</code> is
 </p>
 <code type="sml">
-val insertAtCursorSig : ('a class, string, string, unit, unit) Signal.t
+val insertAtCursorSig : ('a class, string -> unit, string -> unit) Signal.t
 </code>
 </example>
-<p>
-As the example above shows,
-neither <code type="sml"><var>argType_e</var></code> nor <code type="sml"><var>argType_h</var></code>
-have an argument
-for the instance that emits the signal.
-</p>
 </section>
 
 <section>

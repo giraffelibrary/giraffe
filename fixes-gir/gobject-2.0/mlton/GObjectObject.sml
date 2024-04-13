@@ -9,7 +9,7 @@ structure GObjectObject :>
     where type closure_t = GObjectClosureRecord.t
     where type 'a param_spec_class = 'a GObjectParamSpecClass.class
     where type 'object_class property_init_t = 'object_class Property.init_t
-    where type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t = ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) Signal.t =
+    where type ('object_class, 'h, 'e) signal_t = ('object_class, 'h, 'e) Signal.t =
   struct
     val getType_ = _import "g_object_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
@@ -187,7 +187,7 @@ structure GObjectObject :>
     type closure_t = GObjectClosureRecord.t
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
     type 'object_class property_init_t = 'object_class Property.init_t
-    type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t = ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) Signal.t
+    type ('object_class, 'h, 'e) signal_t = ('object_class, 'h, 'e) Signal.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     local
@@ -387,6 +387,18 @@ structure GObjectObject :>
     in
       local
         val marshaller = parInst GObjectObjectClass.t &&&> parIn 1 GObjectParamSpecClass.t ---> retVoid
+        fun hConv f (self & pspec) =
+          let
+            val () = f (GObjectObjectClass.toBase self) pspec
+          in
+            ()
+          end
+        fun eConv f self pspec =
+          let
+            val () = f (GObjectObjectClass.toBase self & GObjectParamSpecClass.toBase pspec)
+          in
+            ()
+          end
       in
         val notifySig =
           {
@@ -395,14 +407,10 @@ structure GObjectObject :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & pspec => GObjectObjectClass.toBase self & pspec,
-                      fn self & pspec => GObjectObjectClass.toBase self & GObjectParamSpecClass.toBase pspec,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
     end

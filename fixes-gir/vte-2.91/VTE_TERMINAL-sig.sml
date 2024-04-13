@@ -323,40 +323,40 @@ signature VTE_TERMINAL =
            * write_flags_t
            * 'c Gio.CancellableClass.class option
        -> unit
-    val bellSig : ('a class, unit, unit, unit, unit) Signal.t
-    val charSizeChangedSig : ('a class, LargeInt.int * LargeInt.int, LargeInt.int * LargeInt.int, unit, unit) Signal.t
-    val childExitedSig : ('a class, LargeInt.int, LargeInt.int, unit, unit) Signal.t
-    val commitSig : ('a class, string * LargeInt.int, string * LargeInt.int, unit, unit) Signal.t
-    val contentsChangedSig : ('a class, unit, unit, unit, unit) Signal.t
-    val copyClipboardSig : ('a class, unit, unit, unit, unit) Signal.t
-    val currentDirectoryUriChangedSig : ('a class, unit, unit, unit, unit) Signal.t
-    val currentFileUriChangedSig : ('a class, unit, unit, unit, unit) Signal.t
-    val cursorMovedSig : ('a class, unit, unit, unit, unit) Signal.t
-    val decreaseFontSizeSig : ('a class, unit, unit, unit, unit) Signal.t
-    val deiconifyWindowSig : ('a class, unit, unit, unit, unit) Signal.t
-    val encodingChangedSig : ('a class, unit, unit, unit, unit) Signal.t
-    val eofSig : ('a class, unit, unit, unit, unit) Signal.t
-    val hyperlinkHoverUriChangedSig : ('a class, string * Gdk.RectangleRecord.t, string * Gdk.RectangleRecord.t, unit, unit) Signal.t
-    val iconTitleChangedSig : ('a class, unit, unit, unit, unit) Signal.t
-    val iconifyWindowSig : ('a class, unit, unit, unit, unit) Signal.t
-    val increaseFontSizeSig : ('a class, unit, unit, unit, unit) Signal.t
-    val lowerWindowSig : ('a class, unit, unit, unit, unit) Signal.t
-    val maximizeWindowSig : ('a class, unit, unit, unit, unit) Signal.t
-    val moveWindowSig : ('a class, LargeInt.int * LargeInt.int, LargeInt.int * LargeInt.int, unit, unit) Signal.t
-    val notificationReceivedSig : ('a class, string * string option, string * string option, unit, unit) Signal.t
-    val pasteClipboardSig : ('a class, unit, unit, unit, unit) Signal.t
-    val raiseWindowSig : ('a class, unit, unit, unit, unit) Signal.t
-    val refreshWindowSig : ('a class, unit, unit, unit, unit) Signal.t
-    val resizeWindowSig : ('a class, LargeInt.int * LargeInt.int, LargeInt.int * LargeInt.int, unit, unit) Signal.t
-    val restoreWindowSig : ('a class, unit, unit, unit, unit) Signal.t
-    val selectionChangedSig : ('a class, unit, unit, unit, unit) Signal.t
-    val shellPrecmdSig : ('a class, unit, unit, unit, unit) Signal.t
-    val shellPreexecSig : ('a class, unit, unit, unit, unit) Signal.t
-    val textDeletedSig : ('a class, unit, unit, unit, unit) Signal.t
-    val textInsertedSig : ('a class, unit, unit, unit, unit) Signal.t
-    val textModifiedSig : ('a class, unit, unit, unit, unit) Signal.t
-    val textScrolledSig : ('a class, LargeInt.int, LargeInt.int, unit, unit) Signal.t
-    val windowTitleChangedSig : ('a class, unit, unit, unit, unit) Signal.t
+    val bellSig : ('a class, unit, unit) Signal.t
+    val charSizeChangedSig : ('a class, LargeInt.int * LargeInt.int -> unit, LargeInt.int * LargeInt.int -> unit) Signal.t
+    val childExitedSig : ('a class, LargeInt.int -> unit, LargeInt.int -> unit) Signal.t
+    val commitSig : ('a class, string * LargeInt.int -> unit, string * LargeInt.int -> unit) Signal.t
+    val contentsChangedSig : ('a class, unit, unit) Signal.t
+    val copyClipboardSig : ('a class, unit, unit) Signal.t
+    val currentDirectoryUriChangedSig : ('a class, unit, unit) Signal.t
+    val currentFileUriChangedSig : ('a class, unit, unit) Signal.t
+    val cursorMovedSig : ('a class, unit, unit) Signal.t
+    val decreaseFontSizeSig : ('a class, unit, unit) Signal.t
+    val deiconifyWindowSig : ('a class, unit, unit) Signal.t
+    val encodingChangedSig : ('a class, unit, unit) Signal.t
+    val eofSig : ('a class, unit, unit) Signal.t
+    val hyperlinkHoverUriChangedSig : ('a class, string * Gdk.RectangleRecord.t -> unit, string * Gdk.RectangleRecord.t -> unit) Signal.t
+    val iconTitleChangedSig : ('a class, unit, unit) Signal.t
+    val iconifyWindowSig : ('a class, unit, unit) Signal.t
+    val increaseFontSizeSig : ('a class, unit, unit) Signal.t
+    val lowerWindowSig : ('a class, unit, unit) Signal.t
+    val maximizeWindowSig : ('a class, unit, unit) Signal.t
+    val moveWindowSig : ('a class, LargeInt.int * LargeInt.int -> unit, LargeInt.int * LargeInt.int -> unit) Signal.t
+    val notificationReceivedSig : ('a class, string * string option -> unit, string * string option -> unit) Signal.t
+    val pasteClipboardSig : ('a class, unit, unit) Signal.t
+    val raiseWindowSig : ('a class, unit, unit) Signal.t
+    val refreshWindowSig : ('a class, unit, unit) Signal.t
+    val resizeWindowSig : ('a class, LargeInt.int * LargeInt.int -> unit, LargeInt.int * LargeInt.int -> unit) Signal.t
+    val restoreWindowSig : ('a class, unit, unit) Signal.t
+    val selectionChangedSig : ('a class, unit, unit) Signal.t
+    val shellPrecmdSig : ('a class, unit, unit) Signal.t
+    val shellPreexecSig : ('a class, unit, unit) Signal.t
+    val textDeletedSig : ('a class, unit, unit) Signal.t
+    val textInsertedSig : ('a class, unit, unit) Signal.t
+    val textModifiedSig : ('a class, unit, unit) Signal.t
+    val textScrolledSig : ('a class, LargeInt.int -> unit, LargeInt.int -> unit) Signal.t
+    val windowTitleChangedSig : ('a class, unit, unit) Signal.t
     val allowBoldProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
     val allowHyperlinkProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
     val audibleBellProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t

@@ -96,7 +96,7 @@ It is common to set up GTK objects in the handler for the “activate” signal
 as follows:
 </p>
 <code type="sml">
-fun activate app () =
+fun activate app =
   let
     …  (* set up *)
   in

@@ -70,22 +70,22 @@ fun makeSignalSpec
 
     (* Construct argument type with the form:
      *
-     *   unit
+     *   NONE
      *     if L = 0
      *
-     *   <inParamType[1](isRead)> * ... * <inParamType[L](isRead)>
+     *   SOME (<inParamType[1](isRead)> * ... * <inParamType[L](isRead)>)
      *     if L > 0
      *)
     fun mkArgTy isReadType tyVarIdx =
       let
         val (inParTys, tyVarIdx') =
           foldmapl (mkParamTy isReadType) (inParTyRefs, tyVarIdx)
-        val argTy =
+        val optArgTy =
           case inParTys of
-            []         => unitTy
-          | op :: tys1 => mkProdTy1 tys1
+            []         => NONE
+          | op :: tys1 => SOME (mkProdTy1 tys1)
       in
-        (argTy, tyVarIdx')
+        (optArgTy, tyVarIdx')
       end
 
     (* Construct result type with the form:
@@ -117,6 +117,46 @@ fun makeSignalSpec
         (resTy, tyVarIdx'2)
       end
 
+    (* Construct handler type with the form:
+     *
+     *   <resType(false)>
+     *     if L = 0
+     *
+     *   <argType(true)> -> <resType(false)>
+     *     if L > 0
+     *)
+    fun mkHandlerTy tyVarIdx =
+      let
+        val (optArgReadTy, tyVarIdx'1) = mkArgTy true  tyVarIdx
+        val (resWriteTy,   tyVarIdx'2) = mkResTy false tyVarIdx'1
+        val handlerTy =
+          case optArgReadTy of
+            NONE           => resWriteTy
+          | SOME argReadTy => TyFun (argReadTy, resWriteTy)
+      in
+        (handlerTy, tyVarIdx'2)
+      end
+
+    (* Construct emitter type with the form:
+     *
+     *   <resType(true)>
+     *     if L = 0
+     *
+     *   <argType(false)> -> <resType(true)>
+     *     if L > 0
+     *)
+    fun mkEmitterTy tyVarIdx =
+      let
+        val (optArgWriteTy, tyVarIdx'1) = mkArgTy false tyVarIdx
+        val (resReadTy,     tyVarIdx'2) = mkResTy true  tyVarIdx'1
+        val emitterTy =
+          case optArgWriteTy of
+            NONE            => resReadTy
+          | SOME argWriteTy => TyFun (argWriteTy, resReadTy)
+      in
+        (emitterTy, tyVarIdx'2)
+      end
+
     (* Construct instance type with the form:
      *
      *   <var> class
@@ -128,10 +168,8 @@ fun makeSignalSpec
      *
      *   (
      *     <var> class,
-     *     <argType(false)>,
-     *     <argType(true)>,
-     *     <resType(false)>,
-     *     <resType(true)>
+     *     <handlerType>,
+     *     <emitterType>
      *   )
      *     <Signal>
      *
@@ -145,16 +183,14 @@ fun makeSignalSpec
      *     Signal.t
      *       if not isGObject
      *)
-    val (argWriteTy, tyVarIdx'2) = mkArgTy false tyVarIdx'1
-    val (argReadTy,  tyVarIdx'3) = mkArgTy true  tyVarIdx'2
-    val (resWriteTy, tyVarIdx'4) = mkResTy false tyVarIdx'3
-    val (resReadTy,  _)          = mkResTy true  tyVarIdx'4
+    val (handlerTy, tyVarIdx'2) = mkHandlerTy tyVarIdx'1
+    val (emitterTy, _)          = mkEmitterTy tyVarIdx'2
     val lid =
       if isGObject
       then toList1 [concat [signalId ^ "_" ^ tId]]
       else toList1 [toUCC signalId, tId]
     val signalTy =
-      TyRef ([instTy, argWriteTy, argReadTy, resWriteTy, resReadTy], lid)
+      TyRef ([instTy, handlerTy, emitterTy], lid)
   in
     (mkValSpec (signalNameId, signalTy), (iRefs'3, excls))
   end
@@ -602,85 +638,119 @@ fun makeSignalStrDec
     val objectIRef = makeObjectIRef signalNamespace (SOME containerName)
     val toObjectBaseExp = mkLIdLNameExp (prefixInterfaceStrId objectIRef [toBaseId])
 
-    (* Construct conversion function for reading the arguments with the form:
+    (* Construct the pattern to match the read arguments with the form:
      *
-     *   fn self & <inParamNameJ[1]> & ... & <inParamNameJ[J]> =>
-     *     GObjectObjectClass.toBase self & (<inParamExpL[1]>, ..., <inParamExpL[L]>)
+     *   (self & <inParamNameJ[1]> & ... & <inParamNameJ[J]>)
      *     if J > 0
      *
-     *   fn self => self & ()
+     *   self
      *     otherwise
      *)
-    val argReadConvExp =
+    val argReadPat : apat =
       let
-        val funPat =
+        val argPat =
           case map mkIdVarPat revInParamNameJs of
-            op :: revPats1 => mkAPat (mkIdVarPat selfId, foldl1 mkAPat revPats1)
-          | []             => mkIdVarPat selfId
-
-        val toBaseSelfExp = ExpApp (toObjectBaseExp, selfExp)
-        val exps1 = getList1 (rev revInParamExpLs, unitExp)
-        val funExp = mkAExp (toBaseSelfExp, mkTupleExp1 exps1)
+            op :: revPats1 => mkParenAPat (mkAPat (mkIdVarPat selfId, foldl1 mkAPat revPats1))
+          | []             => mkIdVarAPat selfId
       in
-        ExpFn (toList1 [(funPat, funExp)])
+        argPat
       end
 
-    (* Construct conversion function for writing the arguments with the form:
+    (* Construct the expression to use the read arguments with the form:
      *
-     *   fn self & (<inParamNameL[1]>, ..., <inParamNameL[L]>) =>
-     *     <ContainerNamespace><ContainerName>Class.toBase self & <inParamExpJ[1]> & ... & <inParamExpJ[J]>
+     *   (GObjectObjectClass.toBase self)
+     *)
+    val argReadSelfExp = mkParenExp (ExpApp (toObjectBaseExp, selfExp))
+
+    (* Construct the expression to use the read arguments with the form:
+     *
+     *   (<inParamExpL[1]>, ..., <inParamExpL[L]>)
+     *     if L > 0
+     *
+     * as an optional value.
+     *)
+    val optArgReadTupleExp =
+      SOME (
+        case mkTupleExp1 (toList1 (rev revInParamExpLs)) of
+          e as ExpApp _ => mkParenExp e
+        | e             => e
+      )
+        handle
+          Empty => NONE
+
+    (* Construct the pattern to match the written arguments with the form:
+     *
+     *   self
+     *)
+    val argWriteSelfPat : apat = mkIdVarAPat selfId
+
+    (* Construct the pattern to match the written arguments with the form:
+     *
+     *   (<inParamNameL[1]>, ..., <inParamNameL[L]>)
+     *     if L > 0
+     *
+     * as an optional value.
+     *)
+    val optArgWriteTuplePat : apat option =
+      SOME (mkTupleAPat1 (toList1 (revMap mkIdVarAPat revInParamNameLs)))
+        handle
+          Empty => NONE
+
+    (* Construct the expression to use the written arguments with the form:
+     *
+     *   (<ContainerNamespace><ContainerName>Class.toBase self & <inParamExpJ[1]> & ... & <inParamExpJ[J]>)
      *     if J > 0
      *
-     *   fn self & () => <ContainerNamespace><ContainerName>Class.toBase self
+     *   (<ContainerNamespace><ContainerName>Class.toBase self)
      *     otherwise
      *)
-    val argWriteConvExp =
+    val argWriteExp =
       let
-        val pats1 = getList1 (revMap mkIdVarPat revInParamNameLs, unitPat)
-        val funPat = mkAPat (mkIdVarPat selfId, mkTuplePat1 pats1)
-
         val toBaseSelfExp = ExpApp (toContainerBaseExp, selfExp)
-        val funExp =
+        val argExp =
           case revInParamExpJs of
             op :: revExps1 => mkAExp (toBaseSelfExp, foldl1 mkAExp revExps1)
           | []             => toBaseSelfExp
       in
-        ExpFn (toList1 [(funPat, funExp)])
+        mkParenExp argExp
       end
 
-    (* Construct conversion function for reading the result with the form:
+    (* Construct the pattern to match the read result with the form:
      *
-     *   fn <outParamNameN[1]> & ... & <outParamNameN[N]> & <retValPat> => <resExp>
+     *   <outParamNameN[1]> & ... & <outParamNameN[N]> & <retValPat>
      *     if N > 0
      *
-     *   fn <retValPat> => <resExp>
+     *   <resExp>
      *     otherwise
      *)
-    val resReadConvExp =
+    val resReadPat : pat =
       let
         val revPats1 = (retValPat, map mkIdVarPat revOutParamNameNs)
-        val funPat = foldl1 mkAPat revPats1
+      in
+        foldl1 mkAPat revPats1
+      end
 
+    (* Construct the expression to use the read result with the form:
+     *
+     *   <resExp>
+     *)
+    val resReadExp =
+      let
         val resExp =
           case (retValExpK, revOutParamExpKs) of
             (SOME e, op :: es1) => mkTupleExp2 (e, es1)
           | (NONE,   op :: es1) => mkTupleExp1 es1
           | (SOME e, [])        => e
           | (NONE,   [])        => unitExp
-        val funExp = resExp
       in
-        ExpFn (toList1 [(funPat, funExp)])
+        resExp
       end
 
-    (* Construct conversion function for writing the result with the form:
+    (* Construct the pattern to match the written result with the form:
      *
-     *   fn <resPat> => <outParamExpN[1]> & ... & <outParamExpN[N]> & <retValExp>
-     *     if N > 0
-     *
-     *   fn <resPat> => <retValExp>
-     *     otherwise
+     *   <resPat>
      *)
-    val resWriteConvExp =
+    val resWritePat : pat =
       let
         val resPat =
           case (retValExpK, map mkIdVarPat revOutParamNameKs) of
@@ -688,40 +758,95 @@ fun makeSignalStrDec
           | (NONE,   op :: ps1) => mkTuplePat1 ps1
           | (SOME _, [])        => retValIdPat
           | (NONE,   [])        => unitPat
-        val funPat = resPat
-
-        val revExps1 = (retValExp, revOutParamExpNs)
-        val funExp = foldl1 mkAExp revExps1
       in
-        ExpFn (toList1 [(funPat, funExp)])
+        resPat
       end
 
-    (* Construct signal marshaller with the form:
+    (* Construct the expression to use the written result with the form:
      *
-     *   fn () =>
-     *     map
-     *       (
-     *         <argReadConvExp>,
-     *         <argWriteConvExp>,
-     *         <resReadConvExp>,
-     *         <resWriteConvExp>,
-     *       )
-     *       marshaller
+     *   <outParamExpN[1]> & ... & <outParamExpN[N]> & <retValExp>
+     *     if N > 0
+     *
+     *   <retValExp>
+     *     otherwise
      *)
-    val mapMarshallerExp =
-      foldl mkRevAppExp mapIdExp
-        [
-          ExpParen (
-            toList1 [
-              argReadConvExp,
-              argWriteConvExp,
-              resReadConvExp,
-              resWriteConvExp
-            ]
-          ),
-          marshallerIdExp
-        ]
-    val signalMarshallerExp = ExpFn (toList1 [(unitPat, mapMarshallerExp)])
+    val resWriteExp =
+      let
+        val revExps1 = (retValExp, revOutParamExpNs)
+      in
+        foldl1 mkAExp revExps1
+      end
+
+    (* Construct the handler conversion function as follows:
+     *
+     *   fun hConv f <argReadPat> =
+     *     let
+     *       val <resWritePat> = f <argReadSelfExp> <argReadTupleExp>
+     *     in
+     *       <resWriteExp>
+     *     end
+     *
+     *     if optArgReadTupleExp is SOME argReadTupleExp
+     *
+     *
+     *   fun hConv f <argReadPat> =
+     *     let
+     *       val <resWritePat> = f <argReadSelfExp>
+     *     in
+     *       <resWriteExp>
+     *     end
+     *
+     *     if optArgReadTupleExp is NONE
+     *)
+    val hConvDec =
+      let
+        val fAPat = mkIdVarAPat fId
+        val args = [fAPat, argReadPat]
+        val fAppExp'1 = ExpApp (mkIdLNameExp fId, argReadSelfExp)
+        val fAppExp =
+          case optArgReadTupleExp of
+            SOME argReadTupleExp => ExpApp (fAppExp'1, argReadTupleExp)
+          | NONE                 => fAppExp'1
+        val dec = mkPatValDec (resWritePat, fAppExp)
+        val body = ExpLet (mkDecs [dec], toList1 [resWriteExp])
+      in
+        mkIdFunDec (hConvId, toList1 args, body)
+      end
+
+    (* Construct the emitter conversion function as follows:
+     *
+     *   fun eConv f <argWriteSelfPat> <argWriteTuplePat> =
+     *     let
+     *       val <resReadPat> = f <argWriteExp>
+     *     in
+     *       <resReadExp>
+     *     end
+     *
+     *     if optArgWriteTuplePat is SOME argWriteTuplePat
+     *
+     *
+     *   fun eConv f <argWriteSelfPat> =
+     *     let
+     *       val <resReadPat> = f <argWriteExp>
+     *     in
+     *       <resReadExp>
+     *     end
+     *
+     *     if optArgWriteTuplePat is NONE
+     *)
+    val eConvDec =
+      let
+        val fAPat = mkIdVarAPat fId
+        val args =
+          case optArgWriteTuplePat of
+            SOME argWriteTuplePat => [fAPat, argWriteSelfPat, argWriteTuplePat]
+          | NONE                  => [fAPat, argWriteSelfPat]
+        val fAppExp = ExpApp (mkIdLNameExp fId, argWriteExp)
+        val dec = mkPatValDec (resReadPat, fAppExp)
+        val body = ExpLet (mkDecs [dec], toList1 [resReadExp])
+      in
+        mkIdFunDec (eConvId, toList1 args, body)
+      end
 
     (* Construct signal declaration
      *
@@ -747,6 +872,8 @@ fun makeSignalStrDec
      *
      *   local
      *     <marshallerDec>
+     *     <hConvDec>
+     *     <eConvDec>
      *   in
      *     <signalDec>
      *   end
@@ -754,7 +881,7 @@ fun makeSignalStrDec
     val signalStrDec =
       StrDecDec (
         DecLocal (
-          mkDecs [marshallerDec],
+          mkDecs [marshallerDec, hConvDec, eConvDec],
           mkDecs [signalDec]
         )
       )

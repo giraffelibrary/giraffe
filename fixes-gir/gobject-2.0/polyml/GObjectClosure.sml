@@ -2,7 +2,7 @@ structure GObjectClosure :>
   G_OBJECT_CLOSURE
     where type t = GObjectClosureRecord.t
     where type type_t = GObjectType.t
-    where type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller = ('arg_r, 'arg_w, 'res_r, 'res_w) ClosureMarshal.marshaller =
+    where type callback = ClosureMarshal.callback =
   struct
     local
       open PolyMLFFI
@@ -21,7 +21,7 @@ structure GObjectClosure :>
     end
     type t = GObjectClosureRecord.t
     type type_t = GObjectType.t
-    type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller = ('arg_r, 'arg_w, 'res_r, 'res_w) ClosureMarshal.marshaller
+    type callback = ClosureMarshal.callback
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     local
       val call =
@@ -30,11 +30,11 @@ structure GObjectClosure :>
          &&&> ClosureMarshal.FFI.withDestroyNotifyPtr
          ---> GObjectClosureRecord.FFI.fromPtr false
     in
-      fun new marshallerFunc =
+      fun new callback =
         call new_
           (
             ()
-             & ClosureMarshal.makeCallback marshallerFunc
+             & callback
              & ()
           )
     end

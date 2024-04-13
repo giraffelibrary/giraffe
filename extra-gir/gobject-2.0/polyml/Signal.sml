@@ -10,14 +10,12 @@ structure Signal :>
     where type 'a object_class = 'a GObjectObjectClass.class
     where type ('object_class, 'get, 'set, 'init) property_t =
             ('object_class, 'get, 'set, 'init) Property.t
-    where type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller =
-            ('arg_r, 'arg_w, 'res_r, 'res_w) GObjectClosure.marshaller =
+    where type callback = ClosureMarshal.callback =
   struct
     type 'a object_class = 'a GObjectObjectClass.class
     type ('object_class, 'get, 'set, 'init) property_t =
       ('object_class, 'get, 'set, 'init) Property.t
-    type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller =
-      ('arg_r, 'arg_w, 'res_r, 'res_w) GObjectClosure.marshaller
+    type callback = ClosureMarshal.callback
 
     local
       open PolyMLFFI
@@ -93,26 +91,28 @@ structure Signal :>
           );
     end
 
-    type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) t =
+    type ('object_class, 'h, 'e) t =
       {
         name       : string,
         detail     : string,
         marshaller :
           unit
-           -> (
-                (base object_class, 'arg_h) pair,
-                ('object_class,     'arg_e) pair,
-                'res_e,
-                'res_h
-              )
-               marshaller
+           -> {
+                h : (base object_class -> 'h) -> callback,
+                e : callback -> 'object_class -> 'e
+              }
       }
 
     fun conv f {name, detail, marshaller} =
       {
         name       = name,
         detail     = detail,
-        marshaller = ClosureMarshal.map (Fn.id, Pair.mapFst f, Fn.id, Fn.id) o marshaller
+        marshaller =
+          fn () =>
+            {
+              h = #h (marshaller ()),
+              e = fn func => #e (marshaller ()) func o f
+            }
       }
 
     local
@@ -134,10 +134,10 @@ structure Signal :>
               in
                 quarkFromString_ s before Utf8.C.ArrayType.free ~1 s
               end
-        fun emit (ret, pars, _) = signalEmit_ (pars & signalId & detailQuark & ret)
-        val call = ClosureMarshal.call (marshaller ()) emit 
+        fun func (ret, pars, _) = signalEmit_ (pars & signalId & detailQuark & ret)
+        val call = #e (marshaller ()) func
       in
-        fn arg => call (instance & arg)
+        call instance
       end
 
     (* For a value `{id, closure, detailedSignal}` of type `handler_id`,
@@ -247,8 +247,8 @@ structure Signal :>
          * to the type of `instance` by the type constraint in the
          * signature.  This is valid because a signal handler always
          * receives the object that the handler is connected to. *)
-        fun handlerFunc (object & arg) = f (GObjectObjectClass.toDerivedUnchecked object) arg
-        val closure = GObjectClosure.new (marshaller (), handlerFunc)
+        fun handlerFunc object = f (GObjectObjectClass.toDerivedUnchecked object)
+        val closure = GObjectClosure.new (#h (marshaller ()) handlerFunc)
         val detailedSignal =
           case detail of
             "" => name
@@ -266,8 +266,8 @@ structure Signal :>
          * to the type of `instance` by the type constraint in the
          * signature.  This is valid because a signal handler always
          * receives the object that the handler is connected to. *)
-        fun handlerFunc (object & arg) = f (GObjectObjectClass.toDerivedUnchecked object) arg
-        val closure = GObjectClosure.new (marshaller (), handlerFunc)
+        fun handlerFunc object = f (GObjectObjectClass.toDerivedUnchecked object)
+        val closure = GObjectClosure.new (#h (marshaller ()) handlerFunc)
         val detailedSignal =
           case detail of
             "" => name

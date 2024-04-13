@@ -60,7 +60,8 @@ signature CLOSURE_MARSHAL =
     type callback = C.value_v * C.value_array_v * C.size_v -> unit
 
     val makeCallback :
-      ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller * ('arg_r -> 'res_w)
+      ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller
+       -> ('arg_r -> 'res_w)
        -> callback
 
     val call :

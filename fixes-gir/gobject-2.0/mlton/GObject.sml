@@ -1,6 +1,6 @@
 structure GObject :
   G_OBJECT
-    where type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t = ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) Signal.t
+    where type ('object_class, 'h, 'e) signal_t = ('object_class, 'h, 'e) Signal.t
     where type ('object_class, 'get, 'set, 'init) property_t = ('object_class, 'get, 'set, 'init) Property.t
     where type 'object_class property_init_t = 'object_class Property.init_t =
   struct
@@ -806,7 +806,7 @@ structure GObject :
               x5
             )
     val typeTestFlags_ = fn x1 & x2 => (_import "g_type_test_flags" : GObjectType.FFI.val_ * GUInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t = ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) Signal.t
+    type ('object_class, 'h, 'e) signal_t = ('object_class, 'h, 'e) Signal.t
     type ('object_class, 'get, 'set, 'init) property_t = ('object_class, 'get, 'set, 'init) Property.t
     type 'object_class property_init_t = 'object_class Property.init_t
     structure Type = GObjectType

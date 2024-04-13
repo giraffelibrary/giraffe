@@ -2771,6 +2771,18 @@ structure GtkWidget :>
     in
       local
         val marshaller = parInst GtkWidgetClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (GtkWidgetClass.toBase self)
+          in
+            ()
+          end
       in
         val accelClosuresChangedSig =
           {
@@ -2779,18 +2791,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => GtkWidgetClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventButtonRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val buttonPressEventSig =
           {
@@ -2799,18 +2819,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventButtonRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val buttonReleaseEventSig =
           {
@@ -2819,18 +2847,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 uint ---> ret boolean
+        fun hConv f (self & signalId) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) signalId
+          in
+            retVal
+          end
+        fun eConv f self signalId =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & signalId)
+          in
+            retVal
+          end
       in
         val canActivateAccelSig =
           {
@@ -2839,18 +2875,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & signalId => GObjectObjectClass.toBase self & signalId,
-                      fn self & signalId => GtkWidgetClass.toBase self & signalId,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GObjectParamSpecClass.t ---> retVoid
+        fun hConv f (self & childProperty) =
+          let
+            val () = f (GObjectObjectClass.toBase self) childProperty
+          in
+            ()
+          end
+        fun eConv f self childProperty =
+          let
+            val () = f (GtkWidgetClass.toBase self & GObjectParamSpecClass.toBase childProperty)
+          in
+            ()
+          end
       in
         val childNotifySig =
           {
@@ -2859,18 +2903,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & childProperty => GObjectObjectClass.toBase self & childProperty,
-                      fn self & childProperty => GtkWidgetClass.toBase self & GObjectParamSpecClass.toBase childProperty,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (GtkWidgetClass.toBase self)
+          in
+            ()
+          end
       in
         val compositedChangedSig =
           {
@@ -2879,18 +2931,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => GtkWidgetClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventConfigureRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val configureEventSig =
           {
@@ -2899,18 +2959,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventExposeRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val damageEventSig =
           {
@@ -2919,18 +2987,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEvent.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & GdkEvent.toBase event)
+          in
+            retVal
+          end
       in
         val deleteEventSig =
           {
@@ -2939,18 +3015,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & GdkEvent.toBase event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (GtkWidgetClass.toBase self)
+          in
+            ()
+          end
       in
         val destroySig =
           {
@@ -2959,18 +3043,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => GtkWidgetClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEvent.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & GdkEvent.toBase event)
+          in
+            retVal
+          end
       in
         val destroyEventSig =
           {
@@ -2979,18 +3071,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & GdkEvent.toBase event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkTextDirection.t ---> retVoid
+        fun hConv f (self & previousDirection) =
+          let
+            val () = f (GObjectObjectClass.toBase self) previousDirection
+          in
+            ()
+          end
+        fun eConv f self previousDirection =
+          let
+            val () = f (GtkWidgetClass.toBase self & previousDirection)
+          in
+            ()
+          end
       in
         val directionChangedSig =
           {
@@ -2999,18 +3099,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & previousDirection => GObjectObjectClass.toBase self & previousDirection,
-                      fn self & previousDirection => GtkWidgetClass.toBase self & previousDirection,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkDragContextClass.t ---> retVoid
+        fun hConv f (self & context) =
+          let
+            val () = f (GObjectObjectClass.toBase self) context
+          in
+            ()
+          end
+        fun eConv f self context =
+          let
+            val () = f (GtkWidgetClass.toBase self & GdkDragContextClass.toBase context)
+          in
+            ()
+          end
       in
         val dragBeginSig =
           {
@@ -3019,18 +3127,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & context => GObjectObjectClass.toBase self & context,
-                      fn self & context => GtkWidgetClass.toBase self & GdkDragContextClass.toBase context,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkDragContextClass.t ---> retVoid
+        fun hConv f (self & context) =
+          let
+            val () = f (GObjectObjectClass.toBase self) context
+          in
+            ()
+          end
+        fun eConv f self context =
+          let
+            val () = f (GtkWidgetClass.toBase self & GdkDragContextClass.toBase context)
+          in
+            ()
+          end
       in
         val dragDataDeleteSig =
           {
@@ -3039,14 +3155,10 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & context => GObjectObjectClass.toBase self & context,
-                      fn self & context => GtkWidgetClass.toBase self & GdkDragContextClass.toBase context,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
@@ -3057,6 +3169,49 @@ structure GtkWidget :>
            &&&> parIn 3 uint
            &&&> parIn 4 uint
            ---> retVoid
+        fun hConv
+          f
+          (
+            self
+             & context
+             & data
+             & info
+             & time
+          ) =
+          let
+            val () =
+              f (GObjectObjectClass.toBase self)
+                (
+                  context,
+                  data,
+                  info,
+                  time
+                )
+          in
+            ()
+          end
+        fun eConv
+          f
+          self
+          (
+            context,
+            data,
+            info,
+            time
+          ) =
+          let
+            val () =
+              f
+                (
+                  GtkWidgetClass.toBase self
+                   & GdkDragContextClass.toBase context
+                   & data
+                   & info
+                   & time
+                )
+          in
+            ()
+          end
       in
         val dragDataGetSig =
           {
@@ -3065,38 +3220,10 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn
-                        self
-                         & context
-                         & data
-                         & info
-                         & time =>
-                          GObjectObjectClass.toBase self
-                           & (
-                               context,
-                               data,
-                               info,
-                               time
-                             ),
-                      fn
-                        self
-                         & (
-                             context,
-                             data,
-                             info,
-                             time
-                           ) =>
-                          GtkWidgetClass.toBase self
-                           & GdkDragContextClass.toBase context
-                           & data
-                           & info
-                           & time,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
@@ -3109,6 +3236,57 @@ structure GtkWidget :>
            &&&> parIn 5 uint
            &&&> parIn 6 uint
            ---> retVoid
+        fun hConv
+          f
+          (
+            self
+             & context
+             & x
+             & y
+             & data
+             & info
+             & time
+          ) =
+          let
+            val () =
+              f (GObjectObjectClass.toBase self)
+                (
+                  context,
+                  x,
+                  y,
+                  data,
+                  info,
+                  time
+                )
+          in
+            ()
+          end
+        fun eConv
+          f
+          self
+          (
+            context,
+            x,
+            y,
+            data,
+            info,
+            time
+          ) =
+          let
+            val () =
+              f
+                (
+                  GtkWidgetClass.toBase self
+                   & GdkDragContextClass.toBase context
+                   & x
+                   & y
+                   & data
+                   & info
+                   & time
+                )
+          in
+            ()
+          end
       in
         val dragDataReceivedSig =
           {
@@ -3117,46 +3295,10 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn
-                        self
-                         & context
-                         & x
-                         & y
-                         & data
-                         & info
-                         & time =>
-                          GObjectObjectClass.toBase self
-                           & (
-                               context,
-                               x,
-                               y,
-                               data,
-                               info,
-                               time
-                             ),
-                      fn
-                        self
-                         & (
-                             context,
-                             x,
-                             y,
-                             data,
-                             info,
-                             time
-                           ) =>
-                          GtkWidgetClass.toBase self
-                           & GdkDragContextClass.toBase context
-                           & x
-                           & y
-                           & data
-                           & info
-                           & time,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
@@ -3167,6 +3309,49 @@ structure GtkWidget :>
            &&&> parIn 3 int
            &&&> parIn 4 uint
            ---> ret boolean
+        fun hConv
+          f
+          (
+            self
+             & context
+             & x
+             & y
+             & time
+          ) =
+          let
+            val retVal =
+              f (GObjectObjectClass.toBase self)
+                (
+                  context,
+                  x,
+                  y,
+                  time
+                )
+          in
+            retVal
+          end
+        fun eConv
+          f
+          self
+          (
+            context,
+            x,
+            y,
+            time
+          ) =
+          let
+            val retVal =
+              f
+                (
+                  GtkWidgetClass.toBase self
+                   & GdkDragContextClass.toBase context
+                   & x
+                   & y
+                   & time
+                )
+          in
+            retVal
+          end
       in
         val dragDropSig =
           {
@@ -3175,42 +3360,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn
-                        self
-                         & context
-                         & x
-                         & y
-                         & time =>
-                          GObjectObjectClass.toBase self
-                           & (
-                               context,
-                               x,
-                               y,
-                               time
-                             ),
-                      fn
-                        self
-                         & (
-                             context,
-                             x,
-                             y,
-                             time
-                           ) =>
-                          GtkWidgetClass.toBase self
-                           & GdkDragContextClass.toBase context
-                           & x
-                           & y
-                           & time,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkDragContextClass.t ---> retVoid
+        fun hConv f (self & context) =
+          let
+            val () = f (GObjectObjectClass.toBase self) context
+          in
+            ()
+          end
+        fun eConv f self context =
+          let
+            val () = f (GtkWidgetClass.toBase self & GdkDragContextClass.toBase context)
+          in
+            ()
+          end
       in
         val dragEndSig =
           {
@@ -3219,14 +3388,10 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & context => GObjectObjectClass.toBase self & context,
-                      fn self & context => GtkWidgetClass.toBase self & GdkDragContextClass.toBase context,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
@@ -3235,6 +3400,30 @@ structure GtkWidget :>
            &&&> parIn 1 GdkDragContextClass.t
            &&&> parIn 2 GtkDragResult.t
            ---> ret boolean
+        fun hConv
+          f
+          (
+            self
+             & context
+             & result
+          ) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) (context, result)
+          in
+            retVal
+          end
+        fun eConv f self (context, result) =
+          let
+            val retVal =
+              f
+                (
+                  GtkWidgetClass.toBase self
+                   & GdkDragContextClass.toBase context
+                   & result
+                )
+          in
+            retVal
+          end
       in
         val dragFailedSig =
           {
@@ -3243,22 +3432,10 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn
-                        self
-                         & context
-                         & result =>
-                          GObjectObjectClass.toBase self & (context, result),
-                      fn
-                        self & (context, result) =>
-                          GtkWidgetClass.toBase self
-                           & GdkDragContextClass.toBase context
-                           & result,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
@@ -3267,6 +3444,30 @@ structure GtkWidget :>
            &&&> parIn 1 GdkDragContextClass.t
            &&&> parIn 2 uint
            ---> retVoid
+        fun hConv
+          f
+          (
+            self
+             & context
+             & time
+          ) =
+          let
+            val () = f (GObjectObjectClass.toBase self) (context, time)
+          in
+            ()
+          end
+        fun eConv f self (context, time) =
+          let
+            val () =
+              f
+                (
+                  GtkWidgetClass.toBase self
+                   & GdkDragContextClass.toBase context
+                   & time
+                )
+          in
+            ()
+          end
       in
         val dragLeaveSig =
           {
@@ -3275,22 +3476,10 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn
-                        self
-                         & context
-                         & time =>
-                          GObjectObjectClass.toBase self & (context, time),
-                      fn
-                        self & (context, time) =>
-                          GtkWidgetClass.toBase self
-                           & GdkDragContextClass.toBase context
-                           & time,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
@@ -3301,6 +3490,49 @@ structure GtkWidget :>
            &&&> parIn 3 int
            &&&> parIn 4 uint
            ---> ret boolean
+        fun hConv
+          f
+          (
+            self
+             & context
+             & x
+             & y
+             & time
+          ) =
+          let
+            val retVal =
+              f (GObjectObjectClass.toBase self)
+                (
+                  context,
+                  x,
+                  y,
+                  time
+                )
+          in
+            retVal
+          end
+        fun eConv
+          f
+          self
+          (
+            context,
+            x,
+            y,
+            time
+          ) =
+          let
+            val retVal =
+              f
+                (
+                  GtkWidgetClass.toBase self
+                   & GdkDragContextClass.toBase context
+                   & x
+                   & y
+                   & time
+                )
+          in
+            retVal
+          end
       in
         val dragMotionSig =
           {
@@ -3309,42 +3541,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn
-                        self
-                         & context
-                         & x
-                         & y
-                         & time =>
-                          GObjectObjectClass.toBase self
-                           & (
-                               context,
-                               x,
-                               y,
-                               time
-                             ),
-                      fn
-                        self
-                         & (
-                             context,
-                             x,
-                             y,
-                             time
-                           ) =>
-                          GtkWidgetClass.toBase self
-                           & GdkDragContextClass.toBase context
-                           & x
-                           & y
-                           & time,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 CairoContextRecord.t ---> ret boolean
+        fun hConv f (self & cr) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) cr
+          in
+            retVal
+          end
+        fun eConv f self cr =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & cr)
+          in
+            retVal
+          end
       in
         val drawSig =
           {
@@ -3353,18 +3569,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & cr => GObjectObjectClass.toBase self & cr,
-                      fn self & cr => GtkWidgetClass.toBase self & cr,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventCrossingRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val enterNotifyEventSig =
           {
@@ -3373,18 +3597,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEvent.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & GdkEvent.toBase event)
+          in
+            retVal
+          end
       in
         val eventSig =
           {
@@ -3393,18 +3625,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & GdkEvent.toBase event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEvent.t ---> retVoid
+        fun hConv f (self & event) =
+          let
+            val () = f (GObjectObjectClass.toBase self) event
+          in
+            ()
+          end
+        fun eConv f self event =
+          let
+            val () = f (GtkWidgetClass.toBase self & GdkEvent.toBase event)
+          in
+            ()
+          end
       in
         val eventAfterSig =
           {
@@ -3413,18 +3653,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & GdkEvent.toBase event,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkDirectionType.t ---> ret boolean
+        fun hConv f (self & direction) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) direction
+          in
+            retVal
+          end
+        fun eConv f self direction =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & direction)
+          in
+            retVal
+          end
       in
         val focusSig =
           {
@@ -3433,18 +3681,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & direction => GObjectObjectClass.toBase self & direction,
-                      fn self & direction => GtkWidgetClass.toBase self & direction,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventFocusRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val focusInEventSig =
           {
@@ -3453,18 +3709,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventFocusRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val focusOutEventSig =
           {
@@ -3473,18 +3737,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventGrabBrokenRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val grabBrokenEventSig =
           {
@@ -3493,18 +3765,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (GtkWidgetClass.toBase self)
+          in
+            ()
+          end
       in
         val grabFocusSig =
           {
@@ -3513,18 +3793,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => GtkWidgetClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 boolean ---> retVoid
+        fun hConv f (self & wasGrabbed) =
+          let
+            val () = f (GObjectObjectClass.toBase self) wasGrabbed
+          in
+            ()
+          end
+        fun eConv f self wasGrabbed =
+          let
+            val () = f (GtkWidgetClass.toBase self & wasGrabbed)
+          in
+            ()
+          end
       in
         val grabNotifySig =
           {
@@ -3533,18 +3821,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & wasGrabbed => GObjectObjectClass.toBase self & wasGrabbed,
-                      fn self & wasGrabbed => GtkWidgetClass.toBase self & wasGrabbed,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (GtkWidgetClass.toBase self)
+          in
+            ()
+          end
       in
         val hideSig =
           {
@@ -3553,18 +3849,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => GtkWidgetClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkWidgetClass.tOpt ---> retVoid
+        fun hConv f (self & previousToplevel) =
+          let
+            val () = f (GObjectObjectClass.toBase self) previousToplevel
+          in
+            ()
+          end
+        fun eConv f self previousToplevel =
+          let
+            val () = f (GtkWidgetClass.toBase self & Option.map GtkWidgetClass.toBase previousToplevel)
+          in
+            ()
+          end
       in
         val hierarchyChangedSig =
           {
@@ -3573,18 +3877,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & previousToplevel => GObjectObjectClass.toBase self & previousToplevel,
-                      fn self & previousToplevel => GtkWidgetClass.toBase self & Option.map GtkWidgetClass.toBase previousToplevel,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventKeyRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val keyPressEventSig =
           {
@@ -3593,18 +3905,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventKeyRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val keyReleaseEventSig =
           {
@@ -3613,18 +3933,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkDirectionType.t ---> ret boolean
+        fun hConv f (self & direction) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) direction
+          in
+            retVal
+          end
+        fun eConv f self direction =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & direction)
+          in
+            retVal
+          end
       in
         val keynavFailedSig =
           {
@@ -3633,18 +3961,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & direction => GObjectObjectClass.toBase self & direction,
-                      fn self & direction => GtkWidgetClass.toBase self & direction,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventCrossingRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val leaveNotifyEventSig =
           {
@@ -3653,18 +3989,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (GtkWidgetClass.toBase self)
+          in
+            ()
+          end
       in
         val mapSig =
           {
@@ -3673,18 +4017,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => GtkWidgetClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventAnyRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val mapEventSig =
           {
@@ -3693,18 +4045,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 boolean ---> ret boolean
+        fun hConv f (self & groupCycling) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) groupCycling
+          in
+            retVal
+          end
+        fun eConv f self groupCycling =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & groupCycling)
+          in
+            retVal
+          end
       in
         val mnemonicActivateSig =
           {
@@ -3713,18 +4073,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & groupCycling => GObjectObjectClass.toBase self & groupCycling,
-                      fn self & groupCycling => GtkWidgetClass.toBase self & groupCycling,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventMotionRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val motionNotifyEventSig =
           {
@@ -3733,18 +4101,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkDirectionType.t ---> retVoid
+        fun hConv f (self & direction) =
+          let
+            val () = f (GObjectObjectClass.toBase self) direction
+          in
+            ()
+          end
+        fun eConv f self direction =
+          let
+            val () = f (GtkWidgetClass.toBase self & direction)
+          in
+            ()
+          end
       in
         val moveFocusSig =
           {
@@ -3753,18 +4129,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & direction => GObjectObjectClass.toBase self & direction,
-                      fn self & direction => GtkWidgetClass.toBase self & direction,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkWidgetClass.tOpt ---> retVoid
+        fun hConv f (self & oldParent) =
+          let
+            val () = f (GObjectObjectClass.toBase self) oldParent
+          in
+            ()
+          end
+        fun eConv f self oldParent =
+          let
+            val () = f (GtkWidgetClass.toBase self & Option.map GtkWidgetClass.toBase oldParent)
+          in
+            ()
+          end
       in
         val parentSetSig =
           {
@@ -3773,18 +4157,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & oldParent => GObjectObjectClass.toBase self & oldParent,
-                      fn self & oldParent => GtkWidgetClass.toBase self & Option.map GtkWidgetClass.toBase oldParent,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t ---> ret boolean
+        fun hConv f self =
+          let
+            val retVal = f (GObjectObjectClass.toBase self)
+          in
+            retVal
+          end
+        fun eConv f self =
+          let
+            val retVal = f (GtkWidgetClass.toBase self)
+          in
+            retVal
+          end
       in
         val popupMenuSig =
           {
@@ -3793,18 +4185,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => GtkWidgetClass.toBase self,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventPropertyRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val propertyNotifyEventSig =
           {
@@ -3813,18 +4213,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventProximityRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val proximityInEventSig =
           {
@@ -3833,18 +4241,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventProximityRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val proximityOutEventSig =
           {
@@ -3853,14 +4269,10 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
@@ -3871,6 +4283,49 @@ structure GtkWidget :>
            &&&> parIn 3 boolean
            &&&> parIn 4 GtkTooltipClass.t
            ---> ret boolean
+        fun hConv
+          f
+          (
+            self
+             & x
+             & y
+             & keyboardMode
+             & tooltip
+          ) =
+          let
+            val retVal =
+              f (GObjectObjectClass.toBase self)
+                (
+                  x,
+                  y,
+                  keyboardMode,
+                  tooltip
+                )
+          in
+            retVal
+          end
+        fun eConv
+          f
+          self
+          (
+            x,
+            y,
+            keyboardMode,
+            tooltip
+          ) =
+          let
+            val retVal =
+              f
+                (
+                  GtkWidgetClass.toBase self
+                   & x
+                   & y
+                   & keyboardMode
+                   & GtkTooltipClass.toBase tooltip
+                )
+          in
+            retVal
+          end
       in
         val queryTooltipSig =
           {
@@ -3879,42 +4334,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn
-                        self
-                         & x
-                         & y
-                         & keyboardMode
-                         & tooltip =>
-                          GObjectObjectClass.toBase self
-                           & (
-                               x,
-                               y,
-                               keyboardMode,
-                               tooltip
-                             ),
-                      fn
-                        self
-                         & (
-                             x,
-                             y,
-                             keyboardMode,
-                             tooltip
-                           ) =>
-                          GtkWidgetClass.toBase self
-                           & x
-                           & y
-                           & keyboardMode
-                           & GtkTooltipClass.toBase tooltip,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (GtkWidgetClass.toBase self)
+          in
+            ()
+          end
       in
         val realizeSig =
           {
@@ -3923,18 +4362,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => GtkWidgetClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkScreenClass.tOpt ---> retVoid
+        fun hConv f (self & previousScreen) =
+          let
+            val () = f (GObjectObjectClass.toBase self) previousScreen
+          in
+            ()
+          end
+        fun eConv f self previousScreen =
+          let
+            val () = f (GtkWidgetClass.toBase self & Option.map GdkScreenClass.toBase previousScreen)
+          in
+            ()
+          end
       in
         val screenChangedSig =
           {
@@ -3943,18 +4390,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & previousScreen => GObjectObjectClass.toBase self & previousScreen,
-                      fn self & previousScreen => GtkWidgetClass.toBase self & Option.map GdkScreenClass.toBase previousScreen,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventScrollRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val scrollEventSig =
           {
@@ -3963,18 +4418,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventSelectionRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val selectionClearEventSig =
           {
@@ -3983,14 +4446,10 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
@@ -4000,6 +4459,45 @@ structure GtkWidget :>
            &&&> parIn 2 uint
            &&&> parIn 3 uint
            ---> retVoid
+        fun hConv
+          f
+          (
+            self
+             & data
+             & info
+             & time
+          ) =
+          let
+            val () =
+              f (GObjectObjectClass.toBase self)
+                (
+                  data,
+                  info,
+                  time
+                )
+          in
+            ()
+          end
+        fun eConv
+          f
+          self
+          (
+            data,
+            info,
+            time
+          ) =
+          let
+            val () =
+              f
+                (
+                  GtkWidgetClass.toBase self
+                   & data
+                   & info
+                   & time
+                )
+          in
+            ()
+          end
       in
         val selectionGetSig =
           {
@@ -4008,38 +4506,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn
-                        self
-                         & data
-                         & info
-                         & time =>
-                          GObjectObjectClass.toBase self
-                           & (
-                               data,
-                               info,
-                               time
-                             ),
-                      fn
-                        self
-                         & (
-                             data,
-                             info,
-                             time
-                           ) =>
-                          GtkWidgetClass.toBase self
-                           & data
-                           & info
-                           & time,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventSelectionRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val selectionNotifyEventSig =
           {
@@ -4048,14 +4534,10 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
@@ -4064,6 +4546,30 @@ structure GtkWidget :>
            &&&> parIn 1 GtkSelectionDataRecord.t
            &&&> parIn 2 uint
            ---> retVoid
+        fun hConv
+          f
+          (
+            self
+             & data
+             & time
+          ) =
+          let
+            val () = f (GObjectObjectClass.toBase self) (data, time)
+          in
+            ()
+          end
+        fun eConv f self (data, time) =
+          let
+            val () =
+              f
+                (
+                  GtkWidgetClass.toBase self
+                   & data
+                   & time
+                )
+          in
+            ()
+          end
       in
         val selectionReceivedSig =
           {
@@ -4072,26 +4578,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn
-                        self
-                         & data
-                         & time =>
-                          GObjectObjectClass.toBase self & (data, time),
-                      fn
-                        self & (data, time) =>
-                          GtkWidgetClass.toBase self
-                           & data
-                           & time,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventSelectionRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val selectionRequestEventSig =
           {
@@ -4100,18 +4606,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (GtkWidgetClass.toBase self)
+          in
+            ()
+          end
       in
         val showSig =
           {
@@ -4120,18 +4634,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => GtkWidgetClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkWidgetHelpType.t ---> ret boolean
+        fun hConv f (self & helpType) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) helpType
+          in
+            retVal
+          end
+        fun eConv f self helpType =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & helpType)
+          in
+            retVal
+          end
       in
         val showHelpSig =
           {
@@ -4140,18 +4662,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & helpType => GObjectObjectClass.toBase self & helpType,
-                      fn self & helpType => GtkWidgetClass.toBase self & helpType,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkAllocationRecord.t ---> retVoid
+        fun hConv f (self & allocation) =
+          let
+            val () = f (GObjectObjectClass.toBase self) allocation
+          in
+            ()
+          end
+        fun eConv f self allocation =
+          let
+            val () = f (GtkWidgetClass.toBase self & allocation)
+          in
+            ()
+          end
       in
         val sizeAllocateSig =
           {
@@ -4160,18 +4690,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & allocation => GObjectObjectClass.toBase self & allocation,
-                      fn self & allocation => GtkWidgetClass.toBase self & allocation,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkStateType.t ---> retVoid
+        fun hConv f (self & state) =
+          let
+            val () = f (GObjectObjectClass.toBase self) state
+          in
+            ()
+          end
+        fun eConv f self state =
+          let
+            val () = f (GtkWidgetClass.toBase self & state)
+          in
+            ()
+          end
       in
         val stateChangedSig =
           {
@@ -4180,18 +4718,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & state => GObjectObjectClass.toBase self & state,
-                      fn self & state => GtkWidgetClass.toBase self & state,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkStateFlags.t ---> retVoid
+        fun hConv f (self & flags) =
+          let
+            val () = f (GObjectObjectClass.toBase self) flags
+          in
+            ()
+          end
+        fun eConv f self flags =
+          let
+            val () = f (GtkWidgetClass.toBase self & flags)
+          in
+            ()
+          end
       in
         val stateFlagsChangedSig =
           {
@@ -4200,18 +4746,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & flags => GObjectObjectClass.toBase self & flags,
-                      fn self & flags => GtkWidgetClass.toBase self & flags,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkStyleClass.tOpt ---> retVoid
+        fun hConv f (self & previousStyle) =
+          let
+            val () = f (GObjectObjectClass.toBase self) previousStyle
+          in
+            ()
+          end
+        fun eConv f self previousStyle =
+          let
+            val () = f (GtkWidgetClass.toBase self & Option.map GtkStyleClass.toBase previousStyle)
+          in
+            ()
+          end
       in
         val styleSetSig =
           {
@@ -4220,18 +4774,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & previousStyle => GObjectObjectClass.toBase self & previousStyle,
-                      fn self & previousStyle => GtkWidgetClass.toBase self & Option.map GtkStyleClass.toBase previousStyle,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (GtkWidgetClass.toBase self)
+          in
+            ()
+          end
       in
         val styleUpdatedSig =
           {
@@ -4240,18 +4802,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => GtkWidgetClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEvent.t ---> ret boolean
+        fun hConv f (self & object) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) object
+          in
+            retVal
+          end
+        fun eConv f self object =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & GdkEvent.toBase object)
+          in
+            retVal
+          end
       in
         val touchEventSig =
           {
@@ -4260,18 +4830,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & object => GObjectObjectClass.toBase self & object,
-                      fn self & object => GtkWidgetClass.toBase self & GdkEvent.toBase object,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (GtkWidgetClass.toBase self)
+          in
+            ()
+          end
       in
         val unmapSig =
           {
@@ -4280,18 +4858,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => GtkWidgetClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventAnyRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val unmapEventSig =
           {
@@ -4300,18 +4886,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (GtkWidgetClass.toBase self)
+          in
+            ()
+          end
       in
         val unrealizeSig =
           {
@@ -4320,18 +4914,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => GtkWidgetClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventVisibilityRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val visibilityNotifyEventSig =
           {
@@ -4340,18 +4942,26 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventWindowStateRecord.t ---> ret boolean
+        fun hConv f (self & event) =
+          let
+            val retVal = f (GObjectObjectClass.toBase self) event
+          in
+            retVal
+          end
+        fun eConv f self event =
+          let
+            val retVal = f (GtkWidgetClass.toBase self & event)
+          in
+            retVal
+          end
       in
         val windowStateEventSig =
           {
@@ -4360,14 +4970,10 @@ structure GtkWidget :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & event => GObjectObjectClass.toBase self & event,
-                      fn self & event => GtkWidgetClass.toBase self & event,
-                      fn retVal => retVal,
-                      fn retVal => retVal
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
     end

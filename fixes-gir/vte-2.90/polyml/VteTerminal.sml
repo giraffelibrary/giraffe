@@ -946,6 +946,18 @@ structure VteTerminal :>
     in
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val beepSig =
           {
@@ -954,14 +966,10 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
@@ -970,6 +978,30 @@ structure VteTerminal :>
            &&&> parIn 1 uint
            &&&> parIn 2 uint
            ---> retVoid
+        fun hConv
+          f
+          (
+            self
+             & width
+             & height
+          ) =
+          let
+            val () = f (GObjectObjectClass.toBase self) (width, height)
+          in
+            ()
+          end
+        fun eConv f self (width, height) =
+          let
+            val () =
+              f
+                (
+                  VteTerminalClass.toBase self
+                   & width
+                   & height
+                )
+          in
+            ()
+          end
       in
         val charSizeChangedSig =
           {
@@ -978,26 +1010,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn
-                        self
-                         & width
-                         & height =>
-                          GObjectObjectClass.toBase self & (width, height),
-                      fn
-                        self & (width, height) =>
-                          VteTerminalClass.toBase self
-                           & width
-                           & height,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val childExitedSig =
           {
@@ -1006,14 +1038,10 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
@@ -1022,6 +1050,30 @@ structure VteTerminal :>
            &&&> parIn 1 string
            &&&> parIn 2 uint
            ---> retVoid
+        fun hConv
+          f
+          (
+            self
+             & text
+             & size
+          ) =
+          let
+            val () = f (GObjectObjectClass.toBase self) (text, size)
+          in
+            ()
+          end
+        fun eConv f self (text, size) =
+          let
+            val () =
+              f
+                (
+                  VteTerminalClass.toBase self
+                   & text
+                   & size
+                )
+          in
+            ()
+          end
       in
         val commitSig =
           {
@@ -1030,26 +1082,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn
-                        self
-                         & text
-                         & size =>
-                          GObjectObjectClass.toBase self & (text, size),
-                      fn
-                        self & (text, size) =>
-                          VteTerminalClass.toBase self
-                           & text
-                           & size,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val contentsChangedSig =
           {
@@ -1058,18 +1110,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val copyClipboardSig =
           {
@@ -1078,18 +1138,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val currentDirectoryUriChangedSig =
           {
@@ -1098,18 +1166,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val currentFileUriChangedSig =
           {
@@ -1118,18 +1194,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val cursorMovedSig =
           {
@@ -1138,18 +1222,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val decreaseFontSizeSig =
           {
@@ -1158,18 +1250,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val deiconifyWindowSig =
           {
@@ -1178,18 +1278,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val emulationChangedSig =
           {
@@ -1198,18 +1306,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val encodingChangedSig =
           {
@@ -1218,18 +1334,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val eofSig =
           {
@@ -1238,18 +1362,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val iconTitleChangedSig =
           {
@@ -1258,18 +1390,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val iconifyWindowSig =
           {
@@ -1278,18 +1418,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val increaseFontSizeSig =
           {
@@ -1298,18 +1446,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val lowerWindowSig =
           {
@@ -1318,18 +1474,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val maximizeWindowSig =
           {
@@ -1338,14 +1502,10 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
@@ -1354,6 +1514,30 @@ structure VteTerminal :>
            &&&> parIn 1 uint
            &&&> parIn 2 uint
            ---> retVoid
+        fun hConv
+          f
+          (
+            self
+             & x
+             & y
+          ) =
+          let
+            val () = f (GObjectObjectClass.toBase self) (x, y)
+          in
+            ()
+          end
+        fun eConv f self (x, y) =
+          let
+            val () =
+              f
+                (
+                  VteTerminalClass.toBase self
+                   & x
+                   & y
+                )
+          in
+            ()
+          end
       in
         val moveWindowSig =
           {
@@ -1362,26 +1546,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn
-                        self
-                         & x
-                         & y =>
-                          GObjectObjectClass.toBase self & (x, y),
-                      fn
-                        self & (x, y) =>
-                          VteTerminalClass.toBase self
-                           & x
-                           & y,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val pasteClipboardSig =
           {
@@ -1390,18 +1574,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val raiseWindowSig =
           {
@@ -1410,18 +1602,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val refreshWindowSig =
           {
@@ -1430,14 +1630,10 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
@@ -1446,6 +1642,30 @@ structure VteTerminal :>
            &&&> parIn 1 uint
            &&&> parIn 2 uint
            ---> retVoid
+        fun hConv
+          f
+          (
+            self
+             & width
+             & height
+          ) =
+          let
+            val () = f (GObjectObjectClass.toBase self) (width, height)
+          in
+            ()
+          end
+        fun eConv f self (width, height) =
+          let
+            val () =
+              f
+                (
+                  VteTerminalClass.toBase self
+                   & width
+                   & height
+                )
+          in
+            ()
+          end
       in
         val resizeWindowSig =
           {
@@ -1454,26 +1674,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn
-                        self
-                         & width
-                         & height =>
-                          GObjectObjectClass.toBase self & (width, height),
-                      fn
-                        self & (width, height) =>
-                          VteTerminalClass.toBase self
-                           & width
-                           & height,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val restoreWindowSig =
           {
@@ -1482,18 +1702,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val selectionChangedSig =
           {
@@ -1502,18 +1730,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val statusLineChangedSig =
           {
@@ -1522,18 +1758,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val textDeletedSig =
           {
@@ -1542,18 +1786,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val textInsertedSig =
           {
@@ -1562,18 +1814,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val textModifiedSig =
           {
@@ -1582,18 +1842,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t &&&> parIn 1 int ---> retVoid
+        fun hConv f (self & delta) =
+          let
+            val () = f (GObjectObjectClass.toBase self) delta
+          in
+            ()
+          end
+        fun eConv f self delta =
+          let
+            val () = f (VteTerminalClass.toBase self & delta)
+          in
+            ()
+          end
       in
         val textScrolledSig =
           {
@@ -1602,18 +1870,26 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self & delta => GObjectObjectClass.toBase self & delta,
-                      fn self & delta => VteTerminalClass.toBase self & delta,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
       local
         val marshaller = parInst VteTerminalClass.t ---> retVoid
+        fun hConv f self =
+          let
+            val () = f (GObjectObjectClass.toBase self)
+          in
+            ()
+          end
+        fun eConv f self =
+          let
+            val () = f (VteTerminalClass.toBase self)
+          in
+            ()
+          end
       in
         val windowTitleChangedSig =
           {
@@ -1622,14 +1898,10 @@ structure VteTerminal :>
             marshaller =
               fn
                 () =>
-                  map
-                    (
-                      fn self => GObjectObjectClass.toBase self & (),
-                      fn self & () => VteTerminalClass.toBase self,
-                      fn () => (),
-                      fn () => ()
-                    )
-                    marshaller
+                  {
+                    h = makeCallback marshaller o hConv,
+                    e = eConv o call marshaller
+                  }
           }
       end
     end

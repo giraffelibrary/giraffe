@@ -273,7 +273,7 @@ structure ClosureMarshal :>
 
     type callback = Closure.callback
 
-    fun makeCallback ({getArg, setRes, ...}, func) =
+    fun makeCallback {getArg, setRes, ...} func =
       fn (v, vs, _) => setRes (vs, v) (func (getArg vs))
 
     fun call {setArg, getRes, initPars, initRet, ...} =

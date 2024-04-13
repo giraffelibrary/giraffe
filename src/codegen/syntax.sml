@@ -139,6 +139,7 @@ fun mkStringConstExp s : exp = ExpConst (ConstString s)
 
 fun mkIdVarAPat id : apat = APatVar (NameId id)
 
+fun mkParenAPat p = APatParen (toList1 [p])
 fun mkTupleAPat1 aps1 =
   case aps1 of
     (ap, []) => ap
@@ -149,7 +150,7 @@ fun mkIdAsFPat id = FPatAs (id, NONE)
 fun mkIdVarPat id : pat = PatA (mkIdVarAPat id)
 fun mkConstPat const : pat = PatA (APatConst const)
 
-fun mkParenPat p = PatA (APatParen (toList1 [p]))
+fun mkParenPat p = PatA (mkParenAPat p)
 fun mkTuplePat1 ps1 =
   case ps1 of
     (p, []) => p
@@ -286,6 +287,14 @@ fun mkIdFunDec (id, apats1, exp) =
     ]
   )
 
+(* `mkPatValDec (pat, exp)` constructs a single val binding that
+ * as follows:
+ *
+ *   val <pat> = <exp>
+ *)
+
+fun mkPatValDec (pat, exp) = DecVal (toList1 [([], false, pat, exp)])
+
 (* `mkIdValDec (id, exp)` constructs a single val binding that binds the
  * expression `exp` to the identifier `id` as follows:
  *
@@ -322,7 +331,7 @@ val constructorNames = ref [] : string list ref
 
 fun mkIdValDec (id, exp) : dec =
   let
-    fun mkValDec exp = DecVal (toList1 [([], false, mkIdVarPat id, exp)])
+    fun mkValDec exp = mkPatValDec (mkIdVarPat id, exp)
   in
     if List.exists (fn x => x = id) (!constructorNames)
     then
@@ -407,6 +416,7 @@ val withValId : id = "withVal"
 val withRefValId : id = "withRefVal"
 val fromValId : id = "fromVal"
 val callId : id = "call"
+val callIdExp : exp = mkIdLNameExp callId
 val convId : id = "conv"
 
 val valTyName : tyname = ([], valId)
@@ -516,6 +526,43 @@ val signalExp : exp = mkIdLNameExp signalId
 
 val marshallerId : id = "marshaller"
 val marshallerIdExp : exp = mkIdLNameExp marshallerId
+val hConvId : id = "hConv"
+val hConvIdExp : exp = mkIdLNameExp hConvId
+val eConvId : id = "eConv"
+val eConvIdExp : exp = mkIdLNameExp eConvId
+val makeCallbackId : id = "makeCallback"
+val makeCallbackIdExp : exp = mkIdLNameExp makeCallbackId
+
+(* Construct signal marshaller with the form:
+ *
+ *   fn () =>
+ *     {
+ *       h = makeCallback marshaller o hConv,
+ *       e = eConv o call marshaller
+ *     }
+ *)
+val signalMarshallerExp =
+  let
+    val hExp =
+      ExpInfixApp (
+        ExpApp (makeCallbackIdExp, marshallerIdExp),
+        "o",
+        hConvIdExp
+      )
+    val eExp =
+      ExpInfixApp (
+        eConvIdExp,
+        "o",
+        ExpApp (callIdExp, marshallerIdExp)
+      )
+    val recordExp =
+      ExpRec [
+        ("h", hExp),
+        ("e", eExp)
+      ]
+  in
+    ExpFn (toList1 [(unitPat, recordExp)])
+  end
 
 val parInstId : id = "parInst"
 val parInId : id = "parIn"
