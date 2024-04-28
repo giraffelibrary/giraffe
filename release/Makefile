@@ -219,40 +219,40 @@ INCLUDEDIR := $(PREFIX)/include
 
 ifdef MLTON_VERSION
 install-mlton :
-	install -d "$(LIBDIR)"
-	install -d "$(LIBDIR)/mlton"
+	install -d "$(DESTDIR)$(LIBDIR)"
+	install -d "$(DESTDIR)$(LIBDIR)/mlton"
 	install -c -p -m 644 \
 	 $(MLTON_LIB_FILES) \
-	 "$(LIBDIR)/mlton"
-	install -d "$(INCLUDEDIR)"
-	install -d "$(INCLUDEDIR)/mlton"
+	 "$(DESTDIR)$(LIBDIR)/mlton"
+	install -d "$(DESTDIR)$(INCLUDEDIR)"
+	install -d "$(DESTDIR)$(INCLUDEDIR)/mlton"
 	install -c -p -m 644 \
 	 src/mlton/cvector.h \
 	 src/mlton/cvectorvector.h \
-	 "$(INCLUDEDIR)/mlton"
+	 "$(DESTDIR)$(INCLUDEDIR)/mlton"
 else
 install-mlton :
 endif
 
 ifdef POLYML_VERSION
 install-polyml :
-	install -d "$(LIBDIR)"
-	install -d "$(LIBDIR)/polyml"
-	install -c -p -m 755 $(POLYML_LIB_FILES) "$(LIBDIR)/polyml"
+	install -d "$(DESTDIR)$(LIBDIR)"
+	install -d "$(DESTDIR)$(LIBDIR)/polyml"
+	install -c -p -m 755 $(POLYML_LIB_FILES) "$(DESTDIR)$(LIBDIR)/polyml"
 else
 install-polyml :
 endif
 
 install-sml :
-	install -c -p -m 644 config.mk "$(PREFIX)"
-	install -d "$(LIBDIR)"
-	install -d "$(LIBDIR)/sml"
+	install -c -p -m 644 config.mk "$(DESTDIR)$(PREFIX)"
+	install -d "$(DESTDIR)$(LIBDIR)"
+	install -d "$(DESTDIR)$(LIBDIR)/sml"
 ifdef POLYML_VERSION
-	install -c -p -m 644 src/polyml.sml "$(LIBDIR)/sml"
+	install -c -p -m 644 src/polyml.sml "$(DESTDIR)$(LIBDIR)/sml"
 endif
 	for dir in general ffi gir $(SML_LIB_NAMES) ; \
 	do \
-	  install -d "$(LIBDIR)/sml/$${dir}" ; \
+	  install -d "$(DESTDIR)$(LIBDIR)/sml/$${dir}" ; \
 	  install -c -p -m 644 $$( \
 	    for file in src/$${dir}/*.sml src/$${dir}/*.mlb ; \
 	    do \
@@ -265,40 +265,40 @@ endif
 	          fi ;; \
 	      esac ; \
 	    done \
-	) "$(LIBDIR)/sml/$${dir}" ; \
+	) "$(DESTDIR)$(LIBDIR)/sml/$${dir}" ; \
 	done
 ifdef MLTON_VERSION
 	for dir in general ffi gir $(SML_LIB_NAMES) ; \
 	do \
-	  install -c -p -m 644 src/$${dir}/mlton*.mlb "$(LIBDIR)/sml/$${dir}" ; \
-	  install -d "$(LIBDIR)/sml/$${dir}/mlton" ; \
-	  install -c -p -m 644 src/$${dir}/mlton/*.sml "$(LIBDIR)/sml/$${dir}/mlton" ; \
+	  install -c -p -m 644 src/$${dir}/mlton*.mlb "$(DESTDIR)$(LIBDIR)/sml/$${dir}" ; \
+	  install -d "$(DESTDIR)$(LIBDIR)/sml/$${dir}/mlton" ; \
+	  install -c -p -m 644 src/$${dir}/mlton/*.sml "$(DESTDIR)$(LIBDIR)/sml/$${dir}/mlton" ; \
 	done
 endif
 ifdef POLYML_VERSION
 	for dir in general ffi gir $(SML_LIB_NAMES) ; \
 	do \
-	  install -c -p -m 644 src/$${dir}/polyml*.sml "$(LIBDIR)/sml/$${dir}" ; \
-	  install -d "$(LIBDIR)/sml/$${dir}/polyml" ; \
-	  install -c -p -m 644 src/$${dir}/polyml/*.sml "$(LIBDIR)/sml/$${dir}/polyml" ; \
+	  install -c -p -m 644 src/$${dir}/polyml*.sml "$(DESTDIR)$(LIBDIR)/sml/$${dir}" ; \
+	  install -d "$(DESTDIR)$(LIBDIR)/sml/$${dir}/polyml" ; \
+	  install -c -p -m 644 src/$${dir}/polyml/*.sml "$(DESTDIR)$(LIBDIR)/sml/$${dir}/polyml" ; \
 	done
 endif
 	for dir in $(EXCLUDED_LIB_NAMES) ; \
 	do \
-	  install -d "$(LIBDIR)/sml/$${dir}" ; \
+	  install -d "$(DESTDIR)$(LIBDIR)/sml/$${dir}" ; \
 	done
 ifdef MLTON_VERSION
 	for dir in $(EXCLUDED_LIB_NAMES) ; \
 	do \
-	  install -c -p -m 644 /dev/null "$(LIBDIR)/sml/$${dir}/mlton.mlb" ; \
+	  install -c -p -m 644 /dev/null "$(DESTDIR)$(LIBDIR)/sml/$${dir}/mlton.mlb" ; \
 	done
 endif
 	for dir in $(SML_LIB_NAMES) ; \
 	do \
-	  install -c -p -m 644 src/$${dir}/package "$(LIBDIR)/sml/$${dir}" ; \
+	  install -c -p -m 644 src/$${dir}/package "$(DESTDIR)$(LIBDIR)/sml/$${dir}" ; \
 	  if [ -e src/$${dir}/version ] ; \
 	  then \
-	    install -c -p -m 644 src/$${dir}/version "$(LIBDIR)/sml/$${dir}" ; \
+	    install -c -p -m 644 src/$${dir}/version "$(DESTDIR)$(LIBDIR)/sml/$${dir}" ; \
 	  fi ; \
 	done
 
