@@ -667,7 +667,7 @@ fun generateFull
   repo
   (namespace, version, cppPrefix)
   initNamespaceDeps
-  (extraVers, extraSigs, extraStrs) =
+  (extraVers, extraSigs, extraStrs, extraNamespaceSigs, extraNamespaceStrs) =
   let
     val (_, vers'1) = loadNamespace repo (namespace, version)
     val vers = Repository.extendTypelibVers extraVers vers'1
@@ -715,11 +715,13 @@ fun generateFull
        *      no need to sort but sorting is still required for Poly/ML 'use'
        *      files, so is done for MLton to give consistent output.
        *
-       *   5. Extend `sigFiles'2` with `namespaceSigFile` from step 2 to give
-       *      `sigFiles'3`.  `namespaceSigFile` must occur last.
+       *   5. Extend `sigFiles'2` with `namespaceSigFile` from step 2 and
+       *      `extraNamespaceSigs` to give `sigFiles'3`.  `namespaceSigFile`
+       *      must occur after `sigFiles'2` and before `extraNamespaceSigs`.
        *
-       *   6. Extend `strFiles'2` with `namespaceStrFile` from step 2 to give
-       *      `strFiles'3`.  `namespaceStrFile` must occur last.
+       *   6. Extend `strFiles'2` with `namespaceStrFile` from step 2 and
+       *      `extraNamespaceStrs` to give `strFiles'3`.  `namespaceStrFile`
+       *      must occur after `strFiles'2` and before `extraNamespaceStrs`.
        *
        *   7. Write basis/load files using extended sorted `strFiles'3` from
        *      step 6 and extended `sigFiles'3` from step 5.
@@ -801,11 +803,17 @@ fun generateFull
 
       (* Step 5 *)
       val revSigFiles'3 =
-        (namespaceSigFile, isPortable namespaceSigProgram) :: revSigFiles'2
+        List.revAppend (
+          extraNamespaceSigs,
+          (namespaceSigFile, isPortable namespaceSigProgram) :: revSigFiles'2
+        )
 
       (* Step 6 *)
       val revStrFiles'3 =
-        (namespaceStrFile, isPortable namespaceStrProgram, NONE) :: revStrFiles'2
+        List.revAppend (
+          extraNamespaceStrs,
+          (namespaceStrFile, isPortable namespaceStrProgram, NONE) :: revStrFiles'2
+        )
 
       (* Step 7 *)
       val () =
@@ -834,7 +842,7 @@ fun generateInit
   dir
   (namespace, version)
   initNamespace
-  (namespaceDeps, extraSigs, extraStrs) =
+  (namespaceDeps, extraSigs, extraStrs, extraNamespaceSigs, extraNamespaceStrs) =
   let
     val constants = ([], [])
     val functions = ([], [], [], [])
@@ -869,11 +877,13 @@ fun generateInit
        *   3. Extend `sigs'1` with `extraSigs` and sort the result to
        *      satisfy dependencies, giving `sigFiles'2`.
        *
-       *   4. Extend `sigFiles'2` with `namespaceSigFile` from step 2 to give
-       *      `sigFiles'2`.  `namespaceSigFile` must occur last.
+       *   4. Extend `sigFiles'2` with `namespaceSigFile` from step 2 and
+       *      `extraNamespaceSigs` to give `sigFiles'3`.  `namespaceSigFile`
+       *      must occur after `sigFiles'2` and before `extraNamespaceSigs`.
        *
-       *   5. Extend `strFiles'2` with `namespaceStrFile` from step 2 to give
-       *      `strFiles'3`.  `namespaceStrFile` must occur last.
+       *   5. Extend `strFiles'2` with `namespaceStrFile` from step 2 and
+       *      `extraNamespaceStrs` to give `strFiles'3`.  `namespaceStrFile`
+       *      must occur after `strFiles'2` and before `extraNamespaceStrs`.
        *
        *   6. Write basis/load files using extended sorted `strFiles'3` from
        *      step 5 and extended `sigFiles'2` from step 4.
@@ -923,11 +933,17 @@ fun generateInit
 
       (* Step 4 *)
       val revSigFiles'3 =
-        (namespaceSigFile, isPortable namespaceSigProgram) :: revSigFiles'2
+        List.revAppend (
+          extraNamespaceSigs,
+          (namespaceSigFile, isPortable namespaceSigProgram) :: revSigFiles'2
+        )
 
       (* Step 5 *)
       val revStrFiles'3 =
-        (namespaceStrFile, isPortable namespaceStrProgram, NONE) :: revStrFiles'2
+        List.revAppend (
+          extraNamespaceStrs,
+          (namespaceStrFile, isPortable namespaceStrProgram, NONE) :: revStrFiles'2
+        )
 
       (* Step 6 *)
       val () =

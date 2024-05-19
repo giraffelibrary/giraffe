@@ -338,7 +338,9 @@ val () = ignore [
         extendFunDeps "ConstCArrayN" [] ["GObjectValueRecord", "ValueAccessor"],
         extendFunDeps "VectorCArray" [] ["ValueAccessor"],
         extendFunDeps "VectorCArrayN" [] ["ValueAccessor"]
-      ]
+      ],
+      [],
+      []
     )
 ]
 val errorLog'1 = List.foldl insert errorLog'0 [
@@ -370,7 +372,9 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         newStr ("GLib", "IOFunc", "G_LIB_I_O_FUNC")
           [ioChannelRecordLocalType, ioConditionLocalType],
         extendStrDeps "GLibErrorRecord" ["GLibQuark"]
-      ]
+      ],
+      [],
+      []
     ),
   gen outDir repo ("GObject", "2.0", "GLIB") []
     (
@@ -453,10 +457,12 @@ val errorLog'1 = List.foldl insert errorLog'0 [
          * An additional dependency is required for the manual fixes to the
          * automatic translation. *)
         extendStrDeps "GObjectWeakRef" ["GObjectObjectClass"]
-      ]
+      ],
+      [],
+      []
     ),
-  gen outDir repo ("GModule", "2.0", "GLIB") [] ([], [], []),
-  gen outDir repo ("Gio", "2.0", "GLIB") [] ([], [], []),
+  gen outDir repo ("GModule", "2.0", "GLIB") [] ([], [], [], [], []),
+  gen outDir repo ("Gio", "2.0", "GLIB") [] ([], [], [], [], []),
   gen outDir repo ("GIRepository", "2.0", "") []
     (
       [],
@@ -470,12 +476,14 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         newStr
           ("GIRepository", "TypelibRecord", "G_I_REPOSITORY_TYPELIB_RECORD")
           []
-      ]
+      ],
+      [],
+      []
     ),
-  gen outDir repo ("Atk", "1.0", "ATK") [] ([], [], []),
-  gen outDir repo ("GdkPixbuf", "2.0", "GDK_PIXBUF") [] ([], [], []),
-  gen outDir repo ("HarfBuzz", "0.0", "HB") [] ([], [], []),
-  gen outDir repo ("Pango", "1.0", "PANGO") [] ([], [], []),
+  gen outDir repo ("Atk", "1.0", "ATK") [] ([], [], [], [], []),
+  gen outDir repo ("GdkPixbuf", "2.0", "GDK_PIXBUF") [] ([], [], [], [], []),
+  gen outDir repo ("HarfBuzz", "0.0", "HB") [] ([], [], [], [], []),
+  gen outDir repo ("Pango", "1.0", "PANGO") [] ([], [], [], [], []),
   gen outDir repo ("cairo", "1.0", "") []
     (
       [("GObject", "2.0")],
@@ -506,9 +514,11 @@ val errorLog'1 = List.foldl insert errorLog'0 [
             "CairoPatternRecord",
             "CairoSurfaceRecord"
           ]
-      ]
+      ],
+      [],
+      []
     ),
-  gen outDir repo ("PangoCairo", "1.0", "PANGO") [] ([], [], []),
+  gen outDir repo ("PangoCairo", "1.0", "PANGO") [] ([], [], [], [], []),
   gen outDir repo ("Gdk", "3.0", "GDK") []
     (
       [],
@@ -546,14 +556,16 @@ val errorLog'1 = List.foldl insert errorLog'0 [
               "GdkEventWindowStateRecord"
             ]
         ]
-      end
+      end,
+      [],
+      []
     ),
   (* xlib fails because g_irepository_get_c_prefix returns NULL even though
    * this namespace has, according to the GIR file, the prefix "X".  This is
    * academic because this library is used only for aliases which is not
    * required by the TYPELIB version.
    *
-   * gen outDir repo ("xlib", "2.0", "") [] ([], [], []),
+   * gen outDir repo ("xlib", "2.0", "") [] ([], [], [], [], []),
    *)
   gen outDir repo ("Gtk", "3.0", "GTK") []
     (
@@ -563,10 +575,12 @@ val errorLog'1 = List.foldl insert errorLog'0 [
       ],
       [
         extendStrDeps "ChildSignal" ["GtkWidgetClass", "GtkWidget"]
-      ]
+      ],
+      [],
+      []
     ),
-  gen outDir repo ("GtkSource", "3.0", "GTK_SOURCE") [] ([], [], []),
-  gen outDir repo ("Vte", "2.90", "VTE") [] ([], [], [])
+  gen outDir repo ("GtkSource", "3.0", "GTK_SOURCE") [] ([], [], [], [], []),
+  gen outDir repo ("Vte", "2.90", "VTE") [] ([], [], [], [], [])
 ]
 
 
