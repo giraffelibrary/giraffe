@@ -810,10 +810,12 @@ fun generateFull
 
       (* Step 6 *)
       val revStrFiles'3 =
-        List.revAppend (
-          extraNamespaceStrs,
-          (namespaceStrFile, isPortable namespaceStrProgram, NONE) :: revStrFiles'2
-        )
+        revMapAppend
+          (fn (file, isPortable) => (file, isPortable, NONE))
+          (
+            extraNamespaceStrs,
+            (namespaceStrFile, isPortable namespaceStrProgram, NONE) :: revStrFiles'2
+          )
 
       (* Step 7 *)
       val () =
@@ -940,10 +942,12 @@ fun generateInit
 
       (* Step 5 *)
       val revStrFiles'3 =
-        List.revAppend (
-          extraNamespaceStrs,
-          (namespaceStrFile, isPortable namespaceStrProgram, NONE) :: revStrFiles'2
-        )
+        revMapAppend
+          (fn (file, isPortable) => (file, isPortable, NONE))
+          (
+            extraNamespaceStrs,
+            (namespaceStrFile, isPortable namespaceStrProgram, NONE) :: revStrFiles'2
+          )
 
       (* Step 6 *)
       val () =

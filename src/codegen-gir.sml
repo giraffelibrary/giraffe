@@ -329,8 +329,14 @@ val errorLog'1 = List.foldl insert errorLog'0 [
           [ioChannelRecordLocalType, ioConditionLocalType],
         extendStrDeps "GLibErrorRecord" ["GLibQuark"]
       ],
-      [],
-      []
+      [
+        (mkSigFile "GIRAFFE_FINALIZE", true),
+        (mkSigFile "GIRAFFE", true)
+      ],
+      [
+        (mkStrFile "GiraffeFinalize", false),
+        (mkStrFile "Giraffe", false)
+      ]
     ),
   gen outDir repo ("GObject", "2.0", "GLIB") []
     (

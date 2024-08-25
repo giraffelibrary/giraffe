@@ -1,4 +1,4 @@
-(* Copyright (C) 2015, 2023 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2015, 2023-2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -276,7 +276,7 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
     fun forceCleanContextEntry {pendingList, marshaler, ...} =
       case ! marshaler of
         SOME marshaler => forceCleanPendingList marshaler pendingList
-      | NONE           => ()
+      | NONE           => forceCleanPendingList marshalNow pendingList
 
 
     local

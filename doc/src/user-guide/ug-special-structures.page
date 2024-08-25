@@ -37,6 +37,83 @@ signature GIRAFFE =
     val error : LargeInt.int -> string list -> 'a
   end
 ]]></code>
+<p>
+An extended version of the structure <code type="sml">Giraffe</code>
+that has a sub-structure <code type="sml">Finalizable</code>
+is included with the structure <code type="sml">GLib</code>.
+The structure <code type="sml">Giraffe.Finalizable</code> provides
+functions for running 'thread-local' finalizers, that is,
+finalizers that must be run from a particular application thread
+(as opposed to a thread run concurrently by an SML compiler's run-time system).
+Notably, GObject finalizers are thread-local
+because the implementation of a class may not be thread-safe.
+(Although some classes may have thread-safe implementations,
+Giraffe Library does not assume that any class implementation is thread-safe.)
+</p>
+<code type="sml"><![CDATA[
+structure Giraffe :>
+  GIRAFFE
+    where type g_lib_main_context_t = GLib.MainContext.t
+]]></code>
+<code type="sml"><![CDATA[
+signature GIRAFFE =
+  sig
+    include GIRAFFE
+
+    type g_lib_main_context_t
+    structure Finalize :
+      GIRAFFE_FINALIZE where type g_lib_main_context_t = g_lib_main_context_t
+  end
+]]></code>
+<code type="sml"><![CDATA[
+signature GIRAFFE_FINALIZE =
+  sig
+    type g_lib_main_context_t
+
+    (**
+     * `enableAsyncInContext optContext optPriority` causes 'thread-local'
+     * finalizers to be scheduled by GC to run asynchronously in the main
+     * loop of the main context specified by `optContext` using the priority
+     * `optPriority`.  `optContext` must specify a main context whose main
+     * loop runs in the same thread that calls this function, to ensure that
+     * the finalizer of a 'thread-local' object is run in the thread in which
+     * the object was created.  If `optContext` is `NONE`, the thread-default
+     * main context is used.  If `optPriority` is `NONE`, the default idle
+     * priority, `GLib.PRIORITY_DEFAULT_IDLE`, is used.  The specified main
+     * context cannot itself be finalized until `disableAsyncInContext` is
+     * subsequently called and there are no finalizers pending.
+     *)
+    val enableAsyncInContext :
+      g_lib_main_context_t option -> LargeInt.int option -> unit
+
+    (**
+     * `disableAsyncInContext optContext` prevents further scheduling of
+     * finalizers in the main context specified by `optContext` and runs
+     * pending events in this main context until no more finalization
+     * (thread-local or global) is possible.  `optContext` should specify a
+     * main context previously passed to `enableAsyncInContext`.  If
+     * `optContext` is `NONE`, the thread-default main context is used.
+     *)
+    val disableAsyncInContext : g_lib_main_context_t option -> unit
+
+    (**
+     * `flushPendingInContext optContext` runs pending events in the main
+     * context specified by `optContext` until no more finalization
+     * (thread-local or global) is possible.  `optContext` must specify a
+     * main context whose main loop runs in the same thread that calls this
+     * function.  If `optContext` is `NONE`, the thread-default main context
+     * is used.
+     *)
+    val flushPendingInContext : g_lib_main_context_t option -> unit
+
+    (**
+     * `sync doGC` evaluates the function `doGC` and then synchronously
+     * performs finalization (thread-local and global) and returns a flag
+     * that indicates whether any finalization occurred.
+     *)
+    val sync : (unit -> unit) -> bool
+  end
+]]></code>
 </section>
 
 <section id="value-accessor">

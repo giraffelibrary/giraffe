@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2020, 2023 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2020, 2023-2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -24,7 +24,7 @@ functor Class(
     where type ('a, 'b) C.Pointer.r = ('a, 'b) Pointer.r
     where type 'a value_accessor_t = 'a value_accessor_t =
   struct
-    type 'a class = non_opt p Finalizable.t
+    type 'a class = non_opt p ThreadFinalizable.t
     type t = base class
     type 'a value_accessor_t = 'a value_accessor_t
 
@@ -72,7 +72,7 @@ functor Class(
             type non_opt = Pointer.non_opt
             type 'a p = 'a Pointer.p
 
-            type t = non_opt p Finalizable.t
+            type t = non_opt p ThreadFinalizable.t
 
             type 'a from_p = 'a from_p
 
@@ -81,12 +81,12 @@ functor Class(
             fun free d = if d <> 0 then free_ else ignore
 
             fun toC t = (* giveDupPtr Fn.id t *)
-              Finalizable.withValue (t, Pointer.withVal dup_)
+              ThreadFinalizable.withValue (t, Pointer.withVal dup_)
 
             fun fromC ptr =
               let
-                val t = Finalizable.new (dup_ ptr)
-                val () = Finalizable.addFinalizer (t, free_)
+                val t = ThreadFinalizable.newInThread (dup_ ptr)
+                val () = ThreadFinalizable.addFinalizer (t, free_)
               in
                 t
               end
@@ -94,22 +94,22 @@ functor Class(
 
         fun takePtr ptr =
           let
-            val t = Finalizable.new (take_ ptr; ptr)
-            val () = Finalizable.addFinalizer (t, free_)
+            val t = ThreadFinalizable.newInThread (take_ ptr; ptr)
+            val () = ThreadFinalizable.addFinalizer (t, free_)
           in
             t
           end
 
-        fun withPtr f t = Finalizable.withValue (t, f)
+        fun withPtr f t = ThreadFinalizable.withValue (t, f)
 
         fun giveDupPtr f =
           let
             fun check f ptr = f ptr handle e => (free_ ptr; raise e)
           in
-            fn t => Finalizable.withValue (t, check f o dup_)
+            fn t => ThreadFinalizable.withValue (t, check f o dup_)
           end
 
-        val touchPtr = Finalizable.touch
+        val touchPtr = ThreadFinalizable.touch
       end
 
     structure FFI =
@@ -133,23 +133,23 @@ functor Class(
             then
               fn f =>
               fn
-                ptr => Finalizable.withValue (ptr, withPointer ignore f)
+                ptr => ThreadFinalizable.withValue (ptr, withPointer ignore f)
             else
               fn f =>
               fn
-                ptr => Finalizable.withValue (ptr, withPointer free_ f o dup_)
+                ptr => ThreadFinalizable.withValue (ptr, withPointer free_ f o dup_)
 
           fun withOptPtr transfer =
             if not transfer
             then
               fn f =>
               fn
-                SOME ptr => Finalizable.withValue (ptr, withOptPointer ignore f o SOME)
+                SOME ptr => ThreadFinalizable.withValue (ptr, withOptPointer ignore f o SOME)
               | NONE     => withOptPointer ignore f NONE
             else
               fn f =>
               fn
-                SOME ptr => Finalizable.withValue (ptr, withOptPointer free_ f o SOME o dup_)
+                SOME ptr => ThreadFinalizable.withValue (ptr, withOptPointer free_ f o SOME o dup_)
               | NONE     => withOptPointer ignore f NONE
         end
 
@@ -166,37 +166,37 @@ functor Class(
             then
               fn f =>
               fn
-                ptr => Finalizable.withValue (ptr, withRefPointer ignore f)
+                ptr => ThreadFinalizable.withValue (ptr, withRefPointer ignore f)
             else
               fn f =>
               fn
-                ptr => Finalizable.withValue (ptr, withRefPointer free_ f o dup_)
+                ptr => ThreadFinalizable.withValue (ptr, withRefPointer free_ f o dup_)
 
           fun withRefOptPtr transfer =
             if not transfer
             then
               fn f =>
               fn
-                SOME ptr => Finalizable.withValue (ptr, withRefOptPointer ignore f o SOME)
+                SOME ptr => ThreadFinalizable.withValue (ptr, withRefOptPointer ignore f o SOME)
               | NONE     => withRefOptPointer ignore f NONE
             else
               fn f =>
               fn
-                SOME ptr => Finalizable.withValue (ptr, withRefOptPointer free_ f o SOME o dup_)
+                SOME ptr => ThreadFinalizable.withValue (ptr, withRefOptPointer free_ f o SOME o dup_)
               | NONE     => withRefOptPointer ignore f NONE
         end
 
         fun fromPtr transfer ptr =
           let
             val t =
-              Finalizable.new (
+              ThreadFinalizable.newInThread (
                 if transfer
                 then (
                   take_ ptr; ptr  (* take the existing reference *)
                 )
                 else dup_ ptr
               )
-            val () = Finalizable.addFinalizer (t, free_)
+            val () = ThreadFinalizable.addFinalizer (t, free_)
           in
             t
           end
@@ -204,7 +204,7 @@ functor Class(
         fun fromOptPtr transfer optptr =
           Option.map (fromPtr transfer) (Pointer.fromOptVal optptr)
 
-        val touchPtr = Finalizable.touch
+        val touchPtr = ThreadFinalizable.touch
 
         fun touchOptPtr t = Option.app touchPtr t
       end
