@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2023 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2023-2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -7,27 +7,149 @@
 
 structure GiraffeDebug :> GIRAFFE_DEBUG =
   struct
-    fun isDefinedSome var =
-      case OS.Process.getEnv var of
+    (* Pattern tokens *)
+    datatype tok =
+        Str of string  (* [:alpha-numeric:] *)
+      | Dash           (* "-" *)
+      | LBrace         (* "{" *)
+      | RBrace         (* "}" *)
+      | Comma          (* "," *)
+
+    (* Pattern lexer
+     *
+     * `lex getc` is a token reader that uses the character reader `getc`. *)
+    exception Lex
+    fun lex (getc : (char, 'a) StringCvt.reader) : (tok, 'a) StringCvt.reader =
+      fn src =>
+        case StringCvt.splitl Char.isAlphaNum getc src of
+          ("", _) => (
+            case getc src of
+              SOME (#"-", src'1) => SOME (Dash,   src'1)
+            | SOME (#"{", src'1) => SOME (LBrace, src'1)
+            | SOME (#"}", src'1) => SOME (RBrace, src'1)
+            | SOME (#",", src'1) => SOME (Comma,  src'1)
+            | SOME _             => raise Lex
+            | NONE               => NONE
+          )
+        | (s, src'1) => SOME (Str s, src'1)
+
+    (* Pattern abstract syntax tree
+     *
+     * The type `pat` is the abstract syntax for the non-terminal `pat`. *)
+    datatype pat_frag =
+        All  (* Str "all" *)
+      | Fixed of string
+      | Cases of pat list
+    withtype pat = pat_frag list
+
+    (* A pattern has the following grammar:
+     *
+     *     pat =
+     *       pat_frag
+     *     | pat_frag , Dash , pat
+     *
+     *     pat_frag =
+     *       Str
+     *     | LBrace , RBrace
+     *     | LBrace , pat_list1 , RBrace
+     *
+     *     pat_list1 =
+     *       pat
+     *     | pat , Comma , pat_list1
+     *)
+
+    (* Pattern parser *)
+    exception Syntax
+    local
+      fun mapFst f (a, b) = (f a, b)
+      fun singleton a = [a]
+      fun append xs x = x :: xs
+    in
+      fun parsePat read (src : 'a) : pat * 'a =
+        parsePatAfterPatFrags read (mapFst singleton (parsePatFrag read src))
+
+      and parsePatAfterPatFrags read (revFrags : pat_frag list, src : 'a) : pat * 'a =
+        case read src of
+          SOME (Dash, src'1) =>
+            parsePatAfterPatFrags read (mapFst (append revFrags) (parsePatFrag read src'1))
+        | _ => (List.rev revFrags, src)
+
+      and parsePatFrag read (src : 'a) : pat_frag * 'a =
+        case read src of
+          SOME (Str s, src'1) => (if s = "all" then All else Fixed s, src'1)
+        | SOME (LBrace, src'1) => (
+            case read src'1 of
+              SOME (RBrace, src'2) => (Cases [], src'2)
+            | _ => mapFst Cases (parsePatList1 read src'1)
+          )
+        | _ => raise Syntax
+
+      and parsePatList1 read (src : 'a) : pat list * 'a =
+        parsePatList1AfterPats read (mapFst singleton (parsePat read src))
+
+      and parsePatList1AfterPats read (revPats : pat list, src : 'a) : pat list * 'a =
+        case read src of
+          SOME (Comma, src'1) =>
+            parsePatList1AfterPats read (mapFst (append revPats) (parsePat read src'1))
+        | SOME (RBrace, src'1) => (List.rev revPats, src'1)
+        | _ => raise Syntax
+    end
+
+    val getOptsPat =
+      let
+        fun readEnvVar () =
+          let
+            val patStr'1 = Option.getOpt (OS.Process.getEnv "GIRAFFE_DEBUG", "")
+            val patStr'2 = if patStr'1 = "" then "{}" else patStr'1  (* empty matches nothing *)
+            val (pat, unused) = parsePat (lex Substring.getc) (Substring.full patStr'2)
+            val () =
+              if Substring.isEmpty unused
+              then ()
+              else raise Syntax
+          in
+            pat
+          end
+            handle
+              Lex => (GiraffeLog.warning "invalid character in value of environment variable GIRAFFE_DEBUG"; [])
+            | Syntax => (GiraffeLog.warning "syntax error in value of environment variable GIRAFFE_DEBUG"; [])
+            | e => (GiraffeLog.warning (String.concat ["exception ", General.exnMessage e, " raised when processing value of environment variable GIRAFFE_DEBUG"]); [])
+      in
+        Fn.lazy readEnvVar
+      end
+
+    (* Pattern matching
+     *
+     * A trailing "all" matches anything, i.e. zero or more option fragments,
+     * whereas "{all}" matches one or more option fragments.
+     *)
+    val rec matches : string list * pat -> bool =
+      fn
+        ([],             [])                     => true
+      | (_ :: _,         [])                     => false
+      | (_,              [All])                  => true
+      | ([],             _ :: _)                 => false
+      | (_  :: optFrags, All        :: patFrags) => matches (optFrags, patFrags)
+      | (s1 :: optFrags, Fixed s2   :: patFrags) =>
+          s1 = s2 andalso matches (optFrags, patFrags)
+      | (optFrags,       Cases pats :: patFrags) =>
+          List.exists (fn pat => matches (optFrags, pat @ patFrags)) pats
+
+    fun haveOpt frags = matches (frags, getOptsPat ()) handle _ => false
+
+    val isEnabled =  (* compile-time *)
+      case OS.Process.getEnv "GIRAFFE_DEBUG" of
         NONE    => false
       | SOME "" => false
       | SOME _  => true
 
-    val isEnabled = isDefinedSome "GIRAFFE_DEBUG"
-
-    fun logMemEnabled () = isEnabled andalso isDefinedSome "GIRAFFE_DEBUG_MEM"
-    fun logClosureEnabled () = isEnabled andalso isDefinedSome "GIRAFFE_DEBUG_CLOSURE"
-    fun logFinalizersPendingOnExitEnabled () =
-      isEnabled andalso isDefinedSome "GIRAFFE_DEBUG_FINALIZERS_PENDING_ON_EXIT"
-    fun forceFinalizationOnExitEnabled () =
-      isEnabled andalso isDefinedSome "GIRAFFE_DEBUG_FORCE_FINALIZATION_ON_EXIT"
-
-    fun log msgType fields =
-      let
-        val msg = String.concat (["[giraffe-debug-", msgType, "] "] @ fields)
-      in
-        print msg
-      end
+    val logMemEnabled =
+      Fn.lazy (fn () => isEnabled andalso haveOpt ["log", "mem"])
+    val logClosureEnabled =
+      Fn.lazy (fn () => isEnabled andalso haveOpt ["log", "closure"])
+    val logFinalizersPendingOnExitEnabled =
+      Fn.lazy (fn () => isEnabled andalso haveOpt ["log", "finalizers", "pending", "on", "exit"])
+    val forceFinalizationOnExitEnabled =
+      Fn.lazy (fn () => isEnabled andalso haveOpt ["force", "finalization", "on", "exit"])
 
     fun getTime () = LargeInt.toString (Time.toMicroseconds (Time.now ()))
 
@@ -48,15 +170,21 @@ structure GiraffeDebug :> GIRAFFE_DEBUG =
       | MCopy  => "copy"
       | MClear => "clear"
 
-    fun logMem {memOp, instKind, instType, instAddr} =
-      log "mem"
-        [
-          getTime (), " ",
-          memOpToString memOp, " ",
-          instKind, " ",
-          instType, " ",
-          instAddr, "\n"
-        ]
+    val logMem =
+      let
+        val log = GiraffeLog.logDebug ["mem"]
+      in
+        fn {memOp, instKind, instType, instAddr} =>
+          log
+            [
+              " ",
+              getTime (), " ",
+              memOpToString memOp, " ",
+              instKind, " ",
+              instType, " ",
+              instAddr, "\n"
+            ]
+      end
 
     datatype closure1_op =
         C1Connect
@@ -69,17 +197,23 @@ structure GiraffeDebug :> GIRAFFE_DEBUG =
       | C1ConnectAfter => "connect-after"
       | C1Disconnect   => "disconnect"
 
-    fun logClosure1 {closure1Op, closureAddr, detailedSignal, instKind, instType, instAddr} =
-      log "closure"
-        [
-          getTime (), " ",
-          closure1OpToString closure1Op, " ",
-          closureAddr, " ",
-          "\"", detailedSignal, "\" ",
-          instKind, " ",
-          instType, " ",
-          instAddr, "\n"
-        ]
+    val logClosure1 =
+      let
+        val log = GiraffeLog.logDebug ["closure"]
+      in
+        fn {closure1Op, closureAddr, detailedSignal, instKind, instType, instAddr} =>
+          log
+            [
+              " ",
+              getTime (), " ",
+              closure1OpToString closure1Op, " ",
+              closureAddr, " ",
+              "\"", detailedSignal, "\" ",
+              instKind, " ",
+              instType, " ",
+              instAddr, "\n"
+            ]
+      end
 
     datatype closure2_op =
         C2DispatchEnter
@@ -94,21 +228,32 @@ structure GiraffeDebug :> GIRAFFE_DEBUG =
       | C2DestroyEnter  => "destroy-enter"
       | C2DestroyLeave  => "destroy-leave"
 
-    fun logClosure2 {closure2Op, closureAddr} =
-      log "closure"
-        [
-          getTime (), " ",
-          closure2OpToString closure2Op, " ",
-          closureAddr, "\n"
-        ]
+    val logClosure2 =
+      let
+        val log = GiraffeLog.logDebug ["closure"]
+      in
+        fn {closure2Op, closureAddr} =>
+          log
+            [
+              " ",
+              getTime (), " ",
+              closure2OpToString closure2Op, " ",
+              closureAddr, "\n"
+            ]
+      end
 
-    fun logFinalizersPendingOnExit {globalCount, revContextCounts} =
-      log "finalizers-pending-on-exit"
-        (
-          Int.toString globalCount ::
-            List.foldl
-              (fn (count, strs) => " " :: Int.toString count :: strs)
-              ["\n"]
-              revContextCounts
-        )
+    val logFinalizersPendingOnExit =
+      let
+        val log = GiraffeLog.logDebug ["finalizers-pending-on-exit"]
+      in
+        fn {globalCount, revContextCounts} =>
+          log
+            (
+              " " :: Int.toString globalCount ::
+                List.foldl
+                  (fn (count, strs) => " " :: Int.toString count :: strs)
+                  ["\n"]
+                  revContextCounts
+            )
+      end
   end
