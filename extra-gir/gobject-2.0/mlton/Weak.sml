@@ -1,4 +1,4 @@
-(* Copyright (C) 2023 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2023-2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -22,9 +22,11 @@ structure Weak :>
             (GObjectWeakRef.get weakRef)
       end
 
-    fun app f w = case w () of SOME x => f x | NONE => ()
-    fun app1 f w a = case w () of SOME x => f x a | NONE => ()
+    fun get w = w ()
 
-    fun map f (w, default) = case w () of SOME x => f x | NONE => default
-    fun map1 f (w, default) a = case w () of SOME x => f x a | NONE => default 
+    fun app f w = case get w of SOME x => f x | NONE => ()
+    fun app1 f w a = case get w of SOME x => f x a | NONE => ()
+
+    fun map f (w, default) = case get w of SOME x => f x | NONE => default
+    fun map1 f (w, default) a = case get w of SOME x => f x a | NONE => default
   end

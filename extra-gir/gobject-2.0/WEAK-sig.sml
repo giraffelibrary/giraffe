@@ -1,4 +1,4 @@
-(* Copyright (C) 2023 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2023-2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -7,11 +7,13 @@
 
 signature WEAK =
   sig
-    type 'a t = unit -> 'a option
+    type 'a t
 
     type 'a object_class
 
     val new : 'a object_class -> 'a object_class t
+
+    val get : 'a t -> 'a option
 
     val app : ('a -> unit) -> 'a t -> unit
     val app1 : ('a -> 'b -> unit) -> 'a t -> 'b -> unit
