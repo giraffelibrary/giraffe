@@ -45,7 +45,7 @@ structure GiraffeFinalize :>
          *)
         val () = while GLib.MainContext.iteration context false do ()
         val () =
-          while ThreadFinalizable.Thread.finalize (marshaler context priority, GC.full)
+          while ThreadFinalizable.Thread.finalize (marshaler context priority, Giraffe.GC.full)
           do
             while GLib.MainContext.iteration context false do ()
       in

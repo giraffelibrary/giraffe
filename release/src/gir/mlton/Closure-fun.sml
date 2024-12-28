@@ -1,4 +1,4 @@
-(* Copyright (C) 2013-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013-2020, 2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -34,7 +34,7 @@ functor Closure(
         handle
           e =>
             (
-              GiraffeLog.critical (
+              Giraffe.Log.critical (
                 concat ["unhandled exception in ", name, " callback"]
               );
               List.app print [exnMessage e, "\n"];
@@ -61,7 +61,7 @@ functor Closure(
       case Table.delete table (fromPointer closure) of
         SOME _ => ()
       | NONE   =>
-          GiraffeLog.critical (
+          Giraffe.Log.critical (
             concat [
               "cannot free non-existent ", name, " closure id ",
               Table.fmtKey (fromPointer closure)
@@ -71,7 +71,7 @@ functor Closure(
       case Table.lookup table (fromPointer closure) of
         SOME f => check f args
       | NONE   => (
-          GiraffeLog.critical (
+          Giraffe.Log.critical (
             concat [
               "cannot call non-existent ", name, " closure id ",
               Table.fmtKey (fromPointer closure)

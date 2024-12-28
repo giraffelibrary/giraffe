@@ -174,9 +174,9 @@ structure Signal :>
     end
 
     fun log (closure1Op, closure, detailedSignal, instance) =
-      if GiraffeDebug.logClosureEnabled ()
+      if Giraffe.Debug.logClosureEnabled ()
       then
-        GiraffeDebug.logClosure1
+        Giraffe.Debug.logClosure1
           {
             closure1Op     = closure1Op,
             closureAddr    =
@@ -223,7 +223,7 @@ structure Signal :>
          ---> I
     in
       fun handlerDisconnect instance {id, closure, detailedSignal} = (
-        log (GiraffeDebug.C1Disconnect, closure, detailedSignal, instance);
+        log (Giraffe.Debug.C1Disconnect, closure, detailedSignal, instance);
         call handlerDisconnect_
           (GObjectObjectClass.toBase instance & id)
       )
@@ -253,7 +253,7 @@ structure Signal :>
           case detail of
             "" => name
           | _  => name ^ "::" ^ detail
-        val () = log (GiraffeDebug.C1Connect, closure, detailedSignal, instance)
+        val () = log (Giraffe.Debug.C1Connect, closure, detailedSignal, instance)
         val id = signalConnectClosure instance detailedSignal closure false
       in
         {id = id, closure = closure, detailedSignal = detailedSignal}
@@ -272,7 +272,7 @@ structure Signal :>
           case detail of
             "" => name
           | _  => name ^ "::" ^ detail
-        val () = log (GiraffeDebug.C1ConnectAfter, closure, detailedSignal, instance)
+        val () = log (Giraffe.Debug.C1ConnectAfter, closure, detailedSignal, instance)
         val id = signalConnectClosure instance detailedSignal closure true
       in
         {id = id, closure = closure, detailedSignal = detailedSignal}

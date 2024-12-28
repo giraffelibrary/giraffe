@@ -30,11 +30,20 @@ signature GIRAFFE_DEBUG =
      *       - "a-all" and "a-{all}" but not "all-c";
      *       - "all-all-c", "a-all-c", "all-b-c", "a-b-all" and "a-b-{all}";
      *       - "a-b-c-all" but not "a-b-c-{all}" nor "a-b-c-all-all".
+     *
+     *
+     * Options
+     *
+     * The following options can be specified in the environment variable
+     * GIRAFFE_DEBUG:
+     *
+     *     log-mem
+     *     log-closure
+     *     log-finalizers-pending-on-exit
+     *     force-finalization-on-exit
      *)
 
-    (* Options
-     *
-     * The following functions test whether an option is enabled, by
+    (* The following functions test whether an option is enabled, by
      * matching against the pattern specified by the environment variable
      * GIRAFFE_DEBUG.
      *

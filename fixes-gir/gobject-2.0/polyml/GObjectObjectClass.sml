@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2016-2021, 2023 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2016-2021, 2023-2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -39,7 +39,7 @@ structure GObjectObjectClass :>
         in
           fn ptr =>
             if GBool.FFI.fromVal (isFloating_ ptr)
-            then GiraffeLog.critical "taking ownership of floating reference"
+            then Giraffe.Log.critical "taking ownership of floating reference"
             else ()
         end
 
@@ -67,7 +67,7 @@ structure GObjectObjectClass :>
         if GObjectType.isA (instanceType, derivedType)
         then ()
         else
-          GiraffeLog.critical (
+          Giraffe.Log.critical (
             String.concat [
               "Invalid downcast to type ", GObjectType.name derivedType,
               " on object of type ",       GObjectType.name instanceType

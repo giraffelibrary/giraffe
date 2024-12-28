@@ -14,9 +14,12 @@ or deviate significantly from their introspected form.
 <section id="giraffe">
 <title>Giraffe</title>
 <p>
-The top-level structure <code type="sml">Giraffe</code> provides general purpose utilities.
+The top-level structure <code type="sml">Giraffe</code> provides
+additional functionality that is useful for writing applications
+based on Giraffe Library.
 Currently, the structure provides functions for exiting an application
-that are more convenient than the Basis Library alternatives.
+that are more convenient than the Basis Library alternatives
+and various sub-structures described in the following sections.
 </p>
 <code type="sml"><![CDATA[
 structure Giraffe :> GIRAFFE
@@ -35,20 +38,73 @@ signature GIRAFFE =
      * flushes the standard error and exits the process using `exit status`.
      *)
     val error : LargeInt.int -> string list -> 'a
+
+    structure Log : GIRAFFE_LOG
+    structure Debug : GIRAFFE_DEBUG
+    structure GC : GIRAFFE_GC
   end
 ]]></code>
+
+<section id="giraffe-log">
+<title>Giraffe.Log</title>
+<p>
+The structure <code type="sml">Giraffe.Log</code> provides functions for
+logging messages of the form
+<output>[giraffe-<var>msg-type</var>] <var>field1</var> … <var>fieldN</var></output>.
+</p>
+<code type="sml"><![CDATA[
+signature GIRAFFE_LOG =
+  sig
+    val log : bool -> string list -> string list -> unit
+    val logDebug : string list -> string list -> unit
+    val logWarning : string list -> unit
+    val logCritical : string list -> unit
+
+    val warning : string -> unit
+    val critical : string -> unit
+  end
+]]></code>
+</section>
+
+<section id="giraffe-debug">
+<title>Giraffe.Debug</title>
+<note style="tip">
+<p>
+Applications do not need to use this structure.
+</p>
+</note>
+<p>
+The structure <code type="sml">Giraffe.Debug</code> provides functions that are
+used by the Giraffe Library implementation for producing debugging messages
+based on the options included in the environment variable GIRAFFE_DEBUG.
+</p>
+</section>
+
+<section id="giraffe-gc">
+<title>Giraffe.GC</title>
+<p>
+The structure <code type="sml">Giraffe.GC</code> provides a function for
+triggering garbage collection.
+</p>
+<code type="sml"><![CDATA[
+signature GIRAFFE_GC =
+  sig
+    (**
+     * `full ()` performs full garbage collection.  The function is
+     * synchronous, returning only after garbage collection has completed.
+     *)
+    val full : unit -> unit
+  end
+]]></code>
+</section>
+</section>
+
+<section id="giraffe-extensions-with-glib">
+<title>Giraffe extensions with GLib</title>
 <p>
 An extended version of the structure <code type="sml">Giraffe</code>
-that has a sub-structure <code type="sml">Finalizable</code>
 is included with the structure <code type="sml">GLib</code>.
-The structure <code type="sml">Giraffe.Finalizable</code> provides
-functions for running 'thread-local' finalizers, that is,
-finalizers that must be run from a particular application thread
-(as opposed to a thread run concurrently by an SML compiler's run-time system).
-Notably, GObject finalizers are thread-local
-because the implementation of a class may not be thread-safe.
-(Although some classes may have thread-safe implementations,
-Giraffe Library does not assume that any class implementation is thread-safe.)
+Its sub-structure is described in the following section.
 </p>
 <code type="sml"><![CDATA[
 structure Giraffe :>
@@ -65,6 +121,19 @@ signature GIRAFFE =
       GIRAFFE_FINALIZE where type g_lib_main_context_t = g_lib_main_context_t
   end
 ]]></code>
+
+<section id="giraffe-finalize">
+<title>Giraffe.Finalize</title>
+<p>
+The structure <code type="sml">Giraffe.Finalize</code> provides
+functions for running 'thread-local' finalizers, that is,
+finalizers that must be run from a particular application thread
+(as opposed to a thread run concurrently by an SML compiler's run-time system).
+Notably, GObject finalizers are thread-local
+because the implementation of a class may not be thread-safe.
+(Although some classes may have thread-safe implementations,
+Giraffe Library does not assume that any class implementation is thread-safe.)
+</p>
 <code type="sml"><![CDATA[
 signature GIRAFFE_FINALIZE =
   sig
@@ -114,6 +183,7 @@ signature GIRAFFE_FINALIZE =
     val sync : (unit -> unit) -> bool
   end
 ]]></code>
+</section>
 </section>
 
 <section id="value-accessor">

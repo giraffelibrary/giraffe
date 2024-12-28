@@ -34,9 +34,9 @@ structure ClosureMarshal :>
         GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p -> Closure.t;
 
     fun log (closure2Op, closure) =
-      if GiraffeDebug.logClosureEnabled ()
+      if Giraffe.Debug.logClosureEnabled ()
       then
-        GiraffeDebug.logClosure2
+        Giraffe.Debug.logClosure2
           {
             closure2Op  = closure2Op,
             closureAddr = GObjectClosureRecord.C.Pointer.toString closure
@@ -49,15 +49,15 @@ structure ClosureMarshal :>
      * ensure that they are reported and control returns from the callback.
      *)
     fun dispatch (closure, v, size, vs, _, _) = (
-      log (GiraffeDebug.C2DispatchEnter, closure);
+      log (Giraffe.Debug.C2DispatchEnter, closure);
       Closure.call (getData_ closure) (v, vs, size)
-       before log (GiraffeDebug.C2DispatchLeave, closure)
+       before log (Giraffe.Debug.C2DispatchLeave, closure)
     ) handle e => app print [exnMessage e, "\n"]
 
     fun destroyNotify (data, closure) = (
-      log (GiraffeDebug.C2DestroyEnter, closure);
+      log (Giraffe.Debug.C2DestroyEnter, closure);
       Closure.free data
-       before log (GiraffeDebug.C2DestroyLeave, closure)
+       before log (Giraffe.Debug.C2DestroyLeave, closure)
     ) handle e => app print [exnMessage e, "\n"]
 
     val () =

@@ -293,20 +293,20 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
 
       fun onExit () =
         let
-          val () = while finalize GC.full do ()
+          val () = while finalize Giraffe.GC.full do ()
         in
-          if GiraffeDebug.isEnabled
+          if Giraffe.Debug.isEnabled
           then
             let
               val pendingCounts as {globalCount, revContextCounts} = getPendingCounts ()
 
               val () =
-                if GiraffeDebug.logFinalizersPendingOnExitEnabled ()
-                then GiraffeDebug.logFinalizersPendingOnExit pendingCounts
+                if Giraffe.Debug.logFinalizersPendingOnExitEnabled ()
+                then Giraffe.Debug.logFinalizersPendingOnExit pendingCounts
                 else ()
 
               val () =
-                if GiraffeDebug.forceFinalizationOnExitEnabled ()
+                if Giraffe.Debug.forceFinalizationOnExitEnabled ()
                     andalso List.foldl (op +) globalCount revContextCounts > 0
                 then
                   (

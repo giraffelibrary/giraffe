@@ -1,4 +1,4 @@
-(* Copyright (C) 2020-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2020-2021, 2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -39,13 +39,13 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
       ValueAccessor.C.createAccessor {
         getType  = GObjectType.pointer,
         getValue = (I ---> FFI.fromPtr 0) getValue_,
-        setValue = fn _ => GiraffeLog.critical "cannot set GValue from C array"
+        setValue = fn _ => Giraffe.Log.critical "cannot set GValue from C array"
       }
 
     val tOpt =
       ValueAccessor.C.createAccessor {
         getType  = GObjectType.pointer,
         getValue = (I ---> FFI.fromOptPtr 0) getOptValue_,
-        setValue = fn _ => GiraffeLog.critical "cannot set GValue from C array"
+        setValue = fn _ => Giraffe.Log.critical "cannot set GValue from C array"
       }
   end

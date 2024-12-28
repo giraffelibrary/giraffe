@@ -28,9 +28,9 @@ functor Class(
     type t = base class
     type 'a value_accessor_t = 'a value_accessor_t
 
-    fun logEnabled () = GiraffeDebug.logMemEnabled ()
+    fun logEnabled () = Giraffe.Debug.logMemEnabled ()
     fun log (memOp, p) =
-      GiraffeDebug.logMem
+      Giraffe.Debug.logMem
         {
           memOp    = memOp,
           instKind = "object",
@@ -40,19 +40,19 @@ functor Class(
 
     val take_ =
       fn p => (
-        if logEnabled () then log (GiraffeDebug.MTake, p) else ();
+        if logEnabled () then log (Giraffe.Debug.MTake, p) else ();
         take_ p
       )
 
     val dup_ =
       fn p => (
-        if logEnabled () then log (GiraffeDebug.MDup, p) else ();
+        if logEnabled () then log (Giraffe.Debug.MDup, p) else ();
         dup_ p
       )
 
     val free_ =
       fn p => (
-        if logEnabled () then log (GiraffeDebug.MFree, p) else ();
+        if logEnabled () then log (Giraffe.Debug.MFree, p) else ();
         free_ p
       )
 
