@@ -1,0 +1,426 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="ug-memory-management">
+<info>
+  <title type="sort">2000</title>
+  <link type="guide" xref="ug-index#programming"/>
+</info>
+<title>Memory Management</title>
+<p>
+With Giraffe Library, memory management of foreign (i.e. non-SML) objects on the heap is automatic.
+Therefore, it is not necessary to call functions to allocate or free memory.
+For reference-counted foreign objects, it is not necessary (nor possible) to increment or decrement reference counts:
+a reference is held by the SML runtime while the object is needed, i.e. reachable in the SML program state.
+Given this, any API documentation relating to ownership, memory allocation and deallocation and reference counts can be ignored.
+Once a foreign object is no longer needed, it is <em>finalized</em>: its memory is freed or the reference from SML is dropped.
+</p>
+
+<note style="advanced" xmlns:ui="http://projectmallard.org/ui/1.0/" ui:expanded="false">
+<title>Implementation details</title>
+<p>
+To determine when foreign objects can be finalized, their use is tracked using weak references:
+once the SML garbage collector finds that a foreign object is no longer reachable,
+the object is finalized.
+With this approach, there are the following potential issues:
+</p>
+<list type="numbered">
+<item>
+<p>
+The SML garbage collector may trigger finalization at any time while SML code is executing but
+finalizing an unreachable GObject instance while executing code of another GObject instance could
+cause corruption of data (because implementations of GObject classes are not generally thread-safe).
+</p>
+</item>
+<item><p>The SML garbage collector cannot detect reference cycles involving foreign objects, preventing finalization.</p></item>
+<item><p>The SML garbage collector may not run automatically as often as needed, delaying finalization and causing unnecessary memory usage.</p></item>
+</list>
+</note>
+
+<p>
+There are a few things SML programs must do
+to ensure that foreign objects are finalized once no longer required.
+These are summarized in the following list and described in further detail in the following sections.
+</p>
+
+<list type="numbered">
+<item>
+<title>Support asynchronous or synchronous GObject finalization</title>
+<p>
+Both asynchronous and synchronous finalization can be used in the same program.
+Asynchronous finalization requires a running main context and
+finalization is performed automatically in a source callback.
+This can be enabled using
+</p>
+<code type="sml">
+Giraffe.Finalize.enableAsyncInContext NONE NONE
+</code>
+<p>
+where the <code type="sml">NONE</code> arguments specify
+the default main context and default priority for the source callback, respectively.
+Synchronous finalization occurs where a program evaluates
+</p>
+<code type="sml">
+Giraffe.Finalize.sync Giraffe.GC.full
+</code>
+<p>
+or just
+</p>
+<code type="sml">
+Giraffe.Finalize.sync (fn () => ())
+</code>
+<p>
+if garbage collection does not need to be performed first.
+</p>
+</item>
+
+<item>
+<title>Avoid reference cycles involving foreign objects</title>
+<p>
+When connecting a function <code type="sml"><var>f</var></code> to handle
+a signal of an object <code type="sml"><var>obj</var></code>, e.g.
+</p>
+<code type="sml">
+Signal.connect <var>obj</var> (<var>Namespace</var>.<var>Type</var>.<var>a</var>Sig, <var>f</var>)
+</code>
+<p>
+<code type="sml"><var>f</var></code> should not depend on the SML value <code type="sml"><var>obj</var></code>,
+neither directly nor indirectly.
+To refer to the object, <code type="sml"><var>f</var></code> should use its argument.
+If <code type="sml"><var>f</var></code> refers to another object
+with a handler function that refers to <code type="sml"><var>obj</var></code>,
+the handler functions should use weak references to the objects in the cycle
+where not available as arguments.
+If <code type="sml"><var>f</var></code> does depend on the SML value <code type="sml"><var>obj</var></code>,
+the object cannot be finalized until
+the handler function is disconnected (using <code type="sml">Signal.handlerDisconnect</code>).
+</p>
+</item>
+
+<item>
+<title>Trigger garbage collection explicitly</title>
+<p>
+If the SML runtime does not trigger garbage collection often enough,
+memory use may become unnecessarily high, requiring
+the program to trigger garbage collection explicitly using <code type="sml">Giraffe.GC.full</code>.
+</p>
+</item>
+</list>
+<p>
+The debugging output produced by options of
+the environment variable <code>GIRAFFE_DEBUG</code>
+can be used to check when finalization occurs.
+With the option <code>log-mem</code>,
+ownership of foreign objects from the SML runtime is logged
+and finalization is indicated by messages of the form
+</p>
+<screen>
+<output>[giraffe-debug-mem] <var>timestamp</var> free <var>...</var></output>
+</screen>
+<p>
+With the option <code>finalizers-pending-on-exit</code>,
+numbers of foreign objects that could not be finalized when the application exits
+are logged in a message of the form
+</p>
+<screen>
+<output>[giraffe-debug-finalizers-pending-on-exit] <var>n1</var> <var>n2</var> <var>...</var></output>
+</screen>
+<p>
+Any non-zero values suggest that a reference cycle is present.
+This debug option is recommended during development to detect reference cycles early.
+If a non-zero value does occur,
+the unfinalized objects are identified by forcing their finalization
+using the option <code>force-finalization-on-exit</code>
+and logging their finalization using the option <code>log-mem</code>.
+These options can be combined as follows:
+</p>
+<code>
+GIRAFFE_DEBUG={force-finalization-on-exit,log-{finalizers-pending-on-exit,mem}}
+</code>
+<p>
+Then, the finalization log messages following
+<code>[giraffe-debug-finalizers-pending-on-exit]</code>
+are for the objects that could not be finalized.
+Note that forcing finalization could, in principle, fail
+but at least some unfinalized object should be identifiable
+giving an indication of the reference cycle.
+</p>
+
+<section>
+<title>Supporting asynchronous or synchronous GObject finalization</title>
+
+<note style="advanced" xmlns:ui="http://projectmallard.org/ui/1.0/" ui:expanded="false">
+<title>Implementation details</title>
+<p>
+For both Poly/ML and MLton, finalizer functions triggered following garbage collection are run in a separate thread from the main application.
+(In the case of Poly/ML, this is a separate OS thread.)
+Consequently, a finalizer function may run concurrently with the application.
+A GObject instance is finalized by dropping the reference held by the SML runtime (using <code>g_object_unref</code> internally).
+If this is last reference to the instance, this invokes GObject code to destroy the instance.
+Therefore, using a finalizer function to immediately finalize a GObject instance could
+result in code to destroy the instance running concurrently with the main application,
+which could be running the code of another GObject.
+This is problematic because the implementation of many GObject classes (including all GTK classes) is not thread-safe.
+</p>
+<p>
+Giraffe Library assumes that no GObject implementation is thread-safe and ensures that no GObject code runs concurrently.
+This requires GObject finalization to be performed from the main application thread.
+To achieve this, the finalizer function either
+</p>
+<list style="compact">
+<item>
+<p>
+adds an idle source function that performs GObject finalization to the main context of the application (asynchronous), or
+</p>
+</item>
+<item>
+<p>
+does nothing, requiring the application code to explicitly call finalization (synchronous).
+</p>
+</item>
+</list>
+<p>
+With asynchronous finalization, a single idle source function can perform finalization of many GObject instances.
+</p>
+</note>
+
+<p>
+Giraffe Library requires an application to finalize GObject instances asynchronously or synchronously,
+possibly using both methods.
+If neither method is used, no GObject instance will be finalized until the application exits,
+which may suffice for very simple applications but would generally cause unnecessary memory use.
+</p>
+<p>
+Asynchronous finalization allows foreign objects to be finalized automatically following garbage collection.
+It requires a running main context and is enabled using
+</p>
+<code type="sml">
+Giraffe.Finalize.enableAsyncInContext <var>optContext</var> <var>optPriority</var>
+</code>
+<p>
+<code type="sml"><var>optContext</var></code> specifies the main context to use:
+its value is
+either <code type="sml">NONE</code>, to use the thread-default main context, 
+or <code type="sml">SOME <var>context</var></code>.
+<code type="sml"><var>optPriority</var></code> specifies the priority to use for the source function that performs finalization:
+its value is
+either <code type="sml">NONE</code>, to use the default idle priority, <code type="sml">GLib.PRIORITY_DEFAULT_IDLE</code>,
+or <code type="sml">SOME <var>priority</var></code>.
+</p>
+<p>
+Typically, an application would evaluate
+</p>
+<code type="sml">
+Giraffe.Finalize.enableAsyncInContext NONE NONE
+</code>
+<p>
+before running the default main context.
+</p>
+<p>
+Synchronous finalization causes foreign objects to be finalized at specific points in the application code.
+It occurs where the application evaluates  
+</p>
+<code type="sml">
+Giraffe.Finalize.sync <var>doGC</var>
+</code>
+<p>
+<code type="sml"><var>doGC</var></code> is a function that is evaluated before finalizing any unreachable foreign objects.
+Typically, it would be <code type="sml">Giraffe.GC.full</code> to perform garbage collection.
+Any foreign objects found unreachable as a result of evaluating <code type="sml"><var>doGC</var></code>
+are guaranteed to be finalized before <code type="sml">Giraffe.Finalize.sync</code> returns.
+</p>
+<note style="warning">
+<p>
+The expression
+</p>
+<code type="sml">
+Giraffe.Finalize.sync Giraffe.GC.full
+</code>
+<p>
+is not generally equivalent to
+</p>
+<code type="sml">
+Giraffe.GC.full ();
+Giraffe.Finalize.sync (fn () => ())
+</code>
+<p>
+The latter does not guarantee that foreign objects found unreachable by <code type="sml">Giraffe.GC.full</code>
+are finalized before <code type="sml">Giraffe.Finalize.sync</code> returns
+if asynchronous finalization is enabled,
+in which case foreign objects found unreachable may be finalized some time later asynchronously.
+</p>
+</note>
+</section>
+
+<section>
+<title>Avoiding reference cycles involving foreign objects</title>
+
+<note style="advanced" xmlns:ui="http://projectmallard.org/ui/1.0/" ui:expanded="false">
+<title>Implementation details</title>
+<p>
+A reference cycle involves two or more objects where each object depends on itself via the other objects in the cycle. 
+For example, a reference cycle involving objects A, B and C exists if A references B, B references C and C references A.
+If there are no other references to A, B and C, then they are unreachable and no longer required.
+An SML garbage collector is able to detect reference cycles involving SML objects
+but it cannot know that a foreign object effectively holds a reference to an SML object
+(in the sense that destroying the foreign object would remove the reference to the SML object)
+nor can it know what else references a foreign object.
+Therefore, a foreign object in a reference cycle cannot be finalized
+nor can any SML objects in the cycle be garbage-collected.
+</p>
+</note>
+
+<p>
+In practice, the only way a foreign object references an SML object is when it holds a reference to an SML function to call.
+The most common example is when an SML function <code type="sml"><var>f</var></code> is connected to handle emission of a signal from a GObject instance <code type="sml"><var>obj</var></code>:
+<code type="sml"><var>obj</var></code> effectively holds a reference to <code type="sml"><var>f</var></code>
+because the reference to <code type="sml"><var>f</var></code> persists
+until <code type="sml"><var>obj</var></code> is destroyed (unless <code type="sml"><var>f</var></code> is disconnected).
+If <code type="sml"><var>f</var></code> references the SML value <code type="sml"><var>obj</var></code>, either directly or indirectly via other objects,
+then there is a reference cycle.
+In this case, it would be possible to finalize <code type="sml"><var>obj</var></code> once its only reference is (directly or indirectly) from the SML function
+(because the handler would be removed during destruction of <code type="sml"><var>obj</var></code>)
+but the SML garbage collector cannot determine this so neither <code type="sml"><var>obj</var></code> nor all SML objects in the reference cycle will ever be garbage collected.
+</p>
+<p>
+Therefore, for each expression of the form
+</p>
+<code type="sml">
+Signal.connect <var>obj</var> (<var>Namespace</var>.<var>Type</var>.<var>a</var>Sig, <var>f</var>)
+</code>
+<p>
+or
+</p>
+<code type="sml">
+Signal.connectAfter <var>obj</var> (<var>Namespace</var>.<var>Type</var>.<var>a</var>Sig, <var>f</var>)
+</code>
+<p>
+<code type="sml"><var>f</var></code> must not reference the SML value <code type="sml"><var>obj</var></code>,
+either directly or indirectly via other objects,
+to allow <code type="sml"><var>obj</var></code> to be finalized while <code type="sml"><var>f</var></code> is still connected.
+</p>
+<p>
+If <code type="sml"><var>f</var></code> does reference <code type="sml"><var>obj</var></code>,
+then the signal handler must be disconnected to allow <code type="sml"><var>obj</var></code> to be finalized.
+This can be done explicitly using <code type="sml">Signal.handlerDisconnect</code> and,
+for Gtk3 only, using the functions in the special structure <code type="sml"><link xref="ug-special-structures#child-signal">ChildSignal</link></code>
+which allow automatic disconnection of a handler function when some widget receives the “destroy” signal.
+Still, disconnecting handler functions is a burden so
+it is better that <code type="sml"><var>f</var></code> does not reference <code type="sml"><var>obj</var></code>
+but uses another reference to the same object, as described below.
+</p>
+<note type="warning">
+<p>
+With Gtk3, objects of subclasses of GtkWidget could have signal handlers
+that create a reference cycle and yet are still cleaned up automatically.
+This can happen because all signal handlers are disconnected,
+breaking the reference cycle, when a widget is destroyed.
+(It is this behaviour that enables functions in the special structure <code type="sml"><link xref="ug-special-structures#child-signal">ChildSignal</link></code> to
+connect a handler to the “destroy” signal of a widget without then preventing finalization of the widget.)
+</p>
+<note style="advanced" xmlns:ui="http://projectmallard.org/ui/1.0/" ui:expanded="false">
+<title>Implementation details</title>
+<p>
+In Gtk3, widgets are typically destroyed using <code type="c">gtk_widget_destroy</code>
+which calls <code type="c">g_object_run_dispose</code>
+which ultimately calls the dispose function of the GObject class
+where all signal handlers are disconnected.
+</p>
+</note>
+<p>
+This behaviour should not be relied upon because
+it does not avoid the issue for objects of classes not derived from GtkWidget,
+e.g. GtkTextBuffer, and does not carry over to Gtk4.
+</p>
+</note>
+<p>
+When a handler function <code type="sml"><var>f</var></code> references the object whose signal it is handling,
+it should reference the object using the SML value from its argument.
+(This uses a new reference to the object that is obtained each time <code type="sml"><var>f</var></code> runs, allowing the reference to be released afterwards.)
+Such a function <var>f</var> can be connected to handle the signal on the object <var>obj</var> as follows:
+</p>
+<code type="sml">
+val _ = Signal.connect <var>obj</var> (<var>Namespace</var>.<var>Type</var>.<var>a</var>Sig, <var>f</var>)
+</code>
+<p>
+Connecting an equivalent handler function that references the object using the SML value <var>obj</var> instead of its argument, as follows, would introduce a reference cycle:
+</p>
+<code type="sml">
+val _ = Signal.connect <var>obj</var> (<var>Namespace</var>.<var>Type</var>.<var>a</var>Sig, fn _ => <var>f</var> <var>obj</var>)  (* causes reference cycle *)
+</code>
+<p>
+When an object <code type="sml"><var>obj1</var></code> has a handler function, <code type="sml"><var>f1</var> <var>obj2</var></code>,
+that refererences an object <code type="sml"><var>obj2</var></code>, and
+<code type="sml"><var>obj2</var></code> has a handler function, <code type="sml"><var>f2</var> <var>obj1</var></code>,
+that references <code type="sml"><var>obj1</var></code>, there is a reference cycle.
+For example, connecting to signals as follows prevents finalization of <code type="sml"><var>obj1</var></code> and <code type="sml"><var>obj2</var></code>:
+</p>
+<code type="sml">
+val _ = Signal.connect <var>obj1</var> (<var>some</var><var>Signal</var><var>Name1</var>Sig, <var>f1</var> <var>obj2</var>)
+val _ = Signal.connect <var>obj2</var> (<var>some</var><var>Signal</var><var>Name2</var>Sig, <var>f2</var> <var>obj1</var>)  (* causes reference cycle *)
+</code>
+<p>
+In this case, the arguments of the handler functions do not provide SML value for all the required objects
+so a more general solution is required:
+weak references to <code type="sml"><var>obj1</var></code> and <code type="sml"><var>obj2</var></code> are created
+and, when run, the handler functions get a reference from the weak reference.
+This requires the handler functions to handle the case when a reference cannot be obtained.
+The example above can be fixed as follows:
+</p>
+<code type="sml">
+val obj1' = Weak.new <code type="sml"><var>obj1</var></code>
+val obj2' = Weak.new <code type="sml"><var>obj2</var></code>
+fun f1' obj1 =
+  case Weak.get obj2' of
+    SOME obj2 => <var>f1</var> obj2 obj1
+  | NONE => …
+fun f2' obj2 =
+  case Weak.get obj1' of
+    SOME obj1 => <var>f2</var> obj1 obj2
+  | NONE => …
+val _ = Signal.connect <var>obj1</var> (<var>some</var><var>Signal</var><var>Name1</var>Sig, f1')
+val _ = Signal.connect <var>obj2</var> (<var>some</var><var>Signal</var><var>Name2</var>Sig, f2')
+</code>
+<p>
+
+</p>
+</section>
+
+<section>
+<title>Triggering garbage collection explicitly</title>
+<p>
+Each SML compiler has its own criteria for triggering garbage collection
+which may not consider memory allocated for non-SML objects.
+This may result in garbage collection occurring infrequently,
+causing unnecessarily high memory use
+and a perceptible delay when it does occur which may be detrimental to the user experience.
+</p>
+<p>
+If infrequent garbage collection causes an issue,
+the application should trigger garbage collection explicitly
+by evaluating <code type="sml">Giraffe.GC.full ()</code>.
+(This could be evaluated as part of synchronous GObject finalization using
+<code type="sml">Giraffe.Finalize.sync Giraffe.GC.full</code>.)
+The function <code type="sml">Giraffe.GC.full</code> is synchronous,
+so it does not return until garbage collection (but not finalization) is complete.
+</p>
+<p>
+Exactly where an application should trigger garbage collection
+depends on the application. 
+For example,
+if timing is unimportant,
+garbage collection could be triggered periodically using a timeout callback.
+The following code adds a timeout callback
+to trigger garbage collection every 5 seconds indefinitely:
+</p>
+<code type="sml">
+val _ =
+  GLib.timeoutAddSeconds (
+    GLib.PRIORITY_LOW,
+    5,
+    fn () => (Giraffe.GC.full (); GLib.SOURCE_CONTINUE)
+  )
+</code>
+
+</section>
+
+</page>

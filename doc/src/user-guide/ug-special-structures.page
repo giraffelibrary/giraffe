@@ -86,6 +86,9 @@ based on the options included in the environment variable GIRAFFE_DEBUG.
 The structure <code type="sml">Giraffe.GC</code> provides a function for
 triggering garbage collection.
 </p>
+<p>
+Use of this structure is described in the section <link xref="ug-memory-management"/>.
+</p>
 <code type="sml"><![CDATA[
 signature GIRAFFE_GC =
   sig
@@ -133,6 +136,9 @@ Notably, GObject finalizers are thread-local
 because the implementation of a class may not be thread-safe.
 (Although some classes may have thread-safe implementations,
 Giraffe Library does not assume that any class implementation is thread-safe.)
+</p>
+<p>
+Use of this structure is described in the section <link xref="ug-memory-management"/>.
 </p>
 <code type="sml"><![CDATA[
 signature GIRAFFE_FINALIZE =
