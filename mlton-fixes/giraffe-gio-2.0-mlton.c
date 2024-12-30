@@ -1733,6 +1733,8 @@ mlton_g_datagram_based_send_messages (GDatagramBased* datagram_based,
 }
 #endif
 
+#if defined(__G_DESKTOP_APP_INFO_H__)
+
 GDesktopAppInfo*
 mlton_g_desktop_app_info_new (SML_CVECTOR_VAL(const char, desktop_id))
 {
@@ -1856,6 +1858,8 @@ mlton_g_desktop_app_info_lookup_get_default_for_uri_scheme (GDesktopAppInfoLooku
   return g_desktop_app_info_lookup_get_default_for_uri_scheme (lookup,
                                                                GET_SML_CVECTOR_VAL(const char, uri_scheme));
 }
+
+#endif
 
 char*
 mlton_g_drive_get_identifier (GDrive* drive,

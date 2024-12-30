@@ -1,4 +1,4 @@
-/* Copyright (C) 2017-2018, 2020-2021 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2017-2018, 2020-2021, 2024 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -10,7 +10,9 @@
  */
 
 #include <string.h>
+#if defined(__G_DESKTOP_APP_INFO_H__)
 #include <gio/gdesktopappinfo.h>
+#endif
 #include <gio/gfiledescriptorbased.h>
 #include <gio/gio.h>
 #include <gio/gunixconnection.h>
