@@ -70,10 +70,8 @@ The commands can be adjusted as required.
   </item>
   <item>
     <title>macOS using MacPorts</title>
-    <screen><cmd>sudo port install polyml</cmd></screen>
-    <p>
-      Note that MLton is not available from MacPorts.
-    </p>
+    <screen><cmd>sudo port install mlton</cmd>
+<cmd>sudo port install polyml</cmd></screen>
   </item>
   <item>
     <title>macOS using Brew</title>
