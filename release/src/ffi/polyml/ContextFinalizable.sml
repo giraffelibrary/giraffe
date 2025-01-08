@@ -235,7 +235,7 @@ structure ContextFinalizable :> CONTEXT_FINALIZABLE =
 
     fun countPendingList pendingList = List.length (#pendings (SharedVar.get pendingList))
 
-    fun countContextEntry {pendingList, ...} = countPendingList pendingList
+    fun countContextEntry ({pendingList, ...} : context_entry) = countPendingList pendingList
 
     fun getPendingCounts () =
       let
