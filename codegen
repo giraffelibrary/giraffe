@@ -361,6 +361,9 @@ then
   echo "Copying ${FIXES_GIR} to ${FIXED_GIR_OUT_DIR}"
   cp -a "${CODEGEN_REL_DIR}/${FIXES_GIR}"/* "${FIXED_GIR_OUT_DIR}"
 
+  echo "Removing files with a variant from ${FIXED_GIR_OUT_DIR}"
+  find "${FIXED_GIR_OUT_DIR}" -type f -name '*.default' -exec sh -c 'for f in "$@" ; do rm -f "${f%.default}" ; done' sh {} +
+
   echo "Copying ${EXTRA_GIR} to ${FIXED_GIR_OUT_DIR}"
   cp -a "${CODEGEN_REL_DIR}/${EXTRA_GIR}"/* "${FIXED_GIR_OUT_DIR}"
 
