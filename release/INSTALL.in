@@ -77,8 +77,7 @@ commands can be adjusted as required.
   macOS using MacPorts
 
     sudo port install polyml
-
-    Note that MLton is not available from MacPorts.
+    sudo port install mlton
 
 
   macOS using Brew
