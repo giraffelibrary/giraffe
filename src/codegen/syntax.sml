@@ -204,13 +204,8 @@ fun mkMLtonImportExp (functionSymbol, attrIds) (parTys, retTy) =
     fun attrVariant attrId =
       case attrId of
 
-        (* the following attributes are available only in releases after 20130517 *)
-        "impure"           => Variant.variant ([("20130715", NONE)], SOME attrId)
-      | "pure"             => Variant.variant ([("20130715", NONE)], SOME attrId)
-      | "reentrant"        => Variant.variant ([("20130715", NONE)], SOME attrId)
-
         (* other attributes are available in all supported releases *)
-      | _                  => Variant.default (SOME attrId)
+        _                  => Variant.default (SOME attrId)
 
     val attrs = map attrVariant attrIds
   in

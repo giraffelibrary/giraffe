@@ -48,7 +48,7 @@ It is not necessary to install both compilers to use Giraffe Library.
 At least one of the following versions is required:
 </p>
 <table>
-  <tr><td><p>MLton</p></td>  <td><p>&#x2265;</p></td><td><p>20130715</p></td></tr>
+  <tr><td><p>MLton</p></td>  <td><p>&#x2265;</p></td><td><p>20180207</p></td></tr>
   <tr><td><p>Poly/ML</p></td><td><p>&#x2265;</p></td><td><p>5.6</p></td></tr>
 </table>
 <p>
@@ -60,12 +60,12 @@ The commands can be adjusted as required.
 <terms>
   <item>
     <title>Fedora</title>
-    <screen><cmd>sudo dnf install mlton   # Fedora 20 or later for required version</cmd>
+    <screen><cmd>sudo dnf install mlton   # Fedora 29 or later for required version</cmd>
 <cmd>sudo dnf install polyml  # Fedora 24 or later for required version</cmd></screen>
   </item>
   <item>
     <title>Ubuntu</title>
-    <screen><cmd>sudo apt-get install mlton   # Ubuntu 18.04 (Bionic) or later for required version</cmd>
+    <screen><cmd>sudo apt-get install mlton   # Ubuntu 24.04 (Noble) or later for required version</cmd>
 <cmd>sudo apt-get install polyml  # Ubuntu 16.04 (Xenial) or later for required version</cmd></screen>
   </item>
   <item>

@@ -240,9 +240,7 @@ fun fmtNamespaceBasisMLton
               V.str "\"allowFFI true\"",
               V.str "\"resolveScope topdec\"",
               V.str "\"deadCode true\"",
-              V.var (
-                Variant.variant ([("20130715", V.empty)], V.str "\"valrecConstr ignore\"")
-              )
+              V.str "\"valrecConstr ignore\""
             ]
           ),
           V.str "in",

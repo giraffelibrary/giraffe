@@ -55,7 +55,7 @@ Giraffe Library supports both MLton and Poly/ML compilers.  It is not necessary
 to install both compilers to use Giraffe Library.  At least one of the following
 versions is required:
 
-    MLton    >= 20130715
+    MLton    >= 20180207
     Poly/ML  >= 5.6
 
 The package management commands to install the supported SML compilers on
@@ -64,13 +64,13 @@ commands can be adjusted as required.
 
   Fedora
 
-    sudo dnf install mlton   # Fedora 20 or later for required version
+    sudo dnf install mlton   # Fedora 29 or later for required version
     sudo dnf install polyml  # Fedora 24 or later for required version
 
 
   Ubuntu
 
-    sudo apt-get install mlton   # Ubuntu 18.04 (Bionic) or later for required version
+    sudo apt-get install mlton   # Ubuntu 24.04 (Noble) or later for required version
     sudo apt-get install polyml  # Ubuntu 16.04 (Xenial) or later for required version
 
 

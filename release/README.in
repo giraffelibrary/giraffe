@@ -70,7 +70,7 @@ Giraffe Library has been tested on various combinations of
 
 At least one of the following SML compilers is required:
 
-    MLton    >= 20130715
+    MLton    >= 20180207
     Poly/ML  >= 5.6
 
 Other standard tools are required:
