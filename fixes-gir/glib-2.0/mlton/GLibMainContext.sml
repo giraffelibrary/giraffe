@@ -5,10 +5,10 @@ structure GLibMainContext :>
     where type source_func_t = GLibSourceFunc.t =
   struct
     val getType_ = _import "g_main_context_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_main_context_new" : unit -> GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p;
-    val acquire_ = _import "g_main_context_acquire" : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> GBool.FFI.val_;
-    val dispatch_ = _import "g_main_context_dispatch" : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> unit;
-    val findSourceById_ = fn x1 & x2 => (_import "g_main_context_find_source_by_id" : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p * GUInt.FFI.val_ -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;) (x1, x2)
+    val new_ = _import "g_main_context_new" reentrant : unit -> GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p;
+    val acquire_ = _import "g_main_context_acquire" reentrant : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> GBool.FFI.val_;
+    val dispatch_ = _import "g_main_context_dispatch" reentrant : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> unit;
+    val findSourceById_ = fn x1 & x2 => (_import "g_main_context_find_source_by_id" reentrant : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p * GUInt.FFI.val_ -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;) (x1, x2)
     val invoke_ =
       fn
         x1
@@ -32,15 +32,15 @@ structure GLibMainContext :>
               x4,
               x5
             )
-    val isOwner_ = _import "g_main_context_is_owner" : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> GBool.FFI.val_;
-    val iteration_ = fn x1 & x2 => (_import "g_main_context_iteration" : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val pending_ = _import "g_main_context_pending" : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> GBool.FFI.val_;
-    val popThreadDefault_ = _import "g_main_context_pop_thread_default" : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> unit;
-    val prepare_ = fn x1 & x2 => (_import "g_main_context_prepare" : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p * GInt.FFI.ref_ -> GBool.FFI.val_;) (x1, x2)
-    val pushThreadDefault_ = _import "g_main_context_push_thread_default" : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> unit;
-    val release_ = _import "g_main_context_release" : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> unit;
-    val wakeup_ = _import "g_main_context_wakeup" : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> unit;
-    val default_ = _import "g_main_context_default" : unit -> GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p;
+    val isOwner_ = _import "g_main_context_is_owner" reentrant : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> GBool.FFI.val_;
+    val iteration_ = fn x1 & x2 => (_import "g_main_context_iteration" reentrant : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val pending_ = _import "g_main_context_pending" reentrant : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> GBool.FFI.val_;
+    val popThreadDefault_ = _import "g_main_context_pop_thread_default" reentrant : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> unit;
+    val prepare_ = fn x1 & x2 => (_import "g_main_context_prepare" reentrant : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p * GInt.FFI.ref_ -> GBool.FFI.val_;) (x1, x2)
+    val pushThreadDefault_ = _import "g_main_context_push_thread_default" reentrant : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> unit;
+    val release_ = _import "g_main_context_release" reentrant : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> unit;
+    val wakeup_ = _import "g_main_context_wakeup" reentrant : GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p -> unit;
+    val default_ = _import "g_main_context_default" reentrant : unit -> GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p;
     val getThreadDefault_ = _import "g_main_context_get_thread_default" : unit -> GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p;
     val refThreadDefault_ = _import "g_main_context_ref_thread_default" : unit -> GLibMainContextRecord.FFI.non_opt GLibMainContextRecord.FFI.p;
     type t = GLibMainContextRecord.t

@@ -19,7 +19,7 @@ structure GObjectObject :>
          & (x3, x4)
          & (x5, x6) =>
           (
-            _import "mlton_g_object_new_with_properties" :
+            _import "mlton_g_object_new_with_properties" reentrant :
               GObjectType.FFI.val_
                * GUInt.FFI.val_
                * Utf8CPtrArrayN.MLton.p1
@@ -44,7 +44,7 @@ structure GObjectObject :>
          & (x5, x6)
          & x7 =>
           (
-            _import "mlton_g_object_bind_property" :
+            _import "mlton_g_object_bind_property" reentrant :
               GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.non_opt Utf8.MLton.p2
@@ -73,7 +73,7 @@ structure GObjectObject :>
          & x8
          & x9 =>
           (
-            _import "mlton_g_object_bind_property_with_closures" :
+            _import "mlton_g_object_bind_property_with_closures" reentrant :
               GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.non_opt Utf8.MLton.p2
@@ -96,14 +96,14 @@ structure GObjectObject :>
               x8,
               x9
             )
-    val freezeNotify_ = _import "g_object_freeze_notify" : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p -> unit;
+    val freezeNotify_ = _import "g_object_freeze_notify" reentrant : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p -> unit;
     val getProperty_ =
       fn
         x1
          & (x2, x3)
          & x4 =>
           (
-            _import "mlton_g_object_get_property" :
+            _import "mlton_g_object_get_property" reentrant :
               GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.non_opt Utf8.MLton.p2
@@ -123,7 +123,7 @@ structure GObjectObject :>
          & (x3, x4)
          & (x5, x6) =>
           (
-            _import "mlton_g_object_getv" :
+            _import "mlton_g_object_getv" reentrant :
               GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * GUInt.FFI.val_
                * Utf8CPtrArrayN.MLton.p1
@@ -144,7 +144,7 @@ structure GObjectObject :>
       fn
         x1 & (x2, x3) =>
           (
-            _import "mlton_g_object_notify" :
+            _import "mlton_g_object_notify" reentrant :
               GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.non_opt Utf8.MLton.p2
@@ -155,15 +155,15 @@ structure GObjectObject :>
               x2,
               x3
             )
-    val notifyByPspec_ = fn x1 & x2 => (_import "g_object_notify_by_pspec" : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p * GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p -> unit;) (x1, x2)
-    val runDispose_ = _import "g_object_run_dispose" : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p -> unit;
+    val notifyByPspec_ = fn x1 & x2 => (_import "g_object_notify_by_pspec" reentrant : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p * GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p -> unit;) (x1, x2)
+    val runDispose_ = _import "g_object_run_dispose" reentrant : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p -> unit;
     val setProperty_ =
       fn
         x1
          & (x2, x3)
          & x4 =>
           (
-            _import "mlton_g_object_set_property" :
+            _import "mlton_g_object_set_property" reentrant :
               GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.non_opt Utf8.MLton.p2
@@ -176,8 +176,8 @@ structure GObjectObject :>
               x3,
               x4
             )
-    val thawNotify_ = _import "g_object_thaw_notify" : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p -> unit;
-    val watchClosure_ = fn x1 & x2 => (_import "g_object_watch_closure" : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p * GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p -> unit;) (x1, x2)
+    val thawNotify_ = _import "g_object_thaw_notify" reentrant : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p -> unit;
+    val watchClosure_ = fn x1 & x2 => (_import "g_object_watch_closure" reentrant : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p * GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GObjectObjectClass.class
     type type_t = GObjectType.t
     type 'a binding_class = 'a GObjectBindingClass.class

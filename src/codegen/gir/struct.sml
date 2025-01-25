@@ -337,7 +337,7 @@ local
                  *       let
                  *         val boxedFun_ =
                  *           fn x1 & x2 =>
-                 *             (_import "g_boxed_free" :
+                 *             (_import "g_boxed_free" reentrant :
                  *               GObjectType.FFI.val_ * non_opt p -> non_opt p;)
                  *               (x1, x2)
                  *       in
@@ -358,7 +358,7 @@ local
                   val callBoxedFreeExp =
                     callBoxedFunExp (
                       callMLtonFFIExp
-                        (boxedFreeSymbol, [])
+                        (boxedFreeSymbol, ["reentrant"])
                         ([typeTy, cPtrTy], unitTy)
                     )
                 in

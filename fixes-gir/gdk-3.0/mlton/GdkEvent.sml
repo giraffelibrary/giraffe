@@ -1,4 +1,4 @@
-(* Copyright (C) 2013-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013-2020, 2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -15,7 +15,7 @@ structure GdkEvent :> GDK_EVENT =
 
     val dup_ = _import "gdk_event_copy" : non_opt p -> non_opt p;
 
-    val free_ = _import "gdk_event_free" : non_opt p -> unit;
+    val free_ = _import "gdk_event_free" reentrant : non_opt p -> unit;
 
     type 'a union = non_opt p Finalizable.t
     type t = base union

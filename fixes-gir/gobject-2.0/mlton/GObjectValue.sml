@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2015-2017, 2020-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2015-2017, 2020-2021, 2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -14,9 +14,9 @@ structure GObjectValue :>
     val copy_ = fn x1 & x2 => (_import "g_value_copy" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> unit;) (x1, x2)
     val fitsPointer_ = _import "g_value_fits_pointer" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GBool.FFI.val_;
     val init_ = fn x1 & x2 => (_import "g_value_init" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GObjectType.FFI.val_ -> GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p;) (x1, x2)
-    val reset_ = _import "g_value_reset" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p;
-    val transform_ = fn x1 & x2 => (_import "g_value_transform" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val unset_ = _import "g_value_unset" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> unit;
+    val reset_ = _import "g_value_reset" reentrant : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p;
+    val transform_ = fn x1 & x2 => (_import "g_value_transform" reentrant : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val unset_ = _import "g_value_unset" reentrant : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> unit;
     val typeCompatible_ = fn x1 & x2 => (_import "g_value_type_compatible" : GObjectType.FFI.val_ * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val typeTransformable_ = fn x1 & x2 => (_import "g_value_type_transformable" : GObjectType.FFI.val_ * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
 

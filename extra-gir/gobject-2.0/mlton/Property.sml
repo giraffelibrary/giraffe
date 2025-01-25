@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2017-2018, 2020-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2017-2018, 2020-2021, 2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -18,7 +18,7 @@ structure Property :>
          & (x2, x3)
          & x4 =>
           (
-            _import "mlton_g_object_get_property" :
+            _import "mlton_g_object_get_property" reentrant :
               GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.non_opt Utf8.MLton.p2
@@ -38,7 +38,7 @@ structure Property :>
          & (x2, x3)
          & x4 =>
           (
-            _import "mlton_g_object_set_property" :
+            _import "mlton_g_object_set_property" reentrant :
               GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.non_opt Utf8.MLton.p2
@@ -60,7 +60,7 @@ structure Property :>
          & (x5, x6)
          & x7 =>
           (
-            _import "mlton_g_object_bind_property" :
+            _import "mlton_g_object_bind_property" reentrant :
               GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.non_opt Utf8.MLton.p2
@@ -90,7 +90,7 @@ structure Property :>
          & x8
          & x9 =>
           (
-            _import "mlton_g_object_bind_property_with_closures" :
+            _import "mlton_g_object_bind_property_with_closures" reentrant :
               GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.non_opt Utf8.MLton.p2

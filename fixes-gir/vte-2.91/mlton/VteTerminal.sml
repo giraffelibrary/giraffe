@@ -13,10 +13,10 @@ structure VteTerminal :>
     where type text_blink_mode_t = VteTextBlinkMode.t =
   struct
     val getType_ = _import "vte_terminal_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "vte_terminal_new" : unit -> VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p;
-    val copyClipboard_ = _import "vte_terminal_copy_clipboard" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
-    val copyClipboardFormat_ = fn x1 & x2 => (_import "vte_terminal_copy_clipboard_format" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VteFormat.FFI.val_ -> unit;) (x1, x2)
-    val copyPrimary_ = _import "vte_terminal_copy_primary" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
+    val new_ = _import "vte_terminal_new" reentrant : unit -> VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p;
+    val copyClipboard_ = _import "vte_terminal_copy_clipboard" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
+    val copyClipboardFormat_ = fn x1 & x2 => (_import "vte_terminal_copy_clipboard_format" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VteFormat.FFI.val_ -> unit;) (x1, x2)
+    val copyPrimary_ = _import "vte_terminal_copy_primary" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
     val eventCheckRegexSimple_ =
       fn
         x1
@@ -26,7 +26,7 @@ structure VteTerminal :>
          & x6
          & x7 =>
           (
-            _import "mlton_vte_terminal_event_check_regex_array" :
+            _import "mlton_vte_terminal_event_check_regex_array" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GdkEvent.FFI.non_opt GdkEvent.FFI.p
                * VteRegexRecordCPtrArrayN.MLton.p1
@@ -51,7 +51,7 @@ structure VteTerminal :>
          & (x2, x3)
          & x4 =>
           (
-            _import "mlton_vte_terminal_feed" :
+            _import "mlton_vte_terminal_feed" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GUInt8CArrayN.MLton.p1
                * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
@@ -70,7 +70,7 @@ structure VteTerminal :>
          & (x2, x3)
          & x4 =>
           (
-            _import "mlton_vte_terminal_feed_child" :
+            _import "mlton_vte_terminal_feed_child" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GUInt8CArrayN.MLton.p1
                * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
@@ -89,7 +89,7 @@ structure VteTerminal :>
          & (x2, x3)
          & x4 =>
           (
-            _import "mlton_vte_terminal_feed_child_binary" :
+            _import "mlton_vte_terminal_feed_child_binary" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GUInt8CArrayN.MLton.p1
                * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
@@ -102,29 +102,29 @@ structure VteTerminal :>
               x3,
               x4
             )
-    val getAllowBold_ = _import "vte_terminal_get_allow_bold" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val getAllowHyperlink_ = _import "vte_terminal_get_allow_hyperlink" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val getAudibleBell_ = _import "vte_terminal_get_audible_bell" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val getBoldIsBright_ = _import "vte_terminal_get_bold_is_bright" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val getCellHeightScale_ = _import "vte_terminal_get_cell_height_scale" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GDouble.FFI.val_;
-    val getCellWidthScale_ = _import "vte_terminal_get_cell_width_scale" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GDouble.FFI.val_;
-    val getCharHeight_ = _import "vte_terminal_get_char_height" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GLong.FFI.val_;
-    val getCharWidth_ = _import "vte_terminal_get_char_width" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GLong.FFI.val_;
-    val getCjkAmbiguousWidth_ = _import "vte_terminal_get_cjk_ambiguous_width" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GInt.FFI.val_;
-    val getColorBackgroundForDraw_ = fn x1 & x2 => (_import "vte_terminal_get_color_background_for_draw" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val getColumnCount_ = _import "vte_terminal_get_column_count" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GLong.FFI.val_;
-    val getCurrentContainerName_ = _import "vte_terminal_get_current_container_name" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
-    val getCurrentContainerRuntime_ = _import "vte_terminal_get_current_container_runtime" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
-    val getCurrentDirectoryUri_ = _import "vte_terminal_get_current_directory_uri" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
-    val getCurrentFileUri_ = _import "vte_terminal_get_current_file_uri" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
-    val getCursorBlinkMode_ = _import "vte_terminal_get_cursor_blink_mode" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> VteCursorBlinkMode.FFI.val_;
+    val getAllowBold_ = _import "vte_terminal_get_allow_bold" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val getAllowHyperlink_ = _import "vte_terminal_get_allow_hyperlink" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val getAudibleBell_ = _import "vte_terminal_get_audible_bell" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val getBoldIsBright_ = _import "vte_terminal_get_bold_is_bright" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val getCellHeightScale_ = _import "vte_terminal_get_cell_height_scale" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GDouble.FFI.val_;
+    val getCellWidthScale_ = _import "vte_terminal_get_cell_width_scale" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GDouble.FFI.val_;
+    val getCharHeight_ = _import "vte_terminal_get_char_height" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GLong.FFI.val_;
+    val getCharWidth_ = _import "vte_terminal_get_char_width" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GLong.FFI.val_;
+    val getCjkAmbiguousWidth_ = _import "vte_terminal_get_cjk_ambiguous_width" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GInt.FFI.val_;
+    val getColorBackgroundForDraw_ = fn x1 & x2 => (_import "vte_terminal_get_color_background_for_draw" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val getColumnCount_ = _import "vte_terminal_get_column_count" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GLong.FFI.val_;
+    val getCurrentContainerName_ = _import "vte_terminal_get_current_container_name" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getCurrentContainerRuntime_ = _import "vte_terminal_get_current_container_runtime" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getCurrentDirectoryUri_ = _import "vte_terminal_get_current_directory_uri" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getCurrentFileUri_ = _import "vte_terminal_get_current_file_uri" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getCursorBlinkMode_ = _import "vte_terminal_get_cursor_blink_mode" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> VteCursorBlinkMode.FFI.val_;
     val getCursorPosition_ =
       fn
         x1
          & x2
          & x3 =>
           (
-            _import "vte_terminal_get_cursor_position" :
+            _import "vte_terminal_get_cursor_position" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GLong.FFI.ref_
                * GLong.FFI.ref_
@@ -135,13 +135,13 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val getCursorShape_ = _import "vte_terminal_get_cursor_shape" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> VteCursorShape.FFI.val_;
-    val getEnableBidi_ = _import "vte_terminal_get_enable_bidi" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val getEnableShaping_ = _import "vte_terminal_get_enable_shaping" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val getEnableSixel_ = _import "vte_terminal_get_enable_sixel" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val getEncoding_ = _import "vte_terminal_get_encoding" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
-    val getFont_ = _import "vte_terminal_get_font" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p;
-    val getFontScale_ = _import "vte_terminal_get_font_scale" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GDouble.FFI.val_;
+    val getCursorShape_ = _import "vte_terminal_get_cursor_shape" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> VteCursorShape.FFI.val_;
+    val getEnableBidi_ = _import "vte_terminal_get_enable_bidi" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val getEnableShaping_ = _import "vte_terminal_get_enable_shaping" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val getEnableSixel_ = _import "vte_terminal_get_enable_sixel" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val getEncoding_ = _import "vte_terminal_get_encoding" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getFont_ = _import "vte_terminal_get_font" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p;
+    val getFontScale_ = _import "vte_terminal_get_font_scale" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GDouble.FFI.val_;
     val getGeometryHints_ =
       fn
         x1
@@ -149,7 +149,7 @@ structure VteTerminal :>
          & x3
          & x4 =>
           (
-            _import "vte_terminal_get_geometry_hints" :
+            _import "vte_terminal_get_geometry_hints" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GdkGeometryRecord.FFI.non_opt GdkGeometryRecord.FFI.p
                * GInt.FFI.val_
@@ -162,27 +162,27 @@ structure VteTerminal :>
               x3,
               x4
             )
-    val getHasSelection_ = _import "vte_terminal_get_has_selection" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val getIconTitle_ = _import "vte_terminal_get_icon_title" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
-    val getInputEnabled_ = _import "vte_terminal_get_input_enabled" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val getMouseAutohide_ = _import "vte_terminal_get_mouse_autohide" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val getPty_ = _import "vte_terminal_get_pty" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> VtePtyClass.FFI.non_opt VtePtyClass.FFI.p;
-    val getRewrapOnResize_ = _import "vte_terminal_get_rewrap_on_resize" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val getRowCount_ = _import "vte_terminal_get_row_count" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GLong.FFI.val_;
-    val getScrollOnKeystroke_ = _import "vte_terminal_get_scroll_on_keystroke" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val getScrollOnOutput_ = _import "vte_terminal_get_scroll_on_output" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val getScrollbackLines_ = _import "vte_terminal_get_scrollback_lines" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GLong.FFI.val_;
-    val getTextBlinkMode_ = _import "vte_terminal_get_text_blink_mode" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> VteTextBlinkMode.FFI.val_;
-    val getWindowTitle_ = _import "vte_terminal_get_window_title" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
-    val getWordCharExceptions_ = _import "vte_terminal_get_word_char_exceptions" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
-    val hyperlinkCheckEvent_ = fn x1 & x2 => (_import "vte_terminal_hyperlink_check_event" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkEvent.FFI.non_opt GdkEvent.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
+    val getHasSelection_ = _import "vte_terminal_get_has_selection" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val getIconTitle_ = _import "vte_terminal_get_icon_title" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getInputEnabled_ = _import "vte_terminal_get_input_enabled" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val getMouseAutohide_ = _import "vte_terminal_get_mouse_autohide" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val getPty_ = _import "vte_terminal_get_pty" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> VtePtyClass.FFI.non_opt VtePtyClass.FFI.p;
+    val getRewrapOnResize_ = _import "vte_terminal_get_rewrap_on_resize" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val getRowCount_ = _import "vte_terminal_get_row_count" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GLong.FFI.val_;
+    val getScrollOnKeystroke_ = _import "vte_terminal_get_scroll_on_keystroke" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val getScrollOnOutput_ = _import "vte_terminal_get_scroll_on_output" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val getScrollbackLines_ = _import "vte_terminal_get_scrollback_lines" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GLong.FFI.val_;
+    val getTextBlinkMode_ = _import "vte_terminal_get_text_blink_mode" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> VteTextBlinkMode.FFI.val_;
+    val getWindowTitle_ = _import "vte_terminal_get_window_title" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getWordCharExceptions_ = _import "vte_terminal_get_word_char_exceptions" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val hyperlinkCheckEvent_ = fn x1 & x2 => (_import "vte_terminal_hyperlink_check_event" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkEvent.FFI.non_opt GdkEvent.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
     val matchAddGregex_ =
       fn
         x1
          & x2
          & x3 =>
           (
-            _import "vte_terminal_match_add_gregex" :
+            _import "vte_terminal_match_add_gregex" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p
                * GLibRegexMatchFlags.FFI.val_
@@ -199,7 +199,7 @@ structure VteTerminal :>
          & x2
          & x3 =>
           (
-            _import "vte_terminal_match_add_regex" :
+            _import "vte_terminal_match_add_regex" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * VteRegexRecord.FFI.non_opt VteRegexRecord.FFI.p
                * GUInt32.FFI.val_
@@ -217,7 +217,7 @@ structure VteTerminal :>
          & x3
          & x4 =>
           (
-            _import "vte_terminal_match_check" :
+            _import "vte_terminal_match_check" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GLong.FFI.val_
                * GLong.FFI.val_
@@ -236,7 +236,7 @@ structure VteTerminal :>
          & x2
          & x3 =>
           (
-            _import "vte_terminal_match_check_event" :
+            _import "vte_terminal_match_check_event" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GdkEvent.FFI.non_opt GdkEvent.FFI.p
                * GInt.FFI.ref_
@@ -247,15 +247,15 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val matchRemove_ = fn x1 & x2 => (_import "vte_terminal_match_remove" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val matchRemoveAll_ = _import "vte_terminal_match_remove_all" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
+    val matchRemove_ = fn x1 & x2 => (_import "vte_terminal_match_remove" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val matchRemoveAll_ = _import "vte_terminal_match_remove_all" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
     val matchSetCursor_ =
       fn
         x1
          & x2
          & x3 =>
           (
-            _import "vte_terminal_match_set_cursor" :
+            _import "vte_terminal_match_set_cursor" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GInt.FFI.val_
                * GdkCursorClass.FFI.opt GdkCursorClass.FFI.p
@@ -272,7 +272,7 @@ structure VteTerminal :>
          & x2
          & (x3, x4) =>
           (
-            _import "mlton_vte_terminal_match_set_cursor_name" :
+            _import "mlton_vte_terminal_match_set_cursor_name" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.p1
@@ -291,7 +291,7 @@ structure VteTerminal :>
          & x2
          & x3 =>
           (
-            _import "vte_terminal_match_set_cursor_type" :
+            _import "vte_terminal_match_set_cursor_type" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GInt.FFI.val_
                * GdkCursorType.FFI.val_
@@ -302,8 +302,8 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val pasteClipboard_ = _import "vte_terminal_paste_clipboard" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
-    val pastePrimary_ = _import "vte_terminal_paste_primary" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
+    val pasteClipboard_ = _import "vte_terminal_paste_clipboard" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
+    val pastePrimary_ = _import "vte_terminal_paste_primary" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
     val ptyNewSync_ =
       fn
         x1
@@ -311,7 +311,7 @@ structure VteTerminal :>
          & x3
          & x4 =>
           (
-            _import "vte_terminal_pty_new_sync" :
+            _import "vte_terminal_pty_new_sync" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * VtePtyFlags.FFI.val_
                * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
@@ -330,7 +330,7 @@ structure VteTerminal :>
          & x2
          & x3 =>
           (
-            _import "vte_terminal_reset" :
+            _import "vte_terminal_reset" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GBool.FFI.val_
                * GBool.FFI.val_
@@ -341,18 +341,18 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val searchFindNext_ = _import "vte_terminal_search_find_next" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val searchFindPrevious_ = _import "vte_terminal_search_find_previous" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
-    val searchGetGregex_ = _import "vte_terminal_search_get_gregex" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p;
-    val searchGetRegex_ = _import "vte_terminal_search_get_regex" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> VteRegexRecord.FFI.non_opt VteRegexRecord.FFI.p;
-    val searchGetWrapAround_ = _import "vte_terminal_search_get_wrap_around" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val searchFindNext_ = _import "vte_terminal_search_find_next" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val searchFindPrevious_ = _import "vte_terminal_search_find_previous" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
+    val searchGetGregex_ = _import "vte_terminal_search_get_gregex" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p;
+    val searchGetRegex_ = _import "vte_terminal_search_get_regex" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> VteRegexRecord.FFI.non_opt VteRegexRecord.FFI.p;
+    val searchGetWrapAround_ = _import "vte_terminal_search_get_wrap_around" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> GBool.FFI.val_;
     val searchSetGregex_ =
       fn
         x1
          & x2
          & x3 =>
           (
-            _import "vte_terminal_search_set_gregex" :
+            _import "vte_terminal_search_set_gregex" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GLibRegexRecord.FFI.opt GLibRegexRecord.FFI.p
                * GLibRegexMatchFlags.FFI.val_
@@ -369,7 +369,7 @@ structure VteTerminal :>
          & x2
          & x3 =>
           (
-            _import "vte_terminal_search_set_regex" :
+            _import "vte_terminal_search_set_regex" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * VteRegexRecord.FFI.opt VteRegexRecord.FFI.p
                * GUInt32.FFI.val_
@@ -380,24 +380,24 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val searchSetWrapAround_ = fn x1 & x2 => (_import "vte_terminal_search_set_wrap_around" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val selectAll_ = _import "vte_terminal_select_all" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
-    val setAllowBold_ = fn x1 & x2 => (_import "vte_terminal_set_allow_bold" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setAllowHyperlink_ = fn x1 & x2 => (_import "vte_terminal_set_allow_hyperlink" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setAudibleBell_ = fn x1 & x2 => (_import "vte_terminal_set_audible_bell" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setBackspaceBinding_ = fn x1 & x2 => (_import "vte_terminal_set_backspace_binding" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VteEraseBinding.FFI.val_ -> unit;) (x1, x2)
-    val setBoldIsBright_ = fn x1 & x2 => (_import "vte_terminal_set_bold_is_bright" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setCellHeightScale_ = fn x1 & x2 => (_import "vte_terminal_set_cell_height_scale" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setCellWidthScale_ = fn x1 & x2 => (_import "vte_terminal_set_cell_width_scale" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setCjkAmbiguousWidth_ = fn x1 & x2 => (_import "vte_terminal_set_cjk_ambiguous_width" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setClearBackground_ = fn x1 & x2 => (_import "vte_terminal_set_clear_background" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setColorBackground_ = fn x1 & x2 => (_import "vte_terminal_set_color_background" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val setColorBold_ = fn x1 & x2 => (_import "vte_terminal_set_color_bold" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val setColorCursor_ = fn x1 & x2 => (_import "vte_terminal_set_color_cursor" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val setColorCursorForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_cursor_foreground" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val setColorForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_foreground" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val setColorHighlight_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val setColorHighlightForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight_foreground" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val searchSetWrapAround_ = fn x1 & x2 => (_import "vte_terminal_search_set_wrap_around" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val selectAll_ = _import "vte_terminal_select_all" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
+    val setAllowBold_ = fn x1 & x2 => (_import "vte_terminal_set_allow_bold" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setAllowHyperlink_ = fn x1 & x2 => (_import "vte_terminal_set_allow_hyperlink" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setAudibleBell_ = fn x1 & x2 => (_import "vte_terminal_set_audible_bell" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setBackspaceBinding_ = fn x1 & x2 => (_import "vte_terminal_set_backspace_binding" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VteEraseBinding.FFI.val_ -> unit;) (x1, x2)
+    val setBoldIsBright_ = fn x1 & x2 => (_import "vte_terminal_set_bold_is_bright" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setCellHeightScale_ = fn x1 & x2 => (_import "vte_terminal_set_cell_height_scale" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setCellWidthScale_ = fn x1 & x2 => (_import "vte_terminal_set_cell_width_scale" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setCjkAmbiguousWidth_ = fn x1 & x2 => (_import "vte_terminal_set_cjk_ambiguous_width" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setClearBackground_ = fn x1 & x2 => (_import "vte_terminal_set_clear_background" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setColorBackground_ = fn x1 & x2 => (_import "vte_terminal_set_color_background" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setColorBold_ = fn x1 & x2 => (_import "vte_terminal_set_color_bold" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setColorCursor_ = fn x1 & x2 => (_import "vte_terminal_set_color_cursor" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setColorCursorForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_cursor_foreground" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setColorForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_foreground" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setColorHighlight_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setColorHighlightForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight_foreground" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     val setColors_ =
       fn
         x1
@@ -406,7 +406,7 @@ structure VteTerminal :>
          & (x4, x5)
          & x6 =>
           (
-            _import "mlton_vte_terminal_set_colors" :
+            _import "mlton_vte_terminal_set_colors" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p
                * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p
@@ -423,20 +423,20 @@ structure VteTerminal :>
               x5,
               x6
             )
-    val setCursorBlinkMode_ = fn x1 & x2 => (_import "vte_terminal_set_cursor_blink_mode" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VteCursorBlinkMode.FFI.val_ -> unit;) (x1, x2)
-    val setCursorShape_ = fn x1 & x2 => (_import "vte_terminal_set_cursor_shape" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VteCursorShape.FFI.val_ -> unit;) (x1, x2)
-    val setDefaultColors_ = _import "vte_terminal_set_default_colors" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
-    val setDeleteBinding_ = fn x1 & x2 => (_import "vte_terminal_set_delete_binding" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VteEraseBinding.FFI.val_ -> unit;) (x1, x2)
-    val setEnableBidi_ = fn x1 & x2 => (_import "vte_terminal_set_enable_bidi" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setEnableShaping_ = fn x1 & x2 => (_import "vte_terminal_set_enable_shaping" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setEnableSixel_ = fn x1 & x2 => (_import "vte_terminal_set_enable_sixel" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setCursorBlinkMode_ = fn x1 & x2 => (_import "vte_terminal_set_cursor_blink_mode" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VteCursorBlinkMode.FFI.val_ -> unit;) (x1, x2)
+    val setCursorShape_ = fn x1 & x2 => (_import "vte_terminal_set_cursor_shape" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VteCursorShape.FFI.val_ -> unit;) (x1, x2)
+    val setDefaultColors_ = _import "vte_terminal_set_default_colors" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
+    val setDeleteBinding_ = fn x1 & x2 => (_import "vte_terminal_set_delete_binding" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VteEraseBinding.FFI.val_ -> unit;) (x1, x2)
+    val setEnableBidi_ = fn x1 & x2 => (_import "vte_terminal_set_enable_bidi" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setEnableShaping_ = fn x1 & x2 => (_import "vte_terminal_set_enable_shaping" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setEnableSixel_ = fn x1 & x2 => (_import "vte_terminal_set_enable_sixel" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setEncoding_ =
       fn
         x1
          & (x2, x3)
          & x4 =>
           (
-            _import "mlton_vte_terminal_set_encoding" :
+            _import "mlton_vte_terminal_set_encoding" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.opt Utf8.MLton.p2
@@ -449,24 +449,24 @@ structure VteTerminal :>
               x3,
               x4
             )
-    val setFont_ = fn x1 & x2 => (_import "vte_terminal_set_font" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * PangoFontDescriptionRecord.FFI.opt PangoFontDescriptionRecord.FFI.p -> unit;) (x1, x2)
-    val setFontScale_ = fn x1 & x2 => (_import "vte_terminal_set_font_scale" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setGeometryHintsForWindow_ = fn x1 & x2 => (_import "vte_terminal_set_geometry_hints_for_window" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GtkWindowClass.FFI.non_opt GtkWindowClass.FFI.p -> unit;) (x1, x2)
-    val setInputEnabled_ = fn x1 & x2 => (_import "vte_terminal_set_input_enabled" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setMouseAutohide_ = fn x1 & x2 => (_import "vte_terminal_set_mouse_autohide" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setPty_ = fn x1 & x2 => (_import "vte_terminal_set_pty" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VtePtyClass.FFI.opt VtePtyClass.FFI.p -> unit;) (x1, x2)
-    val setRewrapOnResize_ = fn x1 & x2 => (_import "vte_terminal_set_rewrap_on_resize" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setScrollOnKeystroke_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_on_keystroke" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setScrollOnOutput_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_on_output" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setScrollSpeed_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_speed" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val setScrollbackLines_ = fn x1 & x2 => (_import "vte_terminal_set_scrollback_lines" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GLong.FFI.val_ -> unit;) (x1, x2)
+    val setFont_ = fn x1 & x2 => (_import "vte_terminal_set_font" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * PangoFontDescriptionRecord.FFI.opt PangoFontDescriptionRecord.FFI.p -> unit;) (x1, x2)
+    val setFontScale_ = fn x1 & x2 => (_import "vte_terminal_set_font_scale" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setGeometryHintsForWindow_ = fn x1 & x2 => (_import "vte_terminal_set_geometry_hints_for_window" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GtkWindowClass.FFI.non_opt GtkWindowClass.FFI.p -> unit;) (x1, x2)
+    val setInputEnabled_ = fn x1 & x2 => (_import "vte_terminal_set_input_enabled" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setMouseAutohide_ = fn x1 & x2 => (_import "vte_terminal_set_mouse_autohide" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPty_ = fn x1 & x2 => (_import "vte_terminal_set_pty" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VtePtyClass.FFI.opt VtePtyClass.FFI.p -> unit;) (x1, x2)
+    val setRewrapOnResize_ = fn x1 & x2 => (_import "vte_terminal_set_rewrap_on_resize" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setScrollOnKeystroke_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_on_keystroke" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setScrollOnOutput_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_on_output" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setScrollSpeed_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_speed" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val setScrollbackLines_ = fn x1 & x2 => (_import "vte_terminal_set_scrollback_lines" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GLong.FFI.val_ -> unit;) (x1, x2)
     val setSize_ =
       fn
         x1
          & x2
          & x3 =>
           (
-            _import "vte_terminal_set_size" :
+            _import "vte_terminal_set_size" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GLong.FFI.val_
                * GLong.FFI.val_
@@ -477,12 +477,12 @@ structure VteTerminal :>
               x2,
               x3
             )
-    val setTextBlinkMode_ = fn x1 & x2 => (_import "vte_terminal_set_text_blink_mode" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VteTextBlinkMode.FFI.val_ -> unit;) (x1, x2)
+    val setTextBlinkMode_ = fn x1 & x2 => (_import "vte_terminal_set_text_blink_mode" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * VteTextBlinkMode.FFI.val_ -> unit;) (x1, x2)
     val setWordCharExceptions_ =
       fn
         x1 & (x2, x3) =>
           (
-            _import "mlton_vte_terminal_set_word_char_exceptions" :
+            _import "mlton_vte_terminal_set_word_char_exceptions" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.non_opt Utf8.MLton.p2
@@ -496,7 +496,7 @@ structure VteTerminal :>
     val spawnSync_ =
       fn x1 & x2 & (x3, x4) & (x5, x6) & (x7, x8) & x9 & x10 & x11 & x12 & x13 & x14 =>
         (
-          _import "mlton_vte_terminal_spawn_sync" :
+          _import "mlton_vte_terminal_spawn_sync" reentrant :
             VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
              * VtePtyFlags.FFI.val_
              * Utf8.MLton.p1
@@ -529,8 +529,8 @@ structure VteTerminal :>
             x13,
             x14
           )
-    val unselectAll_ = _import "vte_terminal_unselect_all" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
-    val watchChild_ = fn x1 & x2 => (_import "vte_terminal_watch_child" : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GLibPid.FFI.val_ -> unit;) (x1, x2)
+    val unselectAll_ = _import "vte_terminal_unselect_all" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p -> unit;
+    val watchChild_ = fn x1 & x2 => (_import "vte_terminal_watch_child" reentrant : VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p * GLibPid.FFI.val_ -> unit;) (x1, x2)
     val writeContentsSync_ =
       fn
         x1
@@ -539,7 +539,7 @@ structure VteTerminal :>
          & x4
          & x5 =>
           (
-            _import "vte_terminal_write_contents_sync" :
+            _import "vte_terminal_write_contents_sync" reentrant :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p
                * VteWriteFlags.FFI.val_

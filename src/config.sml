@@ -647,23 +647,39 @@ newFlagsEnumValueNames := [
  * MLton-specific
  *)
 
+(**
+ * Default import attributes
+ *
+ * There are many functions that can invoke callbacks to SML so we specify
+ * the import attribute 'reentrant' by default.
+ *)
+mltonImportAttributesDefault := ["reentrant"];
+
+(**
+ * Import attributes
+ *
+ * There are thousands of functions that could be added here to remove the
+ * default 'reentrant' attribute but analyzing a GObject-based library is
+ * laborious.  For now, functions are added here as needed.
+ *)
 mltonImportAttributes := [
   (
     [("GLib", "2.0")],
     [
-      ("g_source_remove", ["reentrant"])
+      ("g_main_context_get_thread_default", []),
+      ("g_main_context_ref_thread_default", [])
     ]
   ),
   (
-    [("Gio", "2.0")],
+    [("GObject", "2.0")],
     [
-      ("g_application_run", ["reentrant"])
-    ]
-  ),
-  (
-    [("Gtk", "3.0")],
-    [
-      ("gtk_main", ["reentrant"])
+      ("g_type_is_a", []),
+      ("g_type_name", []),
+      ("g_value_copy", []),
+      ("g_value_fits_pointer", []),
+      ("g_value_init", []),
+      ("g_value_type_compatible", []),
+      ("g_value_type_transformable", [])
     ]
   )
 ];

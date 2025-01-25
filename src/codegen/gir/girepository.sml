@@ -649,5 +649,5 @@ fun getMLtonImportAttributes repo vers functionInfo =
   in
     case nvsLookup (nv, symbol) (!mltonImportAttributes) of
       SOME attrIds => attrIds
-    | NONE         => []
+    | NONE         => !mltonImportAttributesDefault
   end

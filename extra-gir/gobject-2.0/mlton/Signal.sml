@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2017-2021, 2023-2024 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2017-2021, 2023-2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -52,7 +52,7 @@ structure Signal :>
     val signalConnectClosure_ =
       fn x1 & (x2, x3) & x4 & x5 =>
         (
-          _import "mlton_g_signal_connect_closure" :
+          _import "mlton_g_signal_connect_closure" reentrant :
             GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
              * Utf8.MLton.p1
              * Utf8.FFI.non_opt Utf8.MLton.p2
@@ -64,14 +64,14 @@ structure Signal :>
 
     val handlerBlock_ =
       fn x1 & x2 => (
-        _import "g_signal_handler_block" :
+        _import "g_signal_handler_block" reentrant :
           GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p * GULong.FFI.val_ -> unit;
       )
         (x1, x2)
 
     val handlerUnblock_ =
       fn x1 & x2 => (
-        _import "g_signal_handler_unblock" :
+        _import "g_signal_handler_unblock" reentrant :
           GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p * GULong.FFI.val_ -> unit;
       )
         (x1, x2)
@@ -79,7 +79,7 @@ structure Signal :>
     val handlerDisconnect_ =
       fn x1 & x2 =>
         (
-          _import "g_signal_handler_disconnect" :
+          _import "g_signal_handler_disconnect" reentrant :
             GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
              * GULong.FFI.val_
              -> unit;

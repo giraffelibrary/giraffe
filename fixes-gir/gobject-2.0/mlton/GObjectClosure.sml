@@ -22,7 +22,7 @@ structure GObjectClosure :>
               x2,
               x3
             )
-    val invalidate_ = _import "g_closure_invalidate" : GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p -> unit;
+    val invalidate_ = _import "g_closure_invalidate" reentrant : GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p -> unit;
     type t = GObjectClosureRecord.t
     type type_t = GObjectType.t
     type callback = ClosureMarshal.callback

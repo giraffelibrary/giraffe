@@ -142,4 +142,5 @@ val excludedAliasNames : string list nvs_map ref = ref []
 (* MLton-specific *)
 
 (*   - Import attributes *)
+val mltonImportAttributesDefault : string list ref = ref []
 val mltonImportAttributes : (string * string list) list nvs_map ref = ref []
