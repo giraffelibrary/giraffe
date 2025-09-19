@@ -4,7 +4,7 @@ The version is specified by VERSION.
 REPODIR should be set to the root directory of the Git repo, e.g.
 
   VERSION=A.B.C
-  REPODIR=~/SML/Giraffe/devel
+  REPODIR=~/SML/GiraffeLibrary/giraffe
 
 
 Set up the release directory.
@@ -12,17 +12,13 @@ Set up the release directory.
  A. To create a formal release from a Git tag, extract the source code
     with Git.  VERSION is used as the Git tag name.
 
-      RELEASEDIR=/tmp/release
-      mkdir -p ${RELEASEDIR}
-      cd ${REPODIR}
-      git archive ${VERSION} . | tar -x -C ${RELEASEDIR}
-
-    Add external dependencies to the release that provide an XML
-    parser and GIR/TYPELIB files indexed by package and GI version.
-    (For details see ${RELEASEDIR}/README.)
-
-      tar -xJf ~/SML/Giraffe/archive/xml.tar.xz -C ${RELEASEDIR}/src
-      tar -xJf ~/SML/Giraffe/archive/girepository.tar.xz -C ${RELEASEDIR}
+      BUILDDIR=/tmp/release
+      mkdir -p ${BUILDDIR}
+      cd ${BUILDDIR}
+      git clone --recurse-submodules ${REPODIR}
+      RELEASEDIR=${BUILDDIR}/giraffe
+      cd ${RELEASEDIR}
+      git checkout ${VERSION}
 
  B. To create an informal release from the current working directory, 
     operate in the working directory.
