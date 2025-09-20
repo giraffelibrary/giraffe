@@ -1,3 +1,83 @@
+1.0.0-alpha.13 (2025-09-20)
+
+    Enhancements
+      - Improved memory management:
+          - SML signal handler functions are changed to help avoid reference
+             cycles involving GObject instances, which can prevent unreachable
+             GObject instances from being destroyed.
+          - SML finalization of unreachable GObject instances no longer assumes
+             GObject destruction is thread-safe, avoiding potential failures.
+      - Added function `GLib.MainContext.invoke`.
+      - Added support for GObject weak references.  A new special structure
+         `Weak` provides a type-safe interface to GObject weak references.  The
+         new structure `GObject.WeakRef` provides the API from the GIR metadata.
+      - Improved debugging diagnostic output that reports all memory operations.
+      - Combined debug environment variables into one called GIRAFFE_DEBUG.
+      - Makefile uses DESTDIR as the prefix for each installed target file, to
+         support staged installs.
+      - The configure utility no longer accepts --prefix with a relative path
+         argument.
+
+    Breaking changes
+      - SML signal handler functions take the object instance that emits the
+         signal as an additional curried argument.  This argument should be used
+         to refer to the emitting object in the handler function to avoid
+         reference cycles involving foreign objects.  For more information, see
+         the User Guide section on Memory Management.  The introduction of the
+         new argument requires every handler function to be updated, which will
+         be identified by type checking failures where the handler function is
+         used as an argument of new argument of `[Child]Signal.connect[After]`.
+      - SML finalization (and, possibly, destruction) of GObject instances found
+         unreachable by GC no longer occurs asynchronously unless explicitly
+         enabled.  This can be enabled by evaluating
+             Giraffe.Finalize.enableAsyncInContext NONE NONE
+         typically, before the default main context is run.  Existing code will
+         continue to compile and run without asynchronous SML finalization.  For
+         more information, see the User Guide section on [Memory Management]
+         (https://giraffelibrary.org/ug-memory-management.html).
+      - The module ValueAccessor is no longer included with the GObject
+         namespace.  The (identical) module ValueAccessor is still included with
+         the GLib namespace and this must now be used.  This may require a
+         dependency on `glib-2.0` to be added in MLB files.
+      - The structures GC, GiraffeLog and GiraffeDebug no longer exist at the
+         top-level and have been moved inside the structure Giraffe as follows:
+            `GC`           ---> `Giraffe.GC`
+            `GiraffeLog`   ---> `Giraffe.Log`
+            `GiraffeDebug` ---> `Giraffe.Debug`
+         Existing references to these structures may need to be changed as
+         above.
+      - `GLib.Source.t` constructor functions take a callback function argument.
+         In C, `g_source_set_callback` is used to set the callback function of a
+         source after it has been created.  The type of the callback function
+         varies so this API cannot be carried over to SML whilst maintaining
+         type safety.  The SML functions that construct a new kind of source now
+         take the callback function for the source.  The signature G_LIB now
+         specifies:
+            val childWatchSourceNew : Pid.t * ChildWatchFunc.t -> SourceRecord.t
+            val idleSourceNew : SourceFunc.t -> SourceRecord.t
+            val timeoutSourceNew : LargeInt.int * SourceFunc.t -> SourceRecord.t
+            val timeoutSourceNewSeconds
+                                 : LargeInt.int * SourceFunc.t -> SourceRecord.t
+         Previously, these functions were effectively useless because a callback
+         could not be set after a source was created, so this change should not
+         affect existing code.
+      - MLton 20130715 no longer supported.
+
+    Bug fixes
+      - MLton-specific fixes:
+          - The MLton import attribute `reentrant` is specified by default in
+             bindings to API functions because the SML runtime can be re-entered
+             via a callback for most API functions.
+      - Fixed include paths in supporting C library files that caused a build
+         failure on some platforms.
+      - Fixed dependence on GDesktopAppInfo in supporting C library files
+         causing a build failure on some platforms.
+      - Fixed memory management issue causing occasional failure when using an
+         object via an `as<Iface>` function.
+      - Remove suggested C compiler option -std=c99 in MLton build documentation
+         as this may causes compilation with MLton to fail on some platforms.
+
+
 1.0.0-alpha.12 (2021-11-28)
 
   - Changed function names in the module Signal to align with GIR metadata:

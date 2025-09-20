@@ -12,14 +12,205 @@
   provided with the release.
 </p>
 
+<section id="1.0.0-alpha.13">
+<title>1.0.0-alpha.13 (2025-09-20)</title>
+<list style="compact" type="none">
+<title>Release packages</title>
+<item><p><link href="releases/1.0.0-alpha.13/giraffe-1.0.0-alpha.13.tar.gz">giraffe-1.0.0-alpha.13.tar.gz</link></p></item>
+</list>
+<list type="none">
+<title>Changes since release 1.0.0-alpha.12</title>
+<item>
+  <list style="compact" type="disc">
+  <title>Enhancements</title>
+  <item>
+    <p>
+      Improved memory management:
+    </p>
+    <list style="compact" type="circle">
+    <item>
+      <p>
+        SML signal handler functions are changed to help avoid reference
+        cycles involving GObject instances, which can prevent unreachable
+        GObject instances from being destroyed.
+      </p>
+    </item>
+    <item>
+      <p>
+        SML finalization of unreachable GObject instances no longer assumes
+        GObject destruction is thread-safe, avoiding potential failures.
+      </p>
+    </item>
+    </list>
+  </item>
+  <item>
+    <p>
+      Added function <code>GLib.MainContext.invoke</code>.
+    </p>
+  </item>
+  <item>
+    <p>
+      Added support for GObject weak references.
+      A new special structure <code>Weak</code> provides a type-safe interface to GObject weak references.
+      The new structure <code>GObject.WeakRef</code> provides the API from the GIR metadata.
+    </p>
+  </item>
+  <item>
+    <p>
+      Improved debugging diagnostic output that reports all memory operations.
+    </p>
+  </item>
+  <item>
+    <p>
+      Combined debug environment variables into one called <code>GIRAFFE_DEBUG</code>.
+    </p>
+  </item>
+  <item>
+    <p>
+      Makefile uses <code>DESTDIR</code> as the prefix for each installed target file, to
+      support staged installs.
+    </p>
+  </item>
+  <item>
+    <p>
+      The configure utility no longer accepts <code>--prefix</code> with a relative path argument.
+    </p>
+  </item>
+  </list>
+</item>
+<item>
+  <list style="compact" type="disc">
+  <title>Breaking changes</title>
+  <item>
+    <p>
+      SML signal handler functions take the object instance that emits the
+      signal as an additional curried argument.
+      This argument should be used to refer to the emitting object in the handler function
+      to avoid reference cycles involving foreign objects.
+      For more information, see the User Guide section on
+      <link href="ug-memory-management.html">Memory Management</link>.
+      The introduction of the new argument requires every handler function to be updated,
+      which will be identified by type checking failures where the handler function is
+      used as an argument of new argument of
+      [<code>Child</code>]<code>Signal.connect</code>[<code>After</code>].
+    </p>
+  </item>
+  <item>
+    <p>
+      SML finalization (and, possibly, destruction) of GObject instances found
+      unreachable by GC no longer occurs asynchronously unless explicitly enabled.
+      This can be enabled by evaluating
+    </p>
+    <code>Giraffe.Finalize.enableAsyncInContext NONE NONE</code>
+    <p>
+      typically, before the default main context is run.
+      Existing code will continue to compile and run without asynchronous SML finalization.
+      For more information, see the User Guide section on
+      <link href="ug-memory-management.html">Memory Management</link>.
+    </p>
+  </item>
+  <item>
+    <p>
+      The module ValueAccessor is no longer included with the GObject namespace.
+      The (identical) module ValueAccessor is still included with the GLib
+      namespace and this must now be used.
+      This may require a dependency on <code>glib-2.0</code> to be added in MLB files.
+    </p>
+  </item>
+  <item>
+    <p>
+      The structures GC, GiraffeLog and GiraffeDebug no longer exist at the
+      top-level and have been moved inside the structure Giraffe as follows:
+    </p>
+  <table>
+  <tr><td><p><code>GC</code></p></td><td><p>&#8594;</p></td><td><p><code>Giraffe.GC</code></p></td></tr>
+  <tr><td><p><code>GiraffeLog</code></p></td><td><p>&#8594;</p></td><td><p><code>Giraffe.Log</code></p></td></tr>
+  <tr><td><p><code>GiraffeDebug</code></p></td><td><p>&#8594;</p></td><td><p><code>Giraffe.Debug</code></p></td></tr>
+  </table>
+    <p>
+      Existing references to these structures may need to be changed as above.
+    </p>
+  </item>
+  <item>
+    <p>
+      <code>GLib.Source.t</code> constructor functions take a callback function argument.
+      In C, <code>g_source_set_callback</code> is used to set the callback function of a
+      source after it has been created.  The type of the callback function
+      varies so this API cannot be carried over to SML whilst maintaining
+      type safety.  The SML functions that construct a new kind of source now
+      take the callback function for the source.  The signature G_LIB now
+      specifies:
+    </p>
+    <code>val childWatchSourceNew : Pid.t * ChildWatchFunc.t -> SourceRecord.t
+val idleSourceNew : SourceFunc.t -> SourceRecord.t
+val timeoutSourceNew : LargeInt.int * SourceFunc.t -> SourceRecord.t
+val timeoutSourceNewSeconds : LargeInt.int * SourceFunc.t -> SourceRecord.t</code>
+    <p>
+      Previously, these functions were effectively useless because a callback
+      could not be set after a source was created, so this change should not
+      affect existing code.
+    </p>
+  </item>
+  <item>
+    <p>
+      MLton 20130715 no longer supported.
+    </p>
+  </item>
+  </list>
+</item>
+<item>
+  <list style="compact" type="disc">
+  <title>Bug fixes</title>
+  <item>
+    <p>
+      MLton-specific fixes:
+    </p>
+    <list style="compact" type="circle">
+    <item>
+      <p>
+        The MLton import attribute <code>reentrant</code> is specified by default in
+        bindings to API functions because the SML runtime can be re-entered
+        via a callback for most API functions.
+      </p>
+    </item>
+    </list>
+  </item>
+  <item>
+    <p>
+      Fixed include paths in supporting C library files that caused a build
+      failure on some platforms.
+    </p>
+  </item>
+  <item>
+    <p>
+      Fixed dependence on GDesktopAppInfo in supporting C library files causing a build failure on some platforms.
+    </p>
+  </item>
+  <item>
+    <p>
+      Fixed memory management issue causing occasional failure when using an
+      object via an <code>as<var>Iface</var></code> function.
+    </p>
+  </item>
+  <item>
+    <p>
+      Remove suggested C compiler option <code>-std=c99</code> in MLton build documentation
+      as this may causes compilation with MLton to fail on some platforms.
+    </p>
+  </item>
+  </list>
+</item>
+</list>
+</section>
+
 <section id="1.0.0-alpha.12">
 <title>1.0.0-alpha.12 (2021-11-28)</title>
-<p>Release packages:</p>
-<list style="compact">
+<list style="compact" type="none">
+<title>Release packages</title>
 <item><p><link href="releases/1.0.0-alpha.12/giraffe-1.0.0-alpha.12.tar.gz">giraffe-1.0.0-alpha.12.tar.gz</link></p></item>
 </list>
-<p>Changes since release 1.0.0-alpha.11:</p>
-<list style="compact">
+<list style="compact" type="disc">
+<title>Changes since release 1.0.0-alpha.11</title>
 <item>
   <p>
     Changed function names in the module Signal to align with GIR metadata:
@@ -90,12 +281,12 @@
 
 <section id="1.0.0-alpha.11">
 <title>1.0.0-alpha.11 (2021-02-10)</title>
-<p>Release packages:</p>
-<list style="compact">
+<list style="compact" type="none">
+<title>Release packages</title>
 <item><p><link href="releases/1.0.0-alpha.11/giraffe-1.0.0-alpha.11.tar.gz">giraffe-1.0.0-alpha.11.tar.gz</link></p></item>
 </list>
-<p>Changes since release 1.0.0-alpha.10:</p>
-<list style="compact">
+<list style="compact" type="disc">
+<title>Changes since release 1.0.0-alpha.10</title>
 <item>
   <p>
     Changed functions
@@ -152,12 +343,12 @@
 
 <section id="1.0.0-alpha.10">
 <title>1.0.0-alpha.10 (2020-11-23)</title>
-<p>Release packages:</p>
-<list style="compact">
+<list style="compact" type="none">
+<title>Release packages</title>
 <item><p><link href="releases/1.0.0-alpha.10/giraffe-1.0.0-alpha.10.tar.gz">giraffe-1.0.0-alpha.10.tar.gz</link></p></item>
 </list>
-<p>Changes since release 1.0.0-alpha.9:</p>
-<list style="compact">
+<list style="compact" type="disc">
+<title>Changes since release 1.0.0-alpha.9</title>
 <item><p>Fixed build for GLib &gt;= 2.62.0.</p></item>
 <item><p>Updated <file>configure</file> script to check for MLton include directory under <file>lib64</file>.</p></item>
 </list>
@@ -165,12 +356,12 @@
 
 <section id="1.0.0-alpha.9">
 <title>1.0.0-alpha.9 (2020-11-15)</title>
-<p>Release packages:</p>
-<list style="compact">
+<list style="compact" type="none">
+<title>Release packages</title>
 <item><p><link href="releases/1.0.0-alpha.9/giraffe-1.0.0-alpha.9.tar.gz">giraffe-1.0.0-alpha.9.tar.gz</link></p></item>
 </list>
-<p>Changes since release 1.0.0-alpha.8:</p>
-<list style="compact">
+<list style="compact" type="disc">
+<title>Changes since release 1.0.0-alpha.8</title>
 <item>
   <p>
     Updated representation of properties, which changes the way properties are accessed as follows:
@@ -305,12 +496,12 @@
 
 <section id="1.0.0-alpha.8">
 <title>1.0.0-alpha.8 (2018-10-17)</title>
-<p>Release packages:</p>
-<list style="compact">
+<list style="compact" type="none">
+<title>Release packages</title>
 <item><p><link href="releases/1.0.0-alpha.8/giraffe-1.0.0-alpha.8.tar.gz">giraffe-1.0.0-alpha.8.tar.gz</link></p></item>
 </list>
-<p>Changes since release 1.0.0-alpha.7:</p>
-<list style="compact">
+<list style="compact" type="disc">
+<title>Changes since release 1.0.0-alpha.7</title>
 <item>
   <p>
     Removed restriction on Poly/ML 5.7 that required C function argument/return
@@ -347,12 +538,12 @@
 
 <section id="1.0.0-alpha.7">
 <title>1.0.0-alpha.7 (2017-10-18)</title>
-<p>Release packages:</p>
-<list style="compact">
+<list style="compact" type="none">
+<title>Release packages</title>
 <item><p><link href="releases/1.0.0-alpha.7/giraffe-1.0.0-alpha.7.tar.gz">giraffe-1.0.0-alpha.7.tar.gz</link></p></item>
 </list>
-<p>Changes since release 1.0.0-alpha.6:</p>
-<list style="compact">
+<list style="compact" type="disc">
+<title>Changes since release 1.0.0-alpha.6</title>
 <item><p>Poly/ML 5.6 required.</p></item>
 <item><p>Poly/ML 5.7 supported.</p></item>
 <item>
@@ -408,12 +599,12 @@
 
 <section id="1.0.0-alpha.6">
 <title>1.0.0-alpha.6 (2015-09-16)</title>
-<p>Release packages:</p>
-<list style="compact">
+<list style="compact" type="none">
+<title>Release packages</title>
 <item><p><link href="releases/1.0.0-alpha.6/giraffe-1.0.0-alpha.6.tar.gz">giraffe-1.0.0-alpha.6.tar.gz</link></p></item>
 </list>
-<p>Changes since release 1.0.0-alpha.5:</p>
-<list style="compact">
+<list style="compact" type="disc">
+<title>Changes since release 1.0.0-alpha.5</title>
 <item>
   <p>
     Added type abbreviation for object and structure types:
@@ -447,12 +638,12 @@
 
 <section id="1.0.0-alpha.5">
 <title>1.0.0-alpha.5 (2015-05-29)</title>
-<p>Release packages:</p>
-<list style="compact">
+<list style="compact" type="none">
+<title>Release packages</title>
 <item><p><link href="releases/1.0.0-alpha.5/giraffe-1.0.0-alpha.5.tar.gz">giraffe-1.0.0-alpha.5.tar.gz</link></p></item>
 </list>
-<p>Changes since release 1.0.0-alpha.4:</p>
-<list style="compact">
+<list style="compact" type="disc">
+<title>Changes since release 1.0.0-alpha.4</title>
 <item><p>Added support for Darwin (Mac OS X).</p></item>
 <item><p>Poly/ML 5.5.2 required.</p></item>
 <item>
@@ -474,12 +665,12 @@
 
 <section id="1.0.0-alpha.4">
 <title>1.0.0-alpha.4 (2015-02-08)</title>
-<p>Release packages:</p>
-<list style="compact">
+<list style="compact" type="none">
+<title>Release packages</title>
 <item><p><link href="releases/1.0.0-alpha.4/giraffe-1.0.0-alpha.4.tar.gz">giraffe-1.0.0-alpha.4.tar.gz</link></p></item>
 </list>
-<p>Changes since release 1.0.0-alpha.3:</p>
-<list style="compact">
+<list style="compact" type="disc">
+<title>Changes since release 1.0.0-alpha.3</title>
 <item><p>Added support for multiple versions of a library.</p></item>
 <item><p>Added library vte-2.91.</p></item>
 <item><p>Restructured source code directories.</p></item>
@@ -489,12 +680,12 @@
 
 <section id="1.0.0-alpha.3">
 <title>1.0.0-alpha.3 (2014-12-19)</title>
-<p>Release packages:</p>
-<list style="compact">
+<list style="compact" type="none">
+<title>Release packages</title>
 <item><p><link href="releases/1.0.0-alpha.3/giraffe-1.0.0-alpha.3.tar.gz">giraffe-1.0.0-alpha.3.tar.gz</link></p></item>
 </list>
-<p>Changes since release 1.0.0-alpha.2:</p>
-<list style="compact">
+<list style="compact" type="disc">
+<title>Changes since release 1.0.0-alpha.2</title>
 <item>
   <p>
     SML generated from GIR files:
@@ -512,8 +703,8 @@
 
 <section id="1.0.0-alpha.2">
 <title>1.0.0-alpha.2 (2012-10-29)</title>
-<p>Release packages:</p>
-<list style="compact">
+<list style="compact" type="none">
+<title>Release packages</title>
 <item><p><link href="releases/1.0.0-alpha.2/giraffe-1.0.0-alpha.2-i386.tar.gz">giraffe-1.0.0-alpha.2-i386.tar.gz</link></p></item>
 <item><p><link href="releases/1.0.0-alpha.2/giraffe-1.0.0-alpha.2.tar.gz">giraffe-1.0.0-alpha.2.tar.gz</link></p></item>
 </list>
@@ -521,8 +712,8 @@
 
 <section id="1.0.0-alpha.1">
 <title>1.0.0-alpha.1 (2012-10-12)</title>
-<p>Release packages:</p>
-<list style="compact">
+<list style="compact" type="none">
+<title>Release packages</title>
 <item><p><link href="releases/1.0.0-alpha.1/giraffe-1.0.0-alpha.1.tar.gz">giraffe-1.0.0-alpha.1.tar.gz</link></p></item>
 </list>
 </section>
