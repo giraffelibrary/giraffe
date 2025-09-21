@@ -176,6 +176,19 @@ div.license {
   padding-bottom: 10px;
 }
 
+table.table {
+  margin-left: 2em;
+  border-spacing: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+table.table td, table.table th {
+  padding-left: 6pt;
+  padding-right: 6pt;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 table {
   border-collapse: collapse;
   border-color: #c0bfbc;
@@ -220,10 +233,10 @@ dd {
 dd + dd { margin-top: 1em; }
 ol.compact li { margin-top: 0.2em; }
 ul.compact li { margin-top: 0.2em; }
-ol.compact li:first-child { margin-top: 0; }
-ul.compact li:first-child { margin-top: 0; }
+ol.compact li > * { margin-top: 0; }
+ul.compact li > * { margin-top: 0; }
 dl.compact dt { margin-top: 0.2em; }
-dl.compact dt:first-child { margin-top: 0; }
+dl.compact dt > * { margin-top: 0; }
 dl.compact dt + dt { margin-top: 0; }
 
 div.tiles {
