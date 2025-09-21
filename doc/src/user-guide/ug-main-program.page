@@ -74,8 +74,8 @@ fun main () =
 <title>Using the class <code type="sml">Gtk.Application</code></title>
 <p>
 For a GTK application,
-the class <code type="sml"><link href="https://developer-old.gnome.org/gtk3/stable/GtkApplication.html">Gtk.Application</link></code>,
-based on <code type="sml"><link href="https://developer-old.gnome.org/gio/stable/GApplication.html">Gio.Application</link></code>,
+the class <code type="sml"><link href="https://docs.gtk.org/gtk3/class.Application.html">Gtk.Application</link></code>,
+based on <code type="sml"><link href="https://docs.gtk.org/gio/class.Application.html">Gio.Application</link></code>,
 provides many useful features.
 Using this class, a main program could have the following form:
 </p>
@@ -121,7 +121,7 @@ fun main () =
 <section>
 <title>Using <code type="sml">Gtk.init</code> and <code type="sml">Gtk.main</code></title>
 <p>
-The class <code type="sml"><link href="https://developer-old.gnome.org/gtk3/stable/GtkApplication.html">Gtk.Application</link></code>
+The class <code type="sml"><link href="https://docs.gtk.org/gtk3/class.Application.html">Gtk.Application</link></code>
 was not available in GTK 2 and
 applications were required to use <code type="sml">Gtk.init</code> and <code type="sml">Gtk.main</code> to initialize GTK and run an event loop.
 This approach is still possible with GTK 3.

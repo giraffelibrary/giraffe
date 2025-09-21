@@ -361,7 +361,7 @@ the result contains
 </list>
 <p>
 The default value is the value set on initialization of a <code type="c">GValue</code>
-by <code type="c"><link href="https://developer-old.gnome.org/gobject/stable/gobject-Generic-values.html#g-value-init">g_value_init</link></code>
+by <code type="c"><link href="https://docs.gtk.org/gobject/method.Value.init.html">g_value_init</link></code>
 for the <code type="c">GType</code> of the corresponding &#x2018;out&#x2019; argument or return value.
 </p>
 </note>
