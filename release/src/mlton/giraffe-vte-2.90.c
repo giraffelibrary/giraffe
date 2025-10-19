@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2016-2018 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016-2018, 2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -14,4 +14,3 @@
 
 #include "giraffe.c"
 #include "vte-2.90/giraffe.c"
-#include "giraffe-vte-2.90-mlton.c"

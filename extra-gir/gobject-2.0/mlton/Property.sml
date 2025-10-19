@@ -15,59 +15,81 @@ structure Property :>
     val getProperty_ =
       fn
         x1
-         & (x2, x3)
-         & x4 =>
+         & x2
+         & x3 =>
           (
-            _import "mlton_g_object_get_property" reentrant :
+            _import "g_object_get_property" reentrant :
               GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
               x1,
               x2,
-              x3,
-              x4
+              x3
             )
 
     val setProperty_ =
       fn
         x1
-         & (x2, x3)
-         & x4 =>
+         & x2
+         & x3 =>
           (
-            _import "mlton_g_object_set_property" reentrant :
+            _import "g_object_set_property" reentrant :
               GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
               x1,
               x2,
-              x3,
-              x4
+              x3
             )
 
     val bindProperty_ =
       fn
         x1
-         & (x2, x3)
+         & x2
+         & x3
          & x4
-         & (x5, x6)
+         & x5 =>
+          (
+            _import "g_object_bind_property" reentrant :
+              GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GObjectBindingFlags.FFI.val_
+               -> GObjectBindingClass.FFI.non_opt GObjectBindingClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
+
+    val bindPropertyFull_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
          & x7 =>
           (
-            _import "mlton_g_object_bind_property" reentrant :
+            _import "g_object_bind_property_with_closures" reentrant :
               GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GObjectBindingFlags.FFI.val_
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
                -> GObjectBindingClass.FFI.non_opt GObjectBindingClass.FFI.p;
           )
             (
@@ -78,40 +100,6 @@ structure Property :>
               x5,
               x6,
               x7
-            )
-
-    val bindPropertyFull_ =
-      fn
-        x1
-         & (x2, x3)
-         & x4
-         & (x5, x6)
-         & x7
-         & x8
-         & x9 =>
-          (
-            _import "mlton_g_object_bind_property_with_closures" reentrant :
-              GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GObjectBindingFlags.FFI.val_
-               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
-               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
-               -> GObjectBindingClass.FFI.non_opt GObjectBindingClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8,
-              x9
             )
 
     type type_t = GObjectType.t

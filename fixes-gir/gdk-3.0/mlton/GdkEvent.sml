@@ -55,17 +55,6 @@ structure GdkEvent :> GDK_EVENT =
               in
                 t
               end
-
-            structure CVector =
-              struct
-                type cvector = non_opt p
-                val v = Pointer.null
-                val free = free ~1
-                val fromPointer = dup ~1
-                val toPointer = dup ~1
-                val fromVal = toC
-                val toVal = fromC
-              end
           end
 
         fun takePtr p =

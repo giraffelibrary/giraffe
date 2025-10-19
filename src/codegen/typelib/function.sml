@@ -3599,23 +3599,23 @@ fun getTypeStrDecLowLevelPolyML getTypeSymbol =
 
 (* Low-level - MLton *)
 
-(* `callMLtonFFIExp (functionSymbol, attrIds) (parProdTys, retTy)`
+(* `callMLtonFFIExp (functionSymbol, attrIds) (parTys, retTy)`
  * constructs a MLton low-level function call expression as follows:
  *
  *
- *   fn <xProd[1]> & ... & <xProd[N]> =>
- *     (_import "<symbol>" <attrs> : <parTy[1]> * ... * <parTy[M]> -> <retTy>;)
- *     (x<1>, ..., x<M>)
+ *   fn x<1> & ... & x<N> =>
+ *     (_import "<functionSymbol>" <attrs> : <parTy[1]> * ... * <parTy[N]> -> <retTy>;)
+ *     (x<1>, ..., x<N>)
  *
  *     if N > 1
  *
  *
- *   _import "<symbol>" <attrs> : <parTy[1]> * ... * <parTy[M]> -> <retTy>;
+ *   _import "<functionSymbol>" <attrs> : <parTy[1]> * ... * <parTy[N]> -> <retTy>;
  *
  *     if N = 1
  *
  *
- *   _import "<symbol>" : unit -> <retTy>;
+ *   _import "<functionSymbol>" : unit -> <retTy>;
  *
  *     if N = 0
  *
@@ -3623,155 +3623,72 @@ fun getTypeStrDecLowLevelPolyML getTypeSymbol =
  * where
  *
  *
- *   N = length parProdTys
+ *   N = length parTys
  *
  *
  *   A = length attrIds
  *
  *
  *   attrs = <attrIds[1]> ... <attrIds[A]>
- *
- *
- *   xProd[n]
- *     is defined as follows, for some m:
- *
- *       x<m>
- *         if parProdTys[n] is <parTy[m]>
- *
- *       (x<m>, ..., x<m + p>)
- *         if parProdTys[n] is <parTy[m]> * ... * <parTy[m + p]>
- *
- *
- *   symbol
- *     is defined as follows:
- *
- *       mlton_<functionSymbol>
- *         if there exists an i such that parProdTys[i] is a tuple type
- *
- *       <functionSymbol>
- *
- *
- * and
- *
- *
- *   parTy[n], for 1 <= n <= N, is not a tuple type
- *
- *
- *   xProd[1]
- *     has one of the forms
- *
- *       x1
- *
- *       (x1, ...)
- *
- *
- *   xProd[n + 1]
- *     for n >= 1, has one of the forms
- *
- *       x<m + 1>
- *
- *       (x<m + 1>, ...)
- *
- *         where m is such that xProd[n] has one of the forms
- *
- *           x<m>
- *
- *           (..., x<m>)
- *
- *
- *   xProd[N]
- *     has one of the forms
- *
- *       x<M>
- *
- *       (..., x<M>)
  *)
 
 local
-  fun addProdTy (prodTy, (acc, revTuplePats, existsProdTy)) =
-    let
-      val tys = destProdTy0 prodTy
-
-      fun addTy (ty, ((exps, tys, n), pats)) =
-        let
-          val id = "x" ^ Int.toString n
-          val exps' = mkIdLNameExp id :: exps
-          val tys' = ty :: tys
-          val pats' = mkIdVarPat id :: pats
-        in
-          ((exps', tys', n + 1), pats')
-        end
-
-      val (acc', revPats') = foldl addTy (acc, []) tys
-
-      val tuplePat =
-        case rev revPats' of
-          []          => PatA (APatConst ConstUnit)
-        | op :: pats1 => mkTuplePat1 pats1
-
-      val existsProdTy' =
-        case prodTy of
-          TyProd _ => true
-        | _        => existsProdTy
-    in
-      (acc', tuplePat :: revTuplePats, existsProdTy')
-    end
+  fun addExpPats (exps, pats, i) =
+    if 0 < i
+    then
+      let
+        val id = "x" ^ Int.toString i
+        val exp = mkIdLNameExp id
+        val pat = mkIdVarPat id
+      in
+        addExpPats (exp :: exps, pat :: pats, i - 1)
+      end
+    else
+      (exps, pats)
 in
-  fun callMLtonFFIExp (functionSymbol, attrIds) (parProdTys, retTy) =
+  fun callMLtonFFIExp (functionSymbol, attrIds) (parTys, retTy) =
     let
-      val ((revExps, revTys, _), revTuplePats, existsProdTy) =
-        foldl addProdTy (([], [], 1), [], false) parProdTys;
-
-      val symbol =
-        if existsProdTy
-        then "mlton_" ^ functionSymbol
-        else functionSymbol
+      val (exps, pats) = addExpPats ([], [], List.length parTys)
     in
-      case (rev revExps, rev revTys, revTuplePats) of
-        (op :: exps1, parTys, op :: (revTuplePats1 as (_, _ :: _))) =>
-          (* Wrap with fn ... => ... when `revTuplePats` has two or more
-           * elements.  Note that a match `op :: exps1` always occurs when
-           * `revTuplePats` has at least one element, so its only purpose
-           * is to give `exps1 : list1`.
-           *)
+      case (exps, List.rev pats) of
+        (op :: (exps1 as (_, _ :: _)), op :: revPats1) =>
           let
-            val tupleExp = mkTupleExp1 exps1
-            val pat = foldl1 mkAPat revTuplePats1
-            val exp =
+            val argsExp = mkTupleExp1 exps1
+            val argsPat = foldl1 mkAPat revPats1
+            val resExp =
               ExpApp (
-                mkParenExp (mkMLtonImportExp (symbol, attrIds) (parTys, retTy)),
-                tupleExp
+                mkParenExp (mkMLtonImportExp (functionSymbol, attrIds) (parTys, retTy)),
+                argsExp
               )
           in
-            ExpFn (toList1 [(pat, exp)])
+            ExpFn (toList1 [(argsPat, resExp)])
           end
-      | (_,           parTys, _)                                    =>
-          mkMLtonImportExp (symbol, attrIds) (parTys, retTy)
-
+      | _                  =>
+          mkMLtonImportExp (functionSymbol, attrIds) (parTys, retTy)
     end
 end
 
 (*
 val attrIds = [];
 val exp = callMLtonFFIExp ("testfun", attrIds) ([], unitTy);
-val exp = callMLtonFFIExp ("testfun", attrIds) ([unitTy], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([unitTy], boolTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy], unitTy);
 val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy, boolTy], unitTy);
-val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy]], unitTy);
-val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy], boolTy], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy, boolTy, boolTy], unitTy);
 
 val attrIds = ["reentrant"];
-val exp = callMLtonFFIExp ("testfun", attrIds) ([], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([], boolTy);
 val exp = callMLtonFFIExp ("testfun", attrIds) ([unitTy], unitTy);
-val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy, boolTy], unitTy);
-val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy]], unitTy);
-val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy], boolTy], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy], boolTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy, boolTy], boolTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy, boolTy, boolTy], unitTy);
 
 val attrIds = ["cdecl", "reentrant"];
 val exp = callMLtonFFIExp ("testfun", attrIds) ([], unitTy);
-val exp = callMLtonFFIExp ("testfun", attrIds) ([unitTy], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([unitTy], boolTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy], unitTy);
 val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy, boolTy], unitTy);
-val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy]], unitTy);
-val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy], boolTy], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy, boolTy, boolTy], boolTy);
 
 val v = HVTextTree.toV (PrettyPrint.fmtExp (HVTextTree.H.str "") exp);
 HVTextTree.V.versions v;
@@ -3794,101 +3711,40 @@ local
    *   <opt> <A>.out_p
    *   (<inopt>, <outopt>) <A>.r
    *)
-  local
-    fun mltonStructId prefixIds id =
-      case List.rev prefixIds of
-        "FFI" :: revIds => List.rev (id :: "MLton" :: revIds)
-      | _               => raise Fail "mltonStructId requires struct called \"FFI\""
-
-    fun mkOptTy prefixIds isOpt =
-      (if isOpt then prefixOptTy else prefixNonOptTy) prefixIds
-  in
-    (* `<A>.MLton.p1 * <opt> <A>.MLton.p2`
-     *
-     *   where <opt> is
-     *     <A>.FFI.opt
-     *       if `isOpt`
-     *
-     *     <A>.FFI.non_opt
-     *       otherwise
-     *)
-    fun arrayPtrTy prefixIds isOpt =
-      mkProdTy0 [
-        TyRef ([], toList1 (mltonStructId prefixIds "p1")),
-        TyRef ([mkOptTy prefixIds isOpt], toList1 (mltonStructId prefixIds "p2"))
-      ]
-
-    (* `<A>.MLton.r1 * (<inopt>, <outopt>) <A>.MLton.r2`
-     *
-     *   where <inopt> is
-     *     <A>.FFI.opt
-     *       if `isOpt orelse not isInOut`
-     *
-     *     <A>.FFI.non_opt
-     *       otherwise
-     *
-     *   where <outopt> is
-     *     <A>.FFI.opt
-     *       if `isOpt`
-     *
-     *     <A>.FFI.non_opt
-     *       otherwise
-     *)
-    fun arrayRefTy prefixIds isInOut isOpt =
-      mkProdTy0 [
-        TyRef ([], toList1 (mltonStructId prefixIds "r1")),
-        TyRef (
-          [
-            mkOptTy prefixIds (isOpt orelse not isInOut),
-            mkOptTy prefixIds isOpt
-          ],
-          toList1 (mltonStructId prefixIds "r2")
-        )
-      ]
-  end
-
-  fun typeTy isArrayPar prefixIds spec =
+  fun typeTy prefixIds spec =
     let
       val ty =
         case spec of
           VAL                         => mkLIdTy (prefixIds @ ["val_"])
         | PTR {optDir, isOpt}         =>
-            if isArrayPar
-            then
-              arrayPtrTy prefixIds isOpt
-            else
-              let
-                val dirStr =
-                  case optDir of
-                    NONE     => ""
-                  | SOME In  => "in_"
-                  | SOME Out => "out_"
-                val ty = (if isOpt then prefixOptTy else prefixNonOptTy) prefixIds
-              in
-                TyRef ([ty], toList1 (prefixIds @ [concat [dirStr, "p"]]))
-              end
+            let
+              val dirStr =
+                case optDir of
+                  NONE     => ""
+                | SOME In  => "in_"
+                | SOME Out => "out_"
+              val ty = (if isOpt then prefixOptTy else prefixNonOptTy) prefixIds
+            in
+              TyRef ([ty], toList1 (prefixIds @ [concat [dirStr, "p"]]))
+            end
         | REF NONE                    => mkLIdTy (prefixIds @ ["ref_"])
         | REF (SOME {isInOut, isOpt}) =>
-            if isArrayPar
-            then
-              arrayRefTy prefixIds isInOut isOpt
-            else
-              let
-                val isInOpt = isOpt orelse not isInOut
-                val isOutOpt = isOpt
+            let
+              val isInOpt = isOpt orelse not isInOut
+              val isOutOpt = isOpt
 
-                val tys'0 = []
-                val tys'1 =
-                  case isOutOpt of
-                    false => prefixNonOptTy prefixIds :: tys'0
-                  | true  => prefixOptTy prefixIds :: tys'0
-                val tys'2 =
-                  case isInOpt of
-                    false => prefixNonOptTy prefixIds :: tys'1
-                  | true  => prefixOptTy prefixIds :: tys'1
-              in
-                TyRef (tys'2, toList1 (prefixIds @ ["r"]))
-              end
+              val tys'0 = []
+              val tys'1 =
+                case isOutOpt of
+                  false => prefixNonOptTy prefixIds :: tys'0
+                | true  => prefixOptTy prefixIds :: tys'0
+              val tys'2 =
+                case isInOpt of
+                  false => prefixNonOptTy prefixIds :: tys'1
+                | true  => prefixOptTy prefixIds :: tys'1
+            in
+              TyRef (tys'2, toList1 (prefixIds @ ["r"]))
+            end
     in
       ty
     end
@@ -3899,7 +3755,7 @@ local
     let
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
     in
-      typeTy false prefixIds (
+      typeTy prefixIds (
         if dir <> IN
         then
           REF NONE
@@ -3912,14 +3768,14 @@ local
     let
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
     in
-      typeTy false prefixIds VAL
+      typeTy prefixIds VAL
     end
 
   fun parScalarType (dir, {ty, ...} : scalar_info) =
     let
       val prefixIds = [gStrId ^ scalarStrId ty, ffiStrId]
     in
-      typeTy false prefixIds (
+      typeTy prefixIds (
         if dir <> IN
         then
           REF NONE
@@ -3932,14 +3788,14 @@ local
     let
       val prefixIds = [gStrId ^ scalarStrId ty, ffiStrId]
     in
-      typeTy false prefixIds VAL
+      typeTy prefixIds VAL
     end
 
   fun parUtf8Type (dir, {isPtr, isOpt, ...} : utf8_info) =
     let
       val prefixIds = [utf8StrId, ffiStrId]
     in
-      typeTy true prefixIds (
+      typeTy prefixIds (
         if dir <> IN andalso isPtr
         then
           REF (
@@ -3960,7 +3816,7 @@ local
     let
       val prefixIds = [utf8StrId, ffiStrId]
     in
-      typeTy false prefixIds (
+      typeTy prefixIds (
         PTR {
           optDir = SOME Out,
           isOpt  = isOpt
@@ -3972,7 +3828,7 @@ local
     let
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
     in
-      typeTy true prefixIds (
+      typeTy prefixIds (
         if dir <> IN andalso isPtr
         then
           REF (
@@ -3996,7 +3852,7 @@ local
     let
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
     in
-      typeTy false prefixIds (
+      typeTy prefixIds (
         PTR {
           optDir = SOME Out,
           isOpt  = isOpt
@@ -4028,7 +3884,7 @@ local
 
       open InfoType
     in
-      typeTy false prefixIds (
+      typeTy prefixIds (
         if dir <> IN andalso isPtr
         then
           REF (
@@ -4080,7 +3936,7 @@ local
 
       open InfoType
     in
-      typeTy false prefixIds (
+      typeTy prefixIds (
         if
           case infoType of
             FLAGS _ => true
@@ -4147,7 +4003,6 @@ in
 
   fun parSelfType iRef =
     typeTy
-      false
       (prefixInterfaceStrId iRef [ffiStrId])
       (
         PTR {
@@ -4158,7 +4013,6 @@ in
 
   fun parErrType namespace optName =
     typeTy
-      false
       (prefixInterfaceStrId (makeErrorIRef namespace optName) [ffiStrId])
       (
         REF (

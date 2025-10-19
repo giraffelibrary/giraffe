@@ -18,29 +18,27 @@ structure Signal :>
     type callback = ClosureMarshal.callback
 
     val quarkFromString_ =
-      _import "g_quark_from_string" :  (* don't use "mlton_g_quark_from_string" *)
+      _import "g_quark_from_string" :
         Utf8.FFI.non_opt Utf8.FFI.p -> GLib.Quark.FFI.val_;
 
     val signalLookup_ =
       fn
-        (x1, x2) & x3 =>
+        x1 & x2 =>
           (
-            _import "mlton_g_signal_lookup" :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+            _import "g_signal_lookup" :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
                * GObjectType.FFI.val_
                -> GUInt.FFI.val_;
           )
             (
               x1,
-              x2,
-              x3
+              x2
             )
 
     val signalEmit_ =
       fn x1 & x2 & x3 & x4 =>
         (
-          _import "g_signal_emitv" reentrant :  (* don't use "mlton_g_signal_emitv" *)
+          _import "g_signal_emitv" reentrant :
             GObjectValueRecordCArrayN.FFI.non_opt GObjectValueRecordCArrayN.FFI.p
              * GUInt.FFI.val_
              * GLib.Quark.FFI.val_
@@ -50,17 +48,16 @@ structure Signal :>
           (x1, x2, x3, x4)
 
     val signalConnectClosure_ =
-      fn x1 & (x2, x3) & x4 & x5 =>
+      fn x1 & x2 & x3 & x4 =>
         (
-          _import "mlton_g_signal_connect_closure" reentrant :
+          _import "g_signal_connect_closure" reentrant :
             GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
-             * Utf8.MLton.p1
-             * Utf8.FFI.non_opt Utf8.MLton.p2
+             * Utf8.FFI.non_opt Utf8.FFI.in_p
              * GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
              * GBool.FFI.val_
              -> GULong.FFI.val_;
         )
-          (x1, x2, x3, x4, x5)
+          (x1, x2, x3, x4)
 
     val handlerBlock_ =
       fn x1 & x2 => (

@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2015-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2015-2021, 2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -160,16 +160,16 @@ structure ValueAccessor :>
             (x1, x2)
 
         val set_string_ =
-          fn x1 & (x2, x3) =>
-            (_import "mlton_g_value_set_string" :
-               GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;)
-            (x1, x2, x3)
+          fn x1 & x2 =>
+            (_import "g_value_set_string" :
+               Utf8.FFI.non_opt Utf8.FFI.in_p set;)
+            (x1, x2)
 
         val set_string_opt_ =
-          fn x1 & (x2, x3) =>
-            (_import "mlton_g_value_set_string" :
-               GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * Utf8.MLton.p1 * Utf8.FFI.opt Utf8.MLton.p2 -> unit;)
-            (x1, x2, x3)
+          fn x1 & x2 =>
+            (_import "g_value_set_string" :
+               Utf8.FFI.opt Utf8.FFI.in_p set;)
+            (x1, x2)
 
 
         val boolean : bool t =

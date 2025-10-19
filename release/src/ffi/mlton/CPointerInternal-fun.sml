@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2020, 2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -48,10 +48,6 @@ functor CPointerInternal(Memory : C_MEMORY) :>
         type t = Memory.Pointer.t
         type v = Memory.Pointer.t
         type p = Memory.Pointer.t
-        structure MLtonVector =
-          struct
-            val e = Memory.Pointer.null
-          end
 
         val isRef = false
 
@@ -90,6 +86,4 @@ functor CPointerInternal(Memory : C_MEMORY) :>
 
     fun withRefVal f = withVal (withRef f)
     fun withRefOptVal f = withOptVal (withRef f)
-
-    structure MLton = CRefValue.MLton
   end

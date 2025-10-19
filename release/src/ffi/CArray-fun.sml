@@ -1,11 +1,22 @@
-(* Copyright (C) 2016-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2021, 2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-functor CArrayCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) =
+functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
+  C_ARRAY
+    where type 'a FFI.in_p = 'a CArrayType.Pointer.p
+    where type elem = CArrayType.elem
+    where type sequence = CArrayType.t
+    where type 'a update = unit  (* mutable *)
+    where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
+    where type C.ArrayType.Pointer.e = CArrayType.Pointer.e
+    where type C.ArrayType.e = CArrayType.e
+    where type 'a C.ArrayType.p = 'a CArrayType.p
+    where type C.ArrayType.opt = CArrayType.opt
+    where type C.ArrayType.non_opt = CArrayType.non_opt =
   struct
     type elem = CArrayType.elem
     type sequence = CArrayType.t
@@ -25,7 +36,7 @@ functor CArrayCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) =
       end
 
     (**
-     * For Poly/ML, `array`, the representation of a mutable C array, is a
+     * The type `array`, the representation of a mutable C array, is a
      * pointer to a C array allocated on the C heap.  A finalizable value
      * is used to free the array on the C heap when no longer reachable.
      *)
@@ -100,9 +111,7 @@ functor CArrayCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) =
              * deeper levels and updating the initial levels that
              * we own. *)
             fn p =>
-              (
-                C.takePtr (dup ~1 p)
-              )
+              C.takePtr (dup ~1 p)
                before free d p
 
         fun copyPtr tabulate d p =
@@ -297,20 +306,29 @@ functor CArrayCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) =
 
     fun sub (t, i) = get t i
 
-    structure PolyML =
-      struct
-        val cPtr = C.Pointer.PolyML.cVal
-        val cOptPtr = C.Pointer.PolyML.cOptVal
+    type 'a update = unit
 
-        val cInPtr = C.Pointer.PolyML.cVal
-        val cInOptPtr = C.Pointer.PolyML.cOptVal
+    val set =
+      fn
+        t as CArray a =>
+          let
+            val n = length t
 
-        val cOutPtr = C.Pointer.PolyML.cVal
-        val cOutOptPtr = C.Pointer.PolyML.cOptVal
+            fun update p (i, elem) =
+              let
+                open C.ArrayType
+                val () = ElemType.free ~1 (get p i)
+                val () = setElem p (i, elem)
+              in
+                ()
+              end
+            val updateArray = Finalizable.withValue (a, update)
+          in
+            fn (i, elem) =>
+              if 0 <= i andalso i < n
+              then updateArray (i, elem)
+              else raise Subscript
+          end
 
-        val cOutRef = C.Pointer.PolyML.cRef
-        val cOutOptRef = C.Pointer.PolyML.cOptOutRef
-        val cInOutRef = C.Pointer.PolyML.cInRef
-        val cInOutOptRef = C.Pointer.PolyML.cOptOutRef
-      end
+    fun update (t, i, e) = set t (i, e)
   end

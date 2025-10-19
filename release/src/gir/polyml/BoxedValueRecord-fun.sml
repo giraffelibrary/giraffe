@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2021, 2023-2024 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2021, 2023-2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -103,7 +103,7 @@ functor BoxedValueRecord(
               end
 
             val isRef = true
-            val size = Fn.lazy size_
+            val size = Fn.lazy (Word.fromInt o GSize.FFI.fromVal o size_)
 
             fun toC _ = Pointer.null  (* acceptable because `isRef = true` *)
             fun updateC t dest = Finalizable.withValue (t, fn src => copy_ (src & dest))

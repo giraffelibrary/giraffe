@@ -126,13 +126,13 @@ structure CairoContext :>
     val setDash_ =
       fn
         x1
-         & (x2, x3)
-         & x4
-         & x5 =>
+         & x2
+         & x3
+         & x4 =>
           (
-            _import "mlton_cairo_set_dash" :
+            _import "cairo_set_dash" :
               CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
-               * GDoubleCArrayN.MLton.p1 * GDoubleCArrayN.FFI.non_opt GDoubleCArrayN.MLton.p2
+               * GDoubleCArrayN.FFI.non_opt GDoubleCArrayN.FFI.in_p
                * GInt.FFI.val_
                * GDouble.FFI.val_
                -> unit;
@@ -141,27 +141,25 @@ structure CairoContext :>
               x1,
               x2,
               x3,
-              x4,
-              x5
+              x4
             )
     val getDashCount_ = _import "cairo_get_dash_count" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p -> GInt.FFI.val_;
     val getDash_ =
       fn
         x1
-         & (x2, x3)
-         & x4 =>
+         & x2
+         & x3 =>
           (
-            _import "mlton_cairo_get_dash" :
+            _import "cairo_get_dash" :
               CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
-               * GDoubleCArrayN.MLton.p1 * GDoubleCArrayN.FFI.non_opt GDoubleCArrayN.MLton.p2
+               * GDoubleCArrayN.FFI.non_opt GDoubleCArrayN.FFI.in_p
                * GDouble.FFI.ref_
                -> unit;
           )
             (
               x1,
               x2,
-              x3,
-              x4
+              x3
             )
     val setFillRule_ =
       fn

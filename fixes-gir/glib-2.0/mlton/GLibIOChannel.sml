@@ -11,24 +11,20 @@ structure GLibIOChannel :>
     val getType_ = _import "g_io_channel_get_type" : unit -> GObjectType.FFI.val_;
     val newFile_ =
       fn
-        (x1, x2)
-         & (x3, x4)
-         & x5 =>
+        x1
+         & x2
+         & x3 =>
           (
-            _import "mlton_g_io_channel_new_file" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+            _import "g_io_channel_new_file" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p;
           )
             (
               x1,
               x2,
-              x3,
-              x4,
-              x5
+              x3
             )
     val unixNew_ = _import "g_io_channel_unix_new" reentrant : GFileDesc.FFI.val_ -> GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p;
     val close_ = _import "g_io_channel_close" reentrant : GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p -> unit;
@@ -43,15 +39,14 @@ structure GLibIOChannel :>
     val readChars_ =
       fn
         x1
-         & (x2, x3)
+         & x2
+         & x3
          & x4
-         & x5
-         & x6 =>
+         & x5 =>
           (
-            _import "mlton_g_io_channel_read_chars" reentrant :
+            _import "g_io_channel_read_chars" reentrant :
               GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
-               * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.FFI.in_p
                * GSize.FFI.val_
                * GSize.FFI.ref_
                * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
@@ -62,45 +57,20 @@ structure GLibIOChannel :>
               x2,
               x3,
               x4,
-              x5,
-              x6
+              x5
             )
     val readLine_ =
       fn
         x1
-         & (x2, x3)
-         & x4
-         & x5
-         & x6 =>
-          (
-            _import "mlton_g_io_channel_read_line" reentrant :
-              GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
-               * Utf8.MLton.r1
-               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
-               * GSize.FFI.ref_
-               * GSize.FFI.ref_
-               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
-               -> GLibIOStatus.FFI.val_;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6
-            )
-    val readToEnd_ =
-      fn
-        x1
-         & (x2, x3)
+         & x2
+         & x3
          & x4
          & x5 =>
           (
-            _import "mlton_g_io_channel_read_to_end" reentrant :
+            _import "g_io_channel_read_line" reentrant :
               GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
-               * GUInt8CArrayN.MLton.r1
-               * (GUInt8CArrayN.FFI.opt, GUInt8CArrayN.FFI.non_opt) GUInt8CArrayN.MLton.r2
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.FFI.r
+               * GSize.FFI.ref_
                * GSize.FFI.ref_
                * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GLibIOStatus.FFI.val_;
@@ -111,6 +81,26 @@ structure GLibIOChannel :>
               x3,
               x4,
               x5
+            )
+    val readToEnd_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4 =>
+          (
+            _import "g_io_channel_read_to_end" reentrant :
+              GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
+               * (GUInt8CArrayN.FFI.opt, GUInt8CArrayN.FFI.non_opt) GUInt8CArrayN.FFI.r
+               * GSize.FFI.ref_
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GLibIOStatus.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
             )
     val readUnichar_ =
       fn
@@ -172,21 +162,19 @@ structure GLibIOChannel :>
     val setEncoding_ =
       fn
         x1
-         & (x2, x3)
-         & x4 =>
+         & x2
+         & x3 =>
           (
-            _import "mlton_g_io_channel_set_encoding" reentrant :
+            _import "g_io_channel_set_encoding" reentrant :
               GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.opt Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.FFI.in_p
                * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GLibIOStatus.FFI.val_;
           )
             (
               x1,
               x2,
-              x3,
-              x4
+              x3
             )
     val setFlags_ =
       fn
@@ -208,21 +196,19 @@ structure GLibIOChannel :>
     val setLineTerm_ =
       fn
         x1
-         & (x2, x3)
-         & x4 =>
+         & x2
+         & x3 =>
           (
-            _import "mlton_g_io_channel_set_line_term" reentrant :
+            _import "g_io_channel_set_line_term" reentrant :
               GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.opt Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.FFI.in_p
                * GInt.FFI.val_
                -> unit;
           )
             (
               x1,
               x2,
-              x3,
-              x4
+              x3
             )
     val shutdown_ =
       fn

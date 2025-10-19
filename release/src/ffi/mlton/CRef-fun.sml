@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020, 2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -22,11 +22,5 @@ functor CRef(CValueType : C_VALUE_TYPE) :>
         val x' = ! r
       in
         x' & y
-      end
-
-    structure MLton = 
-      struct
-        fun toRef x = ref x
-        fun fromRef x = ! x
       end
   end

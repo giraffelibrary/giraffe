@@ -9,19 +9,16 @@ structure GObject :
     val gtypeGetType_ = _import "g_gtype_get_type" reentrant : unit -> GObjectType.FFI.val_;
     val paramSpecBoolean_ =
       fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8 =>
+        x1
+         & x2
+         & x3
+         & x4
+         & x5 =>
           (
-            _import "mlton_g_param_spec_boolean" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+            _import "g_param_spec_boolean" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GBool.FFI.val_
                * GObjectParamFlags.FFI.val_
                -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
@@ -31,26 +28,20 @@ structure GObject :
               x2,
               x3,
               x4,
-              x5,
-              x6,
-              x7,
-              x8
+              x5
             )
     val paramSpecBoxed_ =
       fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8 =>
+        x1
+         & x2
+         & x3
+         & x4
+         & x5 =>
           (
-            _import "mlton_g_param_spec_boxed" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+            _import "g_param_spec_boxed" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GObjectType.FFI.val_
                * GObjectParamFlags.FFI.val_
                -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
@@ -60,386 +51,25 @@ structure GObject :
               x2,
               x3,
               x4,
-              x5,
-              x6,
-              x7,
-              x8
+              x5
             )
     val paramSpecChar_ =
       fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8
-         & x9
-         & x10 =>
-          (
-            _import "mlton_g_param_spec_char" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GInt8.FFI.val_
-               * GInt8.FFI.val_
-               * GInt8.FFI.val_
-               * GObjectParamFlags.FFI.val_
-               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8,
-              x9,
-              x10
-            )
-    val paramSpecDouble_ =
-      fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8
-         & x9
-         & x10 =>
-          (
-            _import "mlton_g_param_spec_double" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GDouble.FFI.val_
-               * GDouble.FFI.val_
-               * GDouble.FFI.val_
-               * GObjectParamFlags.FFI.val_
-               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8,
-              x9,
-              x10
-            )
-    val paramSpecEnum_ =
-      fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8
-         & x9 =>
-          (
-            _import "mlton_g_param_spec_enum" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GObjectType.FFI.val_
-               * GInt.FFI.val_
-               * GObjectParamFlags.FFI.val_
-               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8,
-              x9
-            )
-    val paramSpecFlags_ =
-      fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8
-         & x9 =>
-          (
-            _import "mlton_g_param_spec_flags" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GObjectType.FFI.val_
-               * GUInt.FFI.val_
-               * GObjectParamFlags.FFI.val_
-               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8,
-              x9
-            )
-    val paramSpecFloat_ =
-      fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8
-         & x9
-         & x10 =>
-          (
-            _import "mlton_g_param_spec_float" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GFloat.FFI.val_
-               * GFloat.FFI.val_
-               * GFloat.FFI.val_
-               * GObjectParamFlags.FFI.val_
-               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8,
-              x9,
-              x10
-            )
-    val paramSpecGtype_ =
-      fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8 =>
-          (
-            _import "mlton_g_param_spec_gtype" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GObjectType.FFI.val_
-               * GObjectParamFlags.FFI.val_
-               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8
-            )
-    val paramSpecInt_ =
-      fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8
-         & x9
-         & x10 =>
-          (
-            _import "mlton_g_param_spec_int" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GInt.FFI.val_
-               * GInt.FFI.val_
-               * GInt.FFI.val_
-               * GObjectParamFlags.FFI.val_
-               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8,
-              x9,
-              x10
-            )
-    val paramSpecInt64_ =
-      fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8
-         & x9
-         & x10 =>
-          (
-            _import "mlton_g_param_spec_int64" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GInt64.FFI.val_
-               * GInt64.FFI.val_
-               * GInt64.FFI.val_
-               * GObjectParamFlags.FFI.val_
-               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8,
-              x9,
-              x10
-            )
-    val paramSpecLong_ =
-      fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8
-         & x9
-         & x10 =>
-          (
-            _import "mlton_g_param_spec_long" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GLong.FFI.val_
-               * GLong.FFI.val_
-               * GLong.FFI.val_
-               * GObjectParamFlags.FFI.val_
-               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8,
-              x9,
-              x10
-            )
-    val paramSpecObject_ =
-      fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8 =>
-          (
-            _import "mlton_g_param_spec_object" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GObjectType.FFI.val_
-               * GObjectParamFlags.FFI.val_
-               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8
-            )
-    val paramSpecParam_ =
-      fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8 =>
-          (
-            _import "mlton_g_param_spec_param" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GObjectType.FFI.val_
-               * GObjectParamFlags.FFI.val_
-               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8
-            )
-    val paramSpecPointer_ =
-      fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
          & x7 =>
           (
-            _import "mlton_g_param_spec_pointer" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+            _import "g_param_spec_char" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GInt8.FFI.val_
+               * GInt8.FFI.val_
+               * GInt8.FFI.val_
                * GObjectParamFlags.FFI.val_
                -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
           )
@@ -452,23 +82,23 @@ structure GObject :
               x6,
               x7
             )
-    val paramSpecString_ =
+    val paramSpecDouble_ =
       fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & (x7, x8)
-         & x9 =>
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
+         & x7 =>
           (
-            _import "mlton_g_param_spec_string" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.opt Utf8.MLton.p2
+            _import "g_param_spec_double" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
                * GObjectParamFlags.FFI.val_
                -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
           )
@@ -479,27 +109,302 @@ structure GObject :
               x4,
               x5,
               x6,
-              x7,
-              x8,
-              x9
+              x7
+            )
+    val paramSpecEnum_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6 =>
+          (
+            _import "g_param_spec_enum" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GObjectType.FFI.val_
+               * GInt.FFI.val_
+               * GObjectParamFlags.FFI.val_
+               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
+    val paramSpecFlags_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6 =>
+          (
+            _import "g_param_spec_flags" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GObjectType.FFI.val_
+               * GUInt.FFI.val_
+               * GObjectParamFlags.FFI.val_
+               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
+    val paramSpecFloat_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
+         & x7 =>
+          (
+            _import "g_param_spec_float" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GFloat.FFI.val_
+               * GFloat.FFI.val_
+               * GFloat.FFI.val_
+               * GObjectParamFlags.FFI.val_
+               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
+            )
+    val paramSpecGtype_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5 =>
+          (
+            _import "g_param_spec_gtype" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GObjectType.FFI.val_
+               * GObjectParamFlags.FFI.val_
+               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
+    val paramSpecInt_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
+         & x7 =>
+          (
+            _import "g_param_spec_int" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * GObjectParamFlags.FFI.val_
+               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
+            )
+    val paramSpecInt64_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
+         & x7 =>
+          (
+            _import "g_param_spec_int64" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GInt64.FFI.val_
+               * GInt64.FFI.val_
+               * GInt64.FFI.val_
+               * GObjectParamFlags.FFI.val_
+               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
+            )
+    val paramSpecLong_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
+         & x7 =>
+          (
+            _import "g_param_spec_long" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GLong.FFI.val_
+               * GLong.FFI.val_
+               * GLong.FFI.val_
+               * GObjectParamFlags.FFI.val_
+               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
+            )
+    val paramSpecObject_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5 =>
+          (
+            _import "g_param_spec_object" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GObjectType.FFI.val_
+               * GObjectParamFlags.FFI.val_
+               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
+    val paramSpecParam_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5 =>
+          (
+            _import "g_param_spec_param" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GObjectType.FFI.val_
+               * GObjectParamFlags.FFI.val_
+               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
+    val paramSpecPointer_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4 =>
+          (
+            _import "g_param_spec_pointer" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GObjectParamFlags.FFI.val_
+               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
+    val paramSpecString_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5 =>
+          (
+            _import "g_param_spec_string" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.opt Utf8.FFI.in_p
+               * GObjectParamFlags.FFI.val_
+               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
             )
     val paramSpecUchar_ =
       fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8
-         & x9
-         & x10 =>
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
+         & x7 =>
           (
-            _import "mlton_g_param_spec_uchar" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+            _import "g_param_spec_uchar" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GUInt8.FFI.val_
                * GUInt8.FFI.val_
                * GUInt8.FFI.val_
@@ -513,28 +418,22 @@ structure GObject :
               x4,
               x5,
               x6,
-              x7,
-              x8,
-              x9,
-              x10
+              x7
             )
     val paramSpecUint_ =
       fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8
-         & x9
-         & x10 =>
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
+         & x7 =>
           (
-            _import "mlton_g_param_spec_uint" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+            _import "g_param_spec_uint" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GUInt.FFI.val_
                * GUInt.FFI.val_
                * GUInt.FFI.val_
@@ -548,28 +447,22 @@ structure GObject :
               x4,
               x5,
               x6,
-              x7,
-              x8,
-              x9,
-              x10
+              x7
             )
     val paramSpecUint64_ =
       fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8
-         & x9
-         & x10 =>
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
+         & x7 =>
           (
-            _import "mlton_g_param_spec_uint64" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+            _import "g_param_spec_uint64" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GUInt64.FFI.val_
                * GUInt64.FFI.val_
                * GUInt64.FFI.val_
@@ -583,28 +476,22 @@ structure GObject :
               x4,
               x5,
               x6,
-              x7,
-              x8,
-              x9,
-              x10
+              x7
             )
     val paramSpecUlong_ =
       fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8
-         & x9
-         & x10 =>
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
+         & x7 =>
           (
-            _import "mlton_g_param_spec_ulong" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+            _import "g_param_spec_ulong" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GULong.FFI.val_
                * GULong.FFI.val_
                * GULong.FFI.val_
@@ -618,26 +505,20 @@ structure GObject :
               x4,
               x5,
               x6,
-              x7,
-              x8,
-              x9,
-              x10
+              x7
             )
     val paramSpecUnichar_ =
       fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8 =>
+        x1
+         & x2
+         & x3
+         & x4
+         & x5 =>
           (
-            _import "mlton_g_param_spec_unichar" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+            _import "g_param_spec_unichar" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GChar.FFI.val_
                * GObjectParamFlags.FFI.val_
                -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
@@ -647,27 +528,21 @@ structure GObject :
               x2,
               x3,
               x4,
-              x5,
-              x6,
-              x7,
-              x8
+              x5
             )
     val paramSpecVariant_ =
       fn
-        (x1, x2)
-         & (x3, x4)
-         & (x5, x6)
-         & x7
-         & x8
-         & x9 =>
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6 =>
           (
-            _import "mlton_g_param_spec_variant" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+            _import "g_param_spec_variant" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GLibVariantTypeRecord.FFI.non_opt GLibVariantTypeRecord.FFI.p
                * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p
                * GObjectParamFlags.FFI.val_
@@ -679,29 +554,12 @@ structure GObject :
               x3,
               x4,
               x5,
-              x6,
-              x7,
-              x8,
-              x9
+              x6
             )
-    val pointerTypeRegisterStatic_ = _import "mlton_g_pointer_type_register_static" reentrant : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GObjectType.FFI.val_;
-    val signalIsValidName_ = _import "mlton_g_signal_is_valid_name" reentrant : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
+    val pointerTypeRegisterStatic_ = _import "g_pointer_type_register_static" reentrant : Utf8.FFI.non_opt Utf8.FFI.in_p -> GObjectType.FFI.val_;
+    val signalIsValidName_ = _import "g_signal_is_valid_name" reentrant : Utf8.FFI.non_opt Utf8.FFI.in_p -> GBool.FFI.val_;
     val signalListIds_ = fn x1 & x2 => (_import "g_signal_list_ids" reentrant : GObjectType.FFI.val_ * GUInt.FFI.ref_ -> GUIntCArrayN.FFI.non_opt GUIntCArrayN.FFI.out_p;) (x1, x2)
-    val signalLookup_ =
-      fn
-        (x1, x2) & x3 =>
-          (
-            _import "mlton_g_signal_lookup" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GObjectType.FFI.val_
-               -> GUInt.FFI.val_;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
+    val signalLookup_ = fn x1 & x2 => (_import "g_signal_lookup" reentrant : Utf8.FFI.non_opt Utf8.FFI.in_p * GObjectType.FFI.val_ -> GUInt.FFI.val_;) (x1, x2)
     val signalOverrideClassClosure_ =
       fn
         x1
@@ -721,15 +579,14 @@ structure GObject :
             )
     val signalParseName_ =
       fn
-        (x1, x2)
+        x1
+         & x2
          & x3
          & x4
-         & x5
-         & x6 =>
+         & x5 =>
           (
-            _import "mlton_g_signal_parse_name" reentrant :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+            _import "g_signal_parse_name" reentrant :
+              Utf8.FFI.non_opt Utf8.FFI.in_p
                * GObjectType.FFI.val_
                * GUInt.FFI.ref_
                * GLibQuark.FFI.ref_
@@ -741,8 +598,7 @@ structure GObject :
               x2,
               x3,
               x4,
-              x5,
-              x6
+              x5
             )
     val signalTypeCclosureNew_ = fn x1 & x2 => (_import "g_signal_type_cclosure_new" reentrant : GObjectType.FFI.val_ * GUInt.FFI.val_ -> GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p;) (x1, x2)
     val typeAddClassPrivate_ = fn x1 & x2 => (_import "g_type_add_class_private" reentrant : GObjectType.FFI.val_ * GSize.FFI.val_ -> unit;) (x1, x2)
@@ -769,7 +625,7 @@ structure GObject :
     val typeChildren_ = fn x1 & x2 => (_import "g_type_children" reentrant : GObjectType.FFI.val_ * GUInt.FFI.ref_ -> GObjectTypeCArrayN.FFI.non_opt GObjectTypeCArrayN.FFI.out_p;) (x1, x2)
     val typeDepth_ = _import "g_type_depth" reentrant : GObjectType.FFI.val_ -> GUInt.FFI.val_;
     val typeEnsure_ = _import "g_type_ensure" reentrant : GObjectType.FFI.val_ -> unit;
-    val typeFromName_ = _import "mlton_g_type_from_name" reentrant : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GObjectType.FFI.val_;
+    val typeFromName_ = _import "g_type_from_name" reentrant : Utf8.FFI.non_opt Utf8.FFI.in_p -> GObjectType.FFI.val_;
     val typeFundamental_ = _import "g_type_fundamental" reentrant : GObjectType.FFI.val_ -> GObjectType.FFI.val_;
     val typeFundamentalNext_ = _import "g_type_fundamental_next" reentrant : unit -> GObjectType.FFI.val_;
     val typeGetInstanceCount_ = _import "g_type_get_instance_count" reentrant : GObjectType.FFI.val_ -> GInt.FFI.val_;
@@ -786,14 +642,13 @@ structure GObject :
     val typeRegisterDynamic_ =
       fn
         x1
-         & (x2, x3)
-         & x4
-         & x5 =>
+         & x2
+         & x3
+         & x4 =>
           (
-            _import "mlton_g_type_register_dynamic" reentrant :
+            _import "g_type_register_dynamic" reentrant :
               GObjectType.FFI.val_
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GObjectTypePluginClass.FFI.non_opt GObjectTypePluginClass.FFI.p
                * GObjectTypeFlags.FFI.val_
                -> GObjectType.FFI.val_;
@@ -802,8 +657,7 @@ structure GObject :
               x1,
               x2,
               x3,
-              x4,
-              x5
+              x4
             )
     val typeTestFlags_ = fn x1 & x2 => (_import "g_type_test_flags" reentrant : GObjectType.FFI.val_ * GUInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     type ('object_class, 'h, 'e) signal_t = ('object_class, 'h, 'e) Signal.t

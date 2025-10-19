@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2016-2018, 2020, 2023 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016-2018, 2020, 2023, 2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -14,7 +14,6 @@
 
 #include "giraffe.c"
 #include "gobject-2.0/giraffe.c"
-#include "giraffe-gobject-2.0-mlton.c"
 
 
 /* GType */
@@ -405,18 +404,6 @@ giraffe_g_object_new_with_properties (GType          object_type,
   return object;
 }
 
-GObject *
-mlton_g_object_new_with_properties (GType object_type,
-                                    guint n_properties,
-                                    SML_CVECTORVECTOR_VAL(const char, names),
-                                    SML_CVECTOR_VAL(GValue, values))
-{
-  return giraffe_g_object_new_with_properties (object_type,
-                                               n_properties,
-                                               GET_SML_CVECTORVECTOR_VAL(const char, names),
-                                               GET_SML_CVECTOR_VAL(GValue, values));
-}
-
 
 /* ClosureMarshal */
 
@@ -445,19 +432,4 @@ giraffe_g_closure_new (GClosureMarshal dispatch,
                                    destroy);
 
   return closure;
-}
-
-
-/* GSignal */
-
-gulong
-mlton_g_signal_connect_closure (gpointer instance,
-                                SML_CVECTOR_VAL(gchar, detailed_signal),
-                                GClosure *closure,
-                                gboolean after)
-{
-  return g_signal_connect_closure (instance,
-                                   GET_SML_CVECTOR_VAL(gchar, detailed_signal),
-                                   closure,
-                                   after);
 }

@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2020, 2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -41,17 +41,6 @@ functor PointerRecord(val name : string) :> RECORD =
             val toC = Fn.id  (* giveDupPtr Fn.id t *)
 
             val fromC = Fn.id  (* takePtr (dup_ p) *)
-
-            structure CVector =
-              struct
-                type cvector = non_opt p
-                val v = Pointer.null
-                val free = free ~1
-                val fromPointer = dup ~1
-                val toPointer = dup ~1
-                val fromVal = toC
-                val toVal = fromC
-              end
           end
 
         fun takePtr p = p

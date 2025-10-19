@@ -74,7 +74,7 @@ MLTON_CFLAGS := $(CFLAGS) -iquote "src"
 MLTON_OBJ_FILES := $(patsubst %,src/mlton/giraffe-%.o,$(MLTON_LIB_NAMES))
 MLTON_LIB_FILES := $(patsubst %,src/mlton/libgiraffe-%.a,$(MLTON_LIB_NAMES))
 
-$(MLTON_OBJ_FILES) : src/mlton/giraffe-%.o : src/mlton/giraffe-%.c src/%/giraffe.c src/mlton/giraffe-%-mlton.c src/mlton/cvector.h src/mlton/cvectorvector.h
+$(MLTON_OBJ_FILES) : src/mlton/giraffe-%.o : src/mlton/giraffe-%.c src/%/giraffe.c
 	$(CC) $(MLTON_CFLAGS) -c -I$(MLTON_INCLUDEDIR) -o $@ `pkg-config --cflags $(shell cat src/$*/package)` $<
 
 MLTON_AR_FLAGS := rcs
@@ -226,10 +226,6 @@ install-mlton :
 	 "$(DESTDIR)$(LIBDIR)/mlton"
 	install -d "$(DESTDIR)$(INCLUDEDIR)"
 	install -d "$(DESTDIR)$(INCLUDEDIR)/mlton"
-	install -c -p -m 644 \
-	 src/mlton/cvector.h \
-	 src/mlton/cvectorvector.h \
-	 "$(DESTDIR)$(INCLUDEDIR)/mlton"
 else
 install-mlton :
 endif

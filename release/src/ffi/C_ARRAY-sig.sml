@@ -327,7 +327,7 @@ signature C_ARRAY =
          * `p` should be ignored.  For some implementations, `p` may even be
          * an unreliable pointer, for example, a pointer into the SML heap.
          *)
-        type ('a, 'b) r
+        type ('a, 'b) r = ('a, 'b) C.r
 
         val withNullRef : (('a, 'b) r -> 'r) -> unit -> 'r
 

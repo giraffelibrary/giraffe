@@ -14,4 +14,3 @@
 
 #include "giraffe.c"
 #include "gmodule-2.0/giraffe.c"
-#include "giraffe-gmodule-2.0-mlton.c"

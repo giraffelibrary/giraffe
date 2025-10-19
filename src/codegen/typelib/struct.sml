@@ -137,8 +137,8 @@ local
      :: StrDecDec (mkTypeDec (ptrTyName aTyVar, prefixPtrTy [pointerStrId] aVarTy))
      :: strDecs
 
-  val cPtrTy = makeLowLevelTy false [] (PTR {optDir = NONE, isOpt = false})
-  val gsizeTy = makeLowLevelTy false ["GSize", ffiStrId] VAL
+  val cPtrTy = makeLowLevelTy [] (PTR {optDir = NONE, isOpt = false})
+  val gsizeTy = makeLowLevelTy ["GSize", ffiStrId] VAL
 
   (* `callStrDecLowLevelMLton (name, symbol, attrIds, parTys, retTy)` constructs
    * a MLton low-level function call expression as follows:

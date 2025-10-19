@@ -5,7 +5,7 @@ structure GLibQuark : G_LIB_QUARK =
     open GUInt32
     type quark = t
 
-    val fromString_ = _import "mlton_g_quark_from_string" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> FFI.val_;
+    val fromString_ = _import "g_quark_from_string" : Utf8.FFI.non_opt Utf8.FFI.in_p -> FFI.val_;
     val toString_ = _import "g_quark_to_string" : FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;
 
     local

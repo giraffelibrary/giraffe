@@ -39,16 +39,15 @@ structure GtkWidget :>
     val addAccelerator_ =
       fn
         x1
-         & (x2, x3)
+         & x2
+         & x3
          & x4
          & x5
-         & x6
-         & x7 =>
+         & x6 =>
           (
-            _import "mlton_gtk_widget_add_accelerator" reentrant :
+            _import "gtk_widget_add_accelerator" reentrant :
               GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
@@ -61,8 +60,7 @@ structure GtkWidget :>
               x3,
               x4,
               x5,
-              x6,
-              x7
+              x6
             )
     val addDeviceEvents_ =
       fn
@@ -85,62 +83,30 @@ structure GtkWidget :>
     val addMnemonicLabel_ = fn x1 & x2 => (_import "gtk_widget_add_mnemonic_label" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     val canActivateAccel_ = fn x1 & x2 => (_import "gtk_widget_can_activate_accel" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GUInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val childFocus_ = fn x1 & x2 => (_import "gtk_widget_child_focus" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkDirectionType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val childNotify_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_gtk_widget_child_notify" reentrant :
-              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
+    val childNotify_ = fn x1 & x2 => (_import "gtk_widget_child_notify" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * Utf8.FFI.non_opt Utf8.FFI.in_p -> unit;) (x1, x2)
     val classPath_ =
       fn
         x1
          & x2
-         & (x3, x4)
-         & (x5, x6) =>
+         & x3
+         & x4 =>
           (
-            _import "mlton_gtk_widget_class_path" reentrant :
+            _import "gtk_widget_class_path" reentrant :
               GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GUInt.FFI.ref_
-               * Utf8.MLton.r1
-               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
-               * Utf8.MLton.r1
-               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.FFI.r
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.FFI.r
                -> unit;
           )
             (
               x1,
               x2,
               x3,
-              x4,
-              x5,
-              x6
+              x4
             )
     val computeExpand_ = fn x1 & x2 => (_import "gtk_widget_compute_expand" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkOrientation.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val createPangoContext_ = _import "gtk_widget_create_pango_context" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> PangoContextClass.FFI.non_opt PangoContextClass.FFI.p;
-    val createPangoLayout_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_gtk_widget_create_pango_layout" reentrant :
-              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.opt Utf8.MLton.p2
-               -> PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
+    val createPangoLayout_ = fn x1 & x2 => (_import "gtk_widget_create_pango_layout" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * Utf8.FFI.opt Utf8.FFI.in_p -> PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p;) (x1, x2)
     val destroy_ = _import "gtk_widget_destroy" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;
     val deviceIsShadowed_ = fn x1 & x2 => (_import "gtk_widget_device_is_shadowed" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val dragBegin_ =
@@ -244,15 +210,14 @@ structure GtkWidget :>
       fn
         x1
          & x2
-         & (x3, x4)
-         & x5
-         & x6 =>
+         & x3
+         & x4
+         & x5 =>
           (
-            _import "mlton_gtk_drag_dest_set" reentrant :
+            _import "gtk_drag_dest_set" reentrant :
               GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GtkDestDefaults.FFI.val_
-               * GtkTargetEntryRecordCArrayN.MLton.p1
-               * GtkTargetEntryRecordCArrayN.FFI.non_opt GtkTargetEntryRecordCArrayN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.FFI.non_opt GtkTargetEntryRecordCArrayN.FFI.in_p
                * GInt.FFI.val_
                * GdkDragAction.FFI.val_
                -> unit;
@@ -262,8 +227,7 @@ structure GtkWidget :>
               x2,
               x3,
               x4,
-              x5,
-              x6
+              x5
             )
     val dragDestSetProxy_ =
       fn
@@ -317,15 +281,14 @@ structure GtkWidget :>
       fn
         x1
          & x2
-         & (x3, x4)
-         & x5
-         & x6 =>
+         & x3
+         & x4
+         & x5 =>
           (
-            _import "mlton_gtk_drag_source_set" reentrant :
+            _import "gtk_drag_source_set" reentrant :
               GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GdkModifierType.FFI.val_
-               * GtkTargetEntryRecordCArrayN.MLton.p1
-               * GtkTargetEntryRecordCArrayN.FFI.non_opt GtkTargetEntryRecordCArrayN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.FFI.non_opt GtkTargetEntryRecordCArrayN.FFI.in_p
                * GInt.FFI.val_
                * GdkDragAction.FFI.val_
                -> unit;
@@ -335,41 +298,12 @@ structure GtkWidget :>
               x2,
               x3,
               x4,
-              x5,
-              x6
+              x5
             )
     val dragSourceSetIconGicon_ = fn x1 & x2 => (_import "gtk_drag_source_set_icon_gicon" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GioIconClass.FFI.non_opt GioIconClass.FFI.p -> unit;) (x1, x2)
-    val dragSourceSetIconName_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_gtk_drag_source_set_icon_name" reentrant :
-              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
+    val dragSourceSetIconName_ = fn x1 & x2 => (_import "gtk_drag_source_set_icon_name" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * Utf8.FFI.non_opt Utf8.FFI.in_p -> unit;) (x1, x2)
     val dragSourceSetIconPixbuf_ = fn x1 & x2 => (_import "gtk_drag_source_set_icon_pixbuf" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
-    val dragSourceSetIconStock_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_gtk_drag_source_set_icon_stock" reentrant :
-              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
+    val dragSourceSetIconStock_ = fn x1 & x2 => (_import "gtk_drag_source_set_icon_stock" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * Utf8.FFI.non_opt Utf8.FFI.in_p -> unit;) (x1, x2)
     val dragSourceSetTargetList_ = fn x1 & x2 => (_import "gtk_drag_source_set_target_list" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkTargetListRecord.FFI.opt GtkTargetListRecord.FFI.p -> unit;) (x1, x2)
     val dragSourceUnset_ = _import "gtk_drag_source_unset" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;
     val dragUnhighlight_ = _import "gtk_drag_unhighlight" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;
@@ -379,21 +313,7 @@ structure GtkWidget :>
     val event_ = fn x1 & x2 => (_import "gtk_widget_event" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GdkEvent.FFI.non_opt GdkEvent.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val freezeChildNotify_ = _import "gtk_widget_freeze_child_notify" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;
     val getAccessible_ = _import "gtk_widget_get_accessible" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p;
-    val getActionGroup_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_gtk_widget_get_action_group" reentrant :
-              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               -> GioActionGroupClass.FFI.opt GioActionGroupClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
+    val getActionGroup_ = fn x1 & x2 => (_import "gtk_widget_get_action_group" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * Utf8.FFI.non_opt Utf8.FFI.in_p -> GioActionGroupClass.FFI.opt GioActionGroupClass.FFI.p;) (x1, x2)
     val getAllocatedBaseline_ = _import "gtk_widget_get_allocated_baseline" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GInt.FFI.val_;
     val getAllocatedHeight_ = _import "gtk_widget_get_allocated_height" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GInt.FFI.val_;
     val getAllocatedSize_ =
@@ -624,20 +544,18 @@ structure GtkWidget :>
       fn
         x1
          & x2
-         & (x3, x4) =>
+         & x3 =>
           (
-            _import "mlton_gtk_widget_get_template_child" reentrant :
+            _import "gtk_widget_get_template_child" reentrant :
               GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GObjectType.FFI.val_
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                -> GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p;
           )
             (
               x1,
               x2,
-              x3,
-              x4
+              x3
             )
     val getTooltipMarkup_ = _import "gtk_widget_get_tooltip_markup" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
     val getTooltipText_ = _import "gtk_widget_get_tooltip_text" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
@@ -668,21 +586,19 @@ structure GtkWidget :>
     val insertActionGroup_ =
       fn
         x1
-         & (x2, x3)
-         & x4 =>
+         & x2
+         & x3 =>
           (
-            _import "mlton_gtk_widget_insert_action_group" reentrant :
+            _import "gtk_widget_insert_action_group" reentrant :
               GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GioActionGroupClass.FFI.opt GioActionGroupClass.FFI.p
                -> unit;
           )
             (
               x1,
               x2,
-              x3,
-              x4
+              x3
             )
     val intersect_ =
       fn
@@ -854,14 +770,32 @@ structure GtkWidget :>
     val overrideSymbolicColor_ =
       fn
         x1
-         & (x2, x3)
+         & x2
+         & x3 =>
+          (
+            _import "gtk_widget_override_symbolic_color" reentrant :
+              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val path_ =
+      fn
+        x1
+         & x2
+         & x3
          & x4 =>
           (
-            _import "mlton_gtk_widget_override_symbolic_color" reentrant :
+            _import "gtk_widget_path" reentrant :
               GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p
+               * GUInt.FFI.ref_
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.FFI.r
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.FFI.r
                -> unit;
           )
             (
@@ -869,30 +803,6 @@ structure GtkWidget :>
               x2,
               x3,
               x4
-            )
-    val path_ =
-      fn
-        x1
-         & x2
-         & (x3, x4)
-         & (x5, x6) =>
-          (
-            _import "mlton_gtk_widget_path" reentrant :
-              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * GUInt.FFI.ref_
-               * Utf8.MLton.r1
-               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
-               * Utf8.MLton.r1
-               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6
             )
     val queueAllocate_ = _import "gtk_widget_queue_allocate" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;
     val queueComputeExpand_ = _import "gtk_widget_queue_compute_expand" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;
@@ -951,38 +861,15 @@ structure GtkWidget :>
     val renderIcon_ =
       fn
         x1
-         & (x2, x3)
-         & x4
-         & (x5, x6) =>
-          (
-            _import "mlton_gtk_widget_render_icon" reentrant :
-              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GInt.FFI.val_
-               * Utf8.MLton.p1
-               * Utf8.FFI.opt Utf8.MLton.p2
-               -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6
-            )
-    val renderIconPixbuf_ =
-      fn
-        x1
-         & (x2, x3)
+         & x2
+         & x3
          & x4 =>
           (
-            _import "mlton_gtk_widget_render_icon_pixbuf" reentrant :
+            _import "gtk_widget_render_icon" reentrant :
               GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GInt.FFI.val_
+               * Utf8.FFI.opt Utf8.FFI.in_p
                -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
           )
             (
@@ -990,6 +877,23 @@ structure GtkWidget :>
               x2,
               x3,
               x4
+            )
+    val renderIconPixbuf_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "gtk_widget_render_icon_pixbuf" reentrant :
+              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
+               * GInt.FFI.val_
+               -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3
             )
     val reparent_ = fn x1 & x2 => (_import "gtk_widget_reparent" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     val resetRcStyles_ = _import "gtk_widget_reset_rc_styles" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;
@@ -999,36 +903,13 @@ structure GtkWidget :>
     val setAccelPath_ =
       fn
         x1
-         & (x2, x3)
-         & x4 =>
+         & x2
+         & x3 =>
           (
-            _import "mlton_gtk_widget_set_accel_path" reentrant :
+            _import "gtk_widget_set_accel_path" reentrant :
               GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.opt Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.FFI.in_p
                * GtkAccelGroupClass.FFI.opt GtkAccelGroupClass.FFI.p
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4
-            )
-    val setAllocation_ = fn x1 & x2 => (_import "gtk_widget_set_allocation" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkAllocationRecord.FFI.non_opt GtkAllocationRecord.FFI.p -> unit;) (x1, x2)
-    val setAppPaintable_ = fn x1 & x2 => (_import "gtk_widget_set_app_paintable" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setCanDefault_ = fn x1 & x2 => (_import "gtk_widget_set_can_default" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setCanFocus_ = fn x1 & x2 => (_import "gtk_widget_set_can_focus" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setChildVisible_ = fn x1 & x2 => (_import "gtk_widget_set_child_visible" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setClip_ = fn x1 & x2 => (_import "gtk_widget_set_clip" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkAllocationRecord.FFI.non_opt GtkAllocationRecord.FFI.p -> unit;) (x1, x2)
-    val setCompositeName_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_gtk_widget_set_composite_name" reentrant :
-              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -1036,6 +917,13 @@ structure GtkWidget :>
               x2,
               x3
             )
+    val setAllocation_ = fn x1 & x2 => (_import "gtk_widget_set_allocation" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkAllocationRecord.FFI.non_opt GtkAllocationRecord.FFI.p -> unit;) (x1, x2)
+    val setAppPaintable_ = fn x1 & x2 => (_import "gtk_widget_set_app_paintable" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setCanDefault_ = fn x1 & x2 => (_import "gtk_widget_set_can_default" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setCanFocus_ = fn x1 & x2 => (_import "gtk_widget_set_can_focus" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setChildVisible_ = fn x1 & x2 => (_import "gtk_widget_set_child_visible" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setClip_ = fn x1 & x2 => (_import "gtk_widget_set_clip" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkAllocationRecord.FFI.non_opt GtkAllocationRecord.FFI.p -> unit;) (x1, x2)
+    val setCompositeName_ = fn x1 & x2 => (_import "gtk_widget_set_composite_name" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * Utf8.FFI.non_opt Utf8.FFI.in_p -> unit;) (x1, x2)
     val setDeviceEnabled_ =
       fn
         x1
@@ -1088,21 +976,7 @@ structure GtkWidget :>
     val setMarginRight_ = fn x1 & x2 => (_import "gtk_widget_set_margin_right" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setMarginStart_ = fn x1 & x2 => (_import "gtk_widget_set_margin_start" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setMarginTop_ = fn x1 & x2 => (_import "gtk_widget_set_margin_top" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setName_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_gtk_widget_set_name" reentrant :
-              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
+    val setName_ = fn x1 & x2 => (_import "gtk_widget_set_name" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * Utf8.FFI.non_opt Utf8.FFI.in_p -> unit;) (x1, x2)
     val setNoShowAll_ = fn x1 & x2 => (_import "gtk_widget_set_no_show_all" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setOpacity_ = fn x1 & x2 => (_import "gtk_widget_set_opacity" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
     val setParent_ = fn x1 & x2 => (_import "gtk_widget_set_parent" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
@@ -1148,36 +1022,8 @@ structure GtkWidget :>
             )
     val setStyle_ = fn x1 & x2 => (_import "gtk_widget_set_style" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkStyleClass.FFI.opt GtkStyleClass.FFI.p -> unit;) (x1, x2)
     val setSupportMultidevice_ = fn x1 & x2 => (_import "gtk_widget_set_support_multidevice" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setTooltipMarkup_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_gtk_widget_set_tooltip_markup" reentrant :
-              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.opt Utf8.MLton.p2
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
-    val setTooltipText_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_gtk_widget_set_tooltip_text" reentrant :
-              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.opt Utf8.MLton.p2
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
+    val setTooltipMarkup_ = fn x1 & x2 => (_import "gtk_widget_set_tooltip_markup" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * Utf8.FFI.opt Utf8.FFI.in_p -> unit;) (x1, x2)
+    val setTooltipText_ = fn x1 & x2 => (_import "gtk_widget_set_tooltip_text" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * Utf8.FFI.opt Utf8.FFI.in_p -> unit;) (x1, x2)
     val setTooltipWindow_ = fn x1 & x2 => (_import "gtk_widget_set_tooltip_window" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkWindowClass.FFI.opt GtkWindowClass.FFI.p -> unit;) (x1, x2)
     val setValign_ = fn x1 & x2 => (_import "gtk_widget_set_valign" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkAlign.FFI.val_ -> unit;) (x1, x2)
     val setVexpand_ = fn x1 & x2 => (_import "gtk_widget_set_vexpand" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
@@ -1212,21 +1058,19 @@ structure GtkWidget :>
     val styleGetProperty_ =
       fn
         x1
-         & (x2, x3)
-         & x4 =>
+         & x2
+         & x3 =>
           (
-            _import "mlton_gtk_widget_style_get_property" reentrant :
+            _import "gtk_widget_style_get_property" reentrant :
               GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.FFI.in_p
                * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
               x1,
               x2,
-              x3,
-              x4
+              x3
             )
     val thawChildNotify_ = _import "gtk_widget_thaw_child_notify" reentrant : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;
     val translateCoordinates_ =

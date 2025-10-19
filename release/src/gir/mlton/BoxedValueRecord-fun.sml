@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2021, 2023-2024 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2021, 2023-2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -96,11 +96,6 @@ functor BoxedValueRecord(
             type v = non_opt p
             type p = non_opt p
 
-            structure MLtonVector =
-              struct
-                val e = Finalizable.new Pointer.null
-              end
-
             val isRef = true
             val size = Fn.lazy (Word.fromInt o GSize.FFI.fromVal o size_)
 
@@ -150,17 +145,6 @@ functor BoxedValueRecord(
                 val () = Finalizable.addFinalizer (t, fn ptr => (clear_ ptr; free_ ptr));
               in
                 t
-              end
-
-            structure CVector =
-              struct
-                type cvector = non_opt p
-                val v = Pointer.null
-                val free = free ~1
-                val fromPointer = dup ~1
-                val toPointer = dup ~1
-                val fromVal = toC
-                val toVal = fromC
               end
           end
 

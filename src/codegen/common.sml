@@ -827,7 +827,7 @@ local
   fun getValueStrDecLowLevelMLton (valueIRef, valueType) ptrOpt =
     let
       val retTy =
-        makeLowLevelTy false [ffiStrId] (
+        makeLowLevelTy [ffiStrId] (
           case ptrOpt of
             NONE       => VAL
           | SOME isOpt => PTR {optDir = NONE, isOpt = isOpt}
@@ -838,7 +838,7 @@ local
           case ptrOpt of SOME true => getOptValueUId | _ => getValueUId,
           callMLtonFFIExp ("g_value_get_" ^ valueType, []) (
             [
-              makeLowLevelTy false
+              makeLowLevelTy
                 (prefixInterfaceStrId valueIRef [ffiStrId])
                 (PTR {optDir = NONE, isOpt = false})
             ],
@@ -857,7 +857,7 @@ local
   fun setValueStrDecLowLevelMLton (valueIRef, valueType) ptrOpt =
     let
       val parTy =
-        makeLowLevelTy false [ffiStrId] (
+        makeLowLevelTy [ffiStrId] (
           case ptrOpt of
             NONE       => VAL
           | SOME isOpt => PTR {optDir = NONE, isOpt = isOpt}
@@ -868,7 +868,7 @@ local
           case ptrOpt of SOME true => setOptValueUId | _ => setValueUId,
           callMLtonFFIExp ("g_value_set_" ^ valueType, []) (
             [
-              makeLowLevelTy false
+              makeLowLevelTy
                 (prefixInterfaceStrId valueIRef [ffiStrId])
                 (PTR {optDir = NONE, isOpt = false}),
               parTy

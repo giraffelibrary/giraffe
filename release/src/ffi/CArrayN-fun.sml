@@ -1,11 +1,22 @@
-(* Copyright (C) 2016-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2021, 2025 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-functor CArrayNCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) =
+functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
+  C_ARRAY_N
+    where type 'a FFI.in_p = 'a CArrayType.Pointer.p
+    where type elem = CArrayType.elem
+    where type sequence = CArrayType.t
+    where type 'a update = unit  (* mutable *)
+    where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
+    where type C.ArrayType.Pointer.e = CArrayType.Pointer.e
+    where type C.ArrayType.e = CArrayType.e
+    where type 'a C.ArrayType.p = 'a CArrayType.p
+    where type C.ArrayType.opt = CArrayType.opt
+    where type C.ArrayType.non_opt = CArrayType.non_opt =
   struct
     type elem = CArrayType.elem
     type sequence = CArrayType.t
@@ -25,7 +36,7 @@ functor CArrayNCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a
       end
 
     (**
-     * For Poly/ML, `array`, the representation of a mutable C array, is a
+     * The type `array`, the representation of a mutable C array, is a
      * pointer to a C array allocated on the C heap and the number of
      * elements for which space was allocated.  A finalizable value
      * is used to free the array on the C heap when no longer reachable.
@@ -95,7 +106,7 @@ functor CArrayNCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a
              * inefficient in this case because it makes a full copy and
              * frees the initial levels that we owned.  This is especially
              * inefficient if the unowned elements are reference counted
-             * because the initial level could have been used.
+             * because the initial levels could have been used unchanged.
              * If this leads to a performance issue, consideration
              * could be given to improving this case by copying the
              * deeper levels and updating the initial levels that
@@ -302,6 +313,30 @@ functor CArrayNCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a
 
     fun sub (t, i) = get t i
 
+    type 'a update = unit
+
+    val set =
+      fn
+        (CArray (a, _), n) =>
+          let
+            fun update p (i, elem) =
+              let
+                open C.ArrayType
+                val () = ElemType.free ~1 (get n p i)
+                val () = setElem n p (i, elem)
+              in
+                ()
+              end
+            val updateArray = Finalizable.withValue (a, update)
+          in
+            fn (i, elem) =>
+              if 0 <= i andalso i < n
+              then updateArray (i, elem)
+              else raise Subscript
+          end
+
+    fun update (t, i, e) = set t (i, e)
+
     val full =
       fn
         (array as CArray (_, len), _) => (array, len)
@@ -310,21 +345,4 @@ functor CArrayNCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a
       if 0 <= len andalso len <= length t
       then (array, len)
       else raise Subscript
-
-    structure PolyML =
-      struct
-        val cPtr = C.Pointer.PolyML.cVal
-        val cOptPtr = C.Pointer.PolyML.cOptVal
-
-        val cInPtr = C.Pointer.PolyML.cVal
-        val cInOptPtr = C.Pointer.PolyML.cOptVal
-
-        val cOutPtr = C.Pointer.PolyML.cVal
-        val cOutOptPtr = C.Pointer.PolyML.cOptVal
-
-        val cOutRef = C.Pointer.PolyML.cRef
-        val cOutOptRef = C.Pointer.PolyML.cOptOutRef
-        val cInOutRef = C.Pointer.PolyML.cInRef
-        val cInOutOptRef = C.Pointer.PolyML.cOptOutRef
-      end
   end
