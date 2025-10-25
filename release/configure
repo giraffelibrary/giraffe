@@ -383,13 +383,20 @@ then
     exit 1
   fi
 
+  if ! MLTON_VERSION_OUTPUT=$(${MLTON_MLTON})
+  then
+    echo
+    echo "error: failed to run ${MLTON_MLTON}"
+    exit 1
+  fi
+
   printf "  version:           "
-  if MLTON_VERSION=$(${MLTON_MLTON} | cut -d " " -f2)
+  if MLTON_VERSION=$(echo "${MLTON_VERSION_OUTPUT}" | cut -d " " -f2)
   then
     printf "%s" "${MLTON_VERSION}"
   else
     echo
-    echo "error: failed to run ${MLTON_MLTON}"
+    echo "error: failed to extract version from \"${MLTON_VERSION_OUTPUT}\""
     exit 1
   fi
 
@@ -516,13 +523,20 @@ then
     exit 1
   fi
 
+  if ! POLYML_VERSION_OUTPUT=$(${POLYML_POLY} -v)
+  then
+    echo
+    echo "error: failed to run ${POLYML_POLY}"
+    exit 1
+  fi
+
   printf "  version:           "
-  if POLYML_VERSION=$(${POLYML_POLY} -v | cut -d " " -f2)
+  if POLYML_VERSION=$(echo "${POLYML_VERSION_OUTPUT}" | cut -d " " -f2)
   then
     printf "%s" "${POLYML_VERSION}"
   else
     echo
-    echo "error: failed to run ${POLYML_POLY}"
+    echo "error: failed to extract version from \"${POLYML_VERSION_OUTPUT}\""
     exit 1
   fi
 
