@@ -523,7 +523,7 @@ then
     exit 1
   fi
 
-  if ! POLYML_VERSION_OUTPUT=$(${POLYML_POLY} -v)
+  if ! POLYML_VERSION_OUTPUT=$(LD_LIBRARY_PATH="${POLYML_LIBDIR}:${LD_LIBRARY_PATH}" ${POLYML_POLY} -v)
   then
     echo
     echo "error: failed to run ${POLYML_POLY}"
